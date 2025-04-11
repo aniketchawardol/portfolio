@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap");
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'moonwalk';
+  src: url('./assets/fonts/MoonWalk.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'halfomania';
+  src: url('./assets/fonts/Halfomania.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: 'exo';
+  src: url('./assets/fonts/Exo2-Regular.otf') format('opentype');
+}
+
+@theme {
+  --font-halfomania: "halfomania", sans-serif; 
+  --font-moonwalk: "moonwalk", sans-serif;
+  --color-lav: #cec5f7;
+  --color-offwhite: #f4f7fc;
+  --font-mono: "Geist Mono", monospace;
+  --font-exo: "exo", sans-serif;
+}
+
+@layer components {
+  .navbutton {
+    @apply relative after:block after:w-0 after:h-[2px] after:bg-black after:transition-all after:duration-300 hover:after:w-full;
+  }
+}
