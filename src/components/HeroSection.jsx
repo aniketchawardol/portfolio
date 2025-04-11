@@ -60,9 +60,9 @@ const HeroSection = () => {
       ref={sectionRef}
       className="bg-gray-100 bg-linear-to-b from-lav to-offwhite relative h-screen pt-[80px]"
     >
-      <div className="absolute top-[24%] left-[35%] h-[300px] w-[300px] rounded-full bg-gradient-to-bl from-purple-400 z-0 shadow-purple-300 shadow-2xl"></div>
+      <div className="absolute mt-[15%] ml-[40%] h-[300px] w-[300px] rounded-full bg-gradient-to-bl from-purple-400 z-0 shadow-purple-300 shadow-2xl"></div>
 
-      <div className="relative z-10 ml-[10%] mt-[10%] flex items-end">
+      <div className="relative z-10 ml-[20%] mt-[17%] flex items-end">
         <motion.h1
           className="text-[150px] font-moonwalk text-slate-700"
           initial="hidden"

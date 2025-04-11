@@ -74,7 +74,6 @@ const DSASkills = () => {
       const response = await axios.get(
         "https://leetcode-stats-api.herokuapp.com/aniketchawardol"
       );
-      console.log("LeetCode Stats API Response:", response.data);
 
       setLeetCodeData(response.data);
       setLoading(false);

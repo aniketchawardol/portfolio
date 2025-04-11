@@ -39,8 +39,8 @@ const allTechnologies = [
 const SkillsSection = () => {
   return (
     <div className="w-full h-full flex items-center justify-center bg-gradient-to-b from-lav to-offwhite py-16 font-exo">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-halfomania text-slate-700 text-center mb-16">
+      <div className="container mx-auto px-4 mt-6">
+        <h2 className="text-4xl font-halfomania text-slate-700 text-center ">
           Skills & Technologies
         </h2>
 

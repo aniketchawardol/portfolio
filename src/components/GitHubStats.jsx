@@ -20,11 +20,7 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
           `https://api.github.com/users/${username}/repos?per_page=100`
         );
 
-        console.log(
-          "GitHub API Response:",
-          userResponse.data,
-          reposResponse.data
-        );
+
 
         // Calculate languages from repos
         const languages = {};
