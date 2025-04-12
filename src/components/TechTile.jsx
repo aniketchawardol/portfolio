@@ -1,7 +1,11 @@
 import React from "react";
 import TechIcon from "./TechIcon";
+import { useIsDarkMode } from "../hooks/useIsDarkMode";
+import PropTypes from "prop-types";
 
 const TechTile = ({ tech, index }) => {
+  const isDarkMode = useIsDarkMode();
+
   // Determine tile size based on technology category
   const isLarge = ["MongoDB", "Express.js", "React JS", "Node.js"].includes(
     tech
@@ -25,18 +29,33 @@ const TechTile = ({ tech, index }) => {
   return (
     <div
       key={index}
-      className={`${gridSpan} bg-white/20 border border-white/20  rounded-md p-4 flex flex-col transition-all hover:scale-95 hover:shadow-lg cursor-pointer shadow-lg`}
+      className={`${gridSpan} ${
+        isDarkMode
+          ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md"
+          : "bg-white/20 border border-white/20"
+      } rounded-md p-4 flex flex-col transition-all hover:shadow-lg cursor-pointer shadow-lg`}
     >
       <div className="flex items-center h-full">
         <div className="flex-shrink-0 mr-3">
           <TechIcon tech={tech} />
         </div>
-        <span className={`text-slate-700 font-medium overflow-hidden text-ellipsis ${isLarge ? "text-2xl" : isMedium ? "text-xl" : "text-md"}`}>
+        <span
+          className={`${
+            isDarkMode ? "dark:text-slate-200" : "text-slate-700"
+          } font-medium overflow-hidden text-ellipsis ${
+            isLarge ? "text-2xl" : isMedium ? "text-xl" : "text-md"
+          }`}
+        >
           {tech}
         </span>
       </div>
     </div>
   );
+};
+
+TechTile.propTypes = {
+  tech: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default TechTile;

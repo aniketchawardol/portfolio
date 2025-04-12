@@ -2,11 +2,24 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import RotatingText from "../assets/TextAnimations/RotatingText/RotatingText";
 import Spline from "@splinetool/react-spline";
+import { useTheme } from "../utils/ThemeProvider";
 
 const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const sectionRef = useRef(null);
+  const { theme } = useTheme();
+
+  // Check if we're in dark mode
+  const isDarkMode = () => {
+    if (theme === "dark") return true;
+    if (
+      theme === "system" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    )
+      return true;
+    return false;
+  };
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -59,13 +72,25 @@ const HeroSection = () => {
   return (
     <div
       ref={sectionRef}
-      className="bg-gray-100 bg-linear-to-b from-[#cbb4f0] via-[#a28cd1] to-[#6c5ba7] relative h-screen pt-[80px]"
+      className={`bg-gray-100 dark:bg-slate-900 ${
+        !isDarkMode()
+          ? "bg-gradient-to-b from-[#cbb4f0] via-[#b6a6e3] to-[#6c5ca7]"
+          : "bg-gradient-to-b dark:from-[#0f0a29] dark:via-[#191036] dark:to-[#1e0438]"
+      } relative h-screen pt-[80px] ${isDarkMode() ? "northern-lights" : ""}`}
     >
-      <div className="absolute mt-[10%] ml-[40%] h-[300px] w-[300px] rounded-full bg-gradient-to-bl from-purple-400 z-10 shadow-[0_0_100px_40px_#c6a4f2]"></div>
+      <div
+        className={`absolute mt-[10%] ml-[40%] h-[300px] w-[300px] rounded-full ${
+          isDarkMode()
+            ? "bg-gradient-to-bl dark:from-purple-900 z-10 dark:shadow-[0_0_100px_40px_#4c1d95]"
+            : "bg-gradient-to-bl from-purple-400 z-10 shadow-[0_0_100px_40px_#c6a4f2]"
+        }`}
+      ></div>
 
       <div className="relative z-10 ml-[20%] mt-[13%] flex items-end">
         <motion.h1
-          className="text-[150px] font-moonwalk text-slate-700"
+          className={`text-[150px] font-moonwalk ${
+            isDarkMode() ? "dark:text-slate-200" : "text-slate-700"
+          }`}
           initial="hidden"
           animate={isLoaded ? "visible" : "hidden"}
           variants={headingVariants}
@@ -81,7 +106,13 @@ const HeroSection = () => {
           ANIKET
         </motion.h1>
         <div className="mb-3 absolute z-0 left-[560px]">
-          <p className="font-exo text-slate-700 text-3xl ml-4">and I'm a</p>
+          <p
+            className={`font-exo ${
+              isDarkMode() ? "dark:text-slate-200" : "text-slate-700"
+            } text-3xl ml-4`}
+          >
+            and I'm a
+          </p>
           <RotatingText
             texts={[
               "Web Developer",
@@ -89,7 +120,9 @@ const HeroSection = () => {
               "DSA Enthusiast",
               "UI/UX Designer",
             ]}
-            mainClassName="text-purple-500 overflow-hidden rounded-lg text-[90px] font-halfomania"
+            mainClassName={`${
+              isDarkMode() ? "dark:text-purple-300" : "text-purple-500"
+            } overflow-hidden rounded-lg text-[90px] font-halfomania`}
             staggerFrom={"last"}
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
@@ -103,15 +136,20 @@ const HeroSection = () => {
       </div>
       <a
         href="https://drive.google.com/file/d/1l9gNabeeMXGSswVi7uhsfyErmp6dVipR/view?usp=sharing"
-        className="ml-[40%] font-exo text-xl hover:text-white p-3 w-fit rounded-full  hover:bg-[#7263b3] transition-all duration-150 ease-in-out relative z-10"
+        className={`ml-[40%] font-exo text-xl ${
+          isDarkMode() ? "dark:text-slate-200" : "text-slate-700"
+        } hover:text-white p-3 w-fit rounded-full hover:bg-[#7263b3] dark:hover:bg-[#4c1d95] transition-all duration-150 ease-in-out relative z-10`}
       >
         My Resume
       </a>
 
-      <Spline className="absolute bottom-0 right-0 w-full h-full z-0 "
-       scene="https://prod.spline.design/TA6v0WtbHxdYhxoR/scene.splinecode"  
-      />
- 
+      {/* Always render Spline in light mode, never in dark mode */}
+      {!isDarkMode() && (
+        <Spline
+          className="absolute bottom-0 right-0 w-full h-full z-0"
+          scene="https://prod.spline.design/TA6v0WtbHxdYhxoR/scene.splinecode"
+        />
+      )}
     </div>
   );
 };

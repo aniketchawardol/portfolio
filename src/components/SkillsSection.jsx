@@ -1,5 +1,8 @@
 import React from "react";
 import TechTile from "./TechTile";
+import SectionContainer from "./layout/SectionContainer";
+import SectionHeading from "./ui/SectionHeading";
+import ThemedCard from "./ui/ThemedCard";
 
 const allTechnologies = [
   "HTML",
@@ -37,23 +40,27 @@ const allTechnologies = [
 ];
 
 const SkillsSection = () => {
-  return (
-    <div className="w-full h-full flex items-center justify-center bg-gradient-to-b from-[#cbb4f0] via-[#b6a6e3] to-[#a28cd1] py-16 font-exo">
-      <div className="container mx-auto px-4 mt-6">
-        <h2 className="text-4xl font-halfomania text-slate-700 text-center ">
-          Skills & Technologies
-        </h2>
+  const gradientDark =
+    "dark:from-[#1a103c] dark:via-[#18103a] dark:to-[#150d37]";
+  const gradientLight = "from-[#a28cd1] via-[#b6a6e3] to-[#cbb4f0]";
 
-        <div className="p-8 rounded-xl mx-auto">
-          {/* Windows 10 start menu style grid */}
-          <div className="grid grid-cols-6 auto-rows-auto gap-3 grid-auto-flow-dense">
-            {allTechnologies.map((tech, index) => (
-              <TechTile key={index} tech={tech} index={index} />
-            ))}
-          </div>
+  return (
+    <SectionContainer
+      id="skills"
+      gradientDark={gradientDark}
+      gradientLight={gradientLight}
+    >
+      <SectionHeading title="Skills & Technologies" />
+
+      <ThemedCard className="p-8 rounded-xl mx-auto" padding="">
+        {/* Windows 10 start menu style grid */}
+        <div className="grid grid-cols-6 auto-rows-auto gap-3 grid-auto-flow-dense">
+          {allTechnologies.map((tech, index) => (
+            <TechTile key={index} tech={tech} index={index} />
+          ))}
         </div>
-      </div>
-    </div>
+      </ThemedCard>
+    </SectionContainer>
   );
 };
 

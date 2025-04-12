@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
+import ThemeToggle from "./ThemeToggle";
+import { useTheme } from "../utils/ThemeProvider";
+import NavigationButton from "./NavigationButton";
+import { NAV_ITEMS } from "../constants/navigation";
 
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState("home");
+  const { theme } = useTheme();
+  const isDarkMode =
+    theme === "dark" ||
+    (theme === "system" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches);
 
   useEffect(() => {
     // Function to determine which section is currently in view
     const handleScroll = () => {
-      const sections = [
-        "home",
-        "about",
-        "skills",
-        "dsa",
-        "github",
-        "projects",
-        "contact",
-      ];
+      const sections = NAV_ITEMS.map((item) => item.id);
 
       const scrollPosition = window.scrollY + 100; // Add offset for navbar height
 
@@ -52,29 +53,31 @@ const Navigation = () => {
     }
   };
 
-  // Navigation items with labels and section IDs
-  const navItems = [
-    { label: "Home", id: "home" },
-    { label: "About", id: "about" },
-    { label: "Skills", id: "skills" },
-    { label: "Projects", id: "projects" },
-    { label: "Contact", id: "contact" },
-  ];
+  const getContainerClasses = () => {
+    return `backdrop-blur-md flex font-mono text-md w-[40%] justify-evenly mt-[30px] ${
+      isDarkMode
+        ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md dark:text-slate-300"
+        : "bg-white/20 border-white/20 text-slate-600"
+    } border shadow-lg p-2 rounded-2xl`;
+  };
 
   return (
     <div className="fixed top-0 w-full flex items-center justify-center z-50">
-      <div className="flex font-mono text-md w-[40%] justify-evenly mt-[30px] bg-white/20 backdrop-blur-md border border-white/20 shadow-lg text-slate-600 p-2 rounded-2xl">
-        {navItems.map((item) => (
-          <button
+      <div className={getContainerClasses()}>
+        {NAV_ITEMS.map((item) => (
+          <NavigationButton
             key={item.id}
-            className={`navbutton ${
-              activeSection === item.id ? "text-purple-600 after:w-full" : ""
-            }`}
-            onClick={() => scrollToSection(item.id)}
-          >
-            {item.label}
-          </button>
+            label={item.label}
+            id={item.id}
+            isActive={activeSection === item.id}
+            isDarkMode={isDarkMode}
+            onClick={scrollToSection}
+          />
         ))}
+
+        <div className="mx-3">
+          <ThemeToggle />
+        </div>
       </div>
     </div>
   );

@@ -41,6 +41,72 @@ body {
   overflow-y: auto;
 }
 
+/* Dark mode transitions */
+* {
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
+    backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Dark mode settings */
+:root {
+  color-scheme: light;
+}
+
+:root.dark {
+  color-scheme: dark;
+}
+
+/* Northern lights animation for dark mode */
+.northern-lights {
+  position: relative;
+  overflow: hidden;
+}
+
+.northern-lights::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+      circle at 20% 35%,
+      rgba(109, 40, 217, 0.5) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 75% 55%,
+      rgba(139, 92, 246, 0.4) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at 40% 80%,
+      rgba(167, 139, 250, 0.3) 0%,
+      transparent 40%
+    );
+  filter: blur(40px);
+  z-index: 0;
+  animation: aurora 15s infinite alternate;
+}
+
+@keyframes aurora {
+  0% {
+    opacity: 0.5;
+    transform: translateX(-10%) translateY(10%) rotate(0deg);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateX(5%) translateY(-5%) rotate(5deg);
+  }
+  100% {
+    opacity: 0.5;
+    transform: translateX(-10%) translateY(10%) rotate(0deg);
+  }
+}
+
 /* Snap section styling */
 .snap-section {
   min-height: 100vh;
@@ -51,10 +117,10 @@ body {
 
 @layer components {
   .navbutton {
-    @apply after:block after:w-0 after:h-[2px] after:bg-black after:transition-all after:duration-300 hover:after:w-full;
+    @apply after:block after:w-0 after:h-[2px] after:bg-black dark:after:bg-white after:transition-all after:duration-300 hover:after:w-full;
   }
 
   .navbutton.active {
-    @apply text-purple-600 after:w-full after:bg-purple-600;
+    @apply text-purple-600 dark:text-purple-300 after:w-full after:bg-purple-600 dark:after:bg-purple-300;
   }
 }

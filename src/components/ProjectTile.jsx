@@ -1,5 +1,7 @@
 import React from "react";
-import SpotlightCard from "../assets/Components/SpotlightCard/SpotlightCard";
+import ThemedCard from "./ui/ThemedCard";
+import PropTypes from "prop-types";
+import { useIsDarkMode } from "../hooks/useIsDarkMode";
 
 const ProjectTile = ({
   title,
@@ -9,20 +11,33 @@ const ProjectTile = ({
   projectUrl,
   livelink,
 }) => {
+  const isDarkMode = useIsDarkMode();
+
   return (
-    <SpotlightCard
-      className="custom-spotlight-card flex flex-col bg-white/20 border border-white/20 shadow-lg rounded-md p-6 h-full backdrop-blur-md hover:scale-110 transition-all duration-200 ease-in-out"
-      spotlightColor="#9b7dcf"
-    >
+    <ThemedCard className="flex flex-col h-full">
       {imageUrl && (
-        <div className="mb-4 z-10 overflow-hidden rounded-md">
-          <img src={imageUrl} alt={title} className="w-full h-48" />
+        <div className="w-full h-48 overflow-hidden rounded-md mb-4">
+          <img
+            src={imageUrl}
+            alt={title}
+            className="w-full h-full object-cover"
+          />
         </div>
       )}
 
-      <h3 className="text-xl font-exo text-slate-700 mb-2 z-10">{title}</h3>
+      <h3
+        className={`text-xl font-exo ${
+          isDarkMode ? "dark:text-slate-200" : "text-slate-700"
+        } mb-2 z-10`}
+      >
+        {title}
+      </h3>
 
-      <p className="text-slate-600 font-mono mb-4 flex-grow z-10">
+      <p
+        className={`${
+          isDarkMode ? "dark:text-slate-300" : "text-slate-600"
+        } font-mono mb-4 flex-grow z-10`}
+      >
         {description}
       </p>
 
@@ -32,7 +47,11 @@ const ProjectTile = ({
             {technologies.map((tech, index) => (
               <span
                 key={index}
-                className="text-xs bg-white/30 px-2 py-1 rounded-full text-slate-700"
+                className={`text-xs ${
+                  isDarkMode
+                    ? "dark:bg-[#3b0764]/50 dark:text-slate-300"
+                    : "bg-white/30 text-slate-700"
+                } px-2 py-1 rounded-full`}
               >
                 {tech}
               </span>
@@ -42,22 +61,19 @@ const ProjectTile = ({
       )}
 
       <div className="flex flex-wrap gap-2 mt-auto z-10">
-        {/* Live site link */}
         {livelink && (
           <a
             href={livelink}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-grow text-center bg-[#7263b3] text-white py-2 px-4 rounded-md hover:bg-[#5e4b9c] transition-colors ease-in-out duration-150"
+            className="flex-grow text-center bg-[#5c4a99] text-white py-2 px-4 rounded-md hover:bg-[#473677] transition-colors ease-in-out duration-150"
           >
             Live Demo
           </a>
         )}
 
-        {/* Repository links */}
         {projectUrl && (
           <>
-            {/* Handle array of objects with frontend/backend keys */}
             {Array.isArray(projectUrl) &&
             projectUrl.length > 0 &&
             projectUrl[0] &&
@@ -70,19 +86,18 @@ const ProjectTile = ({
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-grow text-center bg-[#3f3860] text-white py-2 px-4 rounded-md hover:bg-[#332d4d] transition-colors ease-in-out duration-150"
+                    className="flex-grow text-center bg-[#2d2545] text-white py-2 px-4 rounded-md hover:bg-[#221c34] transition-colors ease-in-out duration-150"
                   >
                     {type.charAt(0).toUpperCase() + type.slice(1)}
                   </a>
                 );
               })
-            ) : /* Handle array of strings or single string */
-            Array.isArray(projectUrl) ? (
+            ) : Array.isArray(projectUrl) ? (
               <a
                 href={projectUrl[0]}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-grow text-center bg-[#3f3860] text-white py-2 px-4 rounded-md hover:bg-[#332d4d] transition-colors ease-in-out duration-150"
+                className="flex-grow text-center bg-[#2d2545] text-white py-2 px-4 rounded-md hover:bg-[#221c34] transition-colors ease-in-out duration-150"
               >
                 GitHub
               </a>
@@ -91,7 +106,7 @@ const ProjectTile = ({
                 href={projectUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-grow text-center bg-[#3f3860] text-white py-2 px-4 rounded-md hover:bg-[#332d4d] transition-colors ease-in-out duration-150"
+                className="flex-grow text-center bg-[#2d2545] text-white py-2 px-4 rounded-md hover:bg-[#221c34] transition-colors ease-in-out duration-150"
               >
                 View Project
               </a>
@@ -99,8 +114,22 @@ const ProjectTile = ({
           </>
         )}
       </div>
-    </SpotlightCard>
+    </ThemedCard>
   );
+};
+
+ProjectTile.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  technologies: PropTypes.arrayOf(PropTypes.string),
+  imageUrl: PropTypes.string,
+  projectUrl: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+    ),
+  ]),
+  livelink: PropTypes.string,
 };
 
 export default ProjectTile;

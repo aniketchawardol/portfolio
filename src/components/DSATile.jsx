@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 
-const DSATile = ({ title, value, category, icon }) => {
+const DSATile = ({ title, value, category, icon, isDarkMode }) => {
   // Determine tile size based on stat category
   const isLarge = ["totalSolved", "ranking", "submissionCalendar"].includes(
     category
@@ -80,15 +80,19 @@ const DSATile = ({ title, value, category, icon }) => {
 
   return (
     <div
-      className={`${gridSpan} bg-white/20 shadow-lg backdrop-blur-lg rounded-md p-4 flex h-full transition-all hover:scale-95 hover:shadow-lg cursor-pointer`}
+      className={`${gridSpan} ${
+        isDarkMode
+          ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md"
+          : "bg-white/20 shadow-lg"
+      } rounded-md p-4 flex h-full transition-all hover:shadow-lg cursor-pointer`}
     >
       <div className="flex items-center">
         <div className="flex-shrink-0 mr-3">{icon || getIcon()}</div>
         <div>
           <span
-            className={`text-slate-700 font-medium text-${
-              isLarge ? "xl" : "lg"
-            } block`}
+            className={`${
+              isDarkMode ? "dark:text-slate-200" : "text-slate-700"
+            } font-medium text-${isLarge ? "xl" : "lg"} block`}
           >
             {title}
           </span>

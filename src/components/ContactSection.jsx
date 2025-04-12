@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import SpotlightCard from "../assets/Components/SpotlightCard/SpotlightCard";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
+import { useTheme } from "../utils/ThemeProvider";
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
@@ -16,13 +17,16 @@ const ContactSection = () => {
   });
   const [formStatus, setFormStatus] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const { theme } = useTheme();
+  const isDarkMode =
+    theme === "dark" ||
+    (theme === "system" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches);
 
-  // Initialize EmailJS
   useEffect(() => {
     emailjs.init(EMAILJS_PUBLIC_KEY);
   }, []);
 
-  // Update the time every second
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
@@ -31,7 +35,6 @@ const ContactSection = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Format time to Indian Standard Time
   const indianTime = currentTime.toLocaleTimeString("en-IN", {
     timeZone: "Asia/Kolkata",
     hour12: true,
@@ -60,7 +63,6 @@ const ContactSection = () => {
     setFormStatus("submitting");
 
     try {
-      // Send email using EmailJS
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
@@ -74,11 +76,9 @@ const ContactSection = () => {
         templateParams
       );
 
-      // Email sent successfully
       setFormStatus("success");
       setFormData({ name: "", email: "", subject: "", message: "" });
 
-      // Reset the success message after 5 seconds
       setTimeout(() => setFormStatus(null), 5000);
     } catch (error) {
       console.error(
@@ -87,7 +87,6 @@ const ContactSection = () => {
       );
       setFormStatus("error");
 
-      // Reset the error message after 5 seconds
       setTimeout(() => setFormStatus(null), 5000);
     }
   };
@@ -113,13 +112,25 @@ const ContactSection = () => {
   return (
     <div
       id="contact"
-      className="w-full min-h-screen flex items-center justify-center bg-gradient-to-t from-[#8672b8] via-[#a28cd1] to-[#cbb4f0] py-16 relative"
+      className={`w-full min-h-screen flex items-center justify-center ${
+        isDarkMode
+          ? "bg-gradient-to-b dark:from-[#1e0438] dark:via-[#170732] dark:to-[#0f0a29]"
+          : "bg-gradient-to-b from-[#a28cd1] via-[#b6a6e3] to-[#cbb4f0]"
+      } py-16 relative`}
     >
       <div className="container mx-auto px-4 relative z-10">
-        <h2 className="text-4xl font-halfomania text-slate-700 text-center">
+        <h2
+          className={`text-4xl font-halfomania ${
+            isDarkMode ? "dark:text-slate-200" : "text-slate-700"
+          } text-center`}
+        >
           Get In Touch
         </h2>
-        <p className="text-center text-slate-600  font-mono">
+        <p
+          className={`text-center ${
+            isDarkMode ? "dark:text-slate-300" : "text-slate-600"
+          } font-mono`}
+        >
           Feel free to reach out for collaborations, opportunities, or just a
           friendly chat!
         </p>
@@ -136,14 +147,21 @@ const ContactSection = () => {
           )}
         </div>
         <div className="flex flex-col md:flex-row gap-8 max-w-5xl mx-auto h-full">
-          {/* Contact Form */}
           <div className="md:w-2/3">
             <SpotlightCard
-              className="bg-white/20 border border-white/20 shadow-lg rounded-xl p-8 backdrop-blur-md h-full relative"
-              spotlightColor="#9b7dcf"
+              className={`${
+                isDarkMode
+                  ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md"
+                  : "bg-white/20 border border-white/20"
+              } shadow-lg rounded-xl p-8 h-full relative`}
+              spotlightColor={isDarkMode ? "#4c1d95" : "#9b7dcf"}
             >
               <div className="relative z-10">
-                <h3 className="text-2xl font-exo text-slate-700 mb-6">
+                <h3
+                  className={`text-2xl font-exo ${
+                    isDarkMode ? "dark:text-slate-200" : "text-slate-700"
+                  } mb-6`}
+                >
                   Send a Message
                 </h3>
 
@@ -152,7 +170,9 @@ const ContactSection = () => {
                     <div>
                       <label
                         htmlFor="name"
-                        className="block text-sm font-medium text-slate-700 mb-1 font-mono"
+                        className={`block text-sm font-medium ${
+                          isDarkMode ? "dark:text-slate-300" : "text-slate-700"
+                        } mb-1 font-mono`}
                       >
                         Name
                       </label>
@@ -163,14 +183,20 @@ const ContactSection = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 bg-white/50 border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
+                        className={`w-full px-4 py-2 ${
+                          isDarkMode
+                            ? "dark:bg-[#1e1b4b]/50 dark:border-[#4c1d95]/30 dark:text-slate-200 focus:ring-purple-500"
+                            : "bg-white/50 border border-white/30 focus:ring-purple-400"
+                        } rounded-md focus:outline-none focus:ring-2`}
                       />
                     </div>
 
                     <div>
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium text-slate-700 mb-1 font-mono"
+                        className={`block text-sm font-medium ${
+                          isDarkMode ? "dark:text-slate-300" : "text-slate-700"
+                        } mb-1 font-mono`}
                       >
                         Email
                       </label>
@@ -181,7 +207,11 @@ const ContactSection = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 bg-white/50 border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
+                        className={`w-full px-4 py-2 ${
+                          isDarkMode
+                            ? "dark:bg-[#1e1b4b]/50 dark:border-[#4c1d95]/30 dark:text-slate-200 focus:ring-purple-500"
+                            : "bg-white/50 border border-white/30 focus:ring-purple-400"
+                        } rounded-md focus:outline-none focus:ring-2`}
                       />
                     </div>
                   </div>
@@ -189,7 +219,9 @@ const ContactSection = () => {
                   <div>
                     <label
                       htmlFor="subject"
-                      className="block text-sm font-medium text-slate-700 mb-1 font-mono"
+                      className={`block text-sm font-medium ${
+                        isDarkMode ? "dark:text-slate-300" : "text-slate-700"
+                      } mb-1 font-mono`}
                     >
                       Subject
                     </label>
@@ -200,14 +232,20 @@ const ContactSection = () => {
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 bg-white/50 border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
+                      className={`w-full px-4 py-2 ${
+                        isDarkMode
+                          ? "dark:bg-[#1e1b4b]/50 dark:border-[#4c1d95]/30 dark:text-slate-200 focus:ring-purple-500"
+                          : "bg-white/50 border border-white/30 focus:ring-purple-400"
+                      } rounded-md focus:outline-none focus:ring-2`}
                     />
                   </div>
 
                   <div>
                     <label
                       htmlFor="message"
-                      className="block text-sm font-medium text-slate-700 mb-1 font-mono"
+                      className={`block text-sm font-medium ${
+                        isDarkMode ? "dark:text-slate-300" : "text-slate-700"
+                      } mb-1 font-mono`}
                     >
                       Message
                     </label>
@@ -218,7 +256,11 @@ const ContactSection = () => {
                       onChange={handleChange}
                       required
                       rows={5}
-                      className="w-full px-4 py-2 bg-white/50 border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none"
+                      className={`w-full px-4 py-2 ${
+                        isDarkMode
+                          ? "dark:bg-[#1e1b4b]/50 dark:border-[#4c1d95]/30 dark:text-slate-200 focus:ring-purple-500"
+                          : "bg-white/50 border border-white/30 focus:ring-purple-400"
+                      } rounded-md focus:outline-none focus:ring-2 resize-none`}
                     />
                   </div>
 
@@ -226,7 +268,11 @@ const ContactSection = () => {
                     <button
                       type="submit"
                       disabled={formStatus === "submitting"}
-                      className="w-full py-3 px-6 bg-[#7263b3] text-white rounded-md hover:bg-[#5e4b9c] transition-colors disabled:opacity-70"
+                      className={`w-full py-3 px-6 ${
+                        isDarkMode
+                          ? "bg-[#5c4a99] hover:bg-[#473677]"
+                          : "bg-[#7263b3] hover:bg-[#5e4b9c]"
+                      } text-white rounded-md transition-colors disabled:opacity-70`}
                     >
                       {formStatus === "submitting"
                         ? "Sending..."
@@ -238,14 +284,21 @@ const ContactSection = () => {
             </SpotlightCard>
           </div>
 
-          {/* Contact Info */}
           <div className="md:w-1/3 space-y-6">
             <SpotlightCard
-              className="bg-white/20 border border-white/20 shadow-lg rounded-xl p-8 backdrop-blur-md relative"
-              spotlightColor="#9b7dcf"
+              className={`${
+                isDarkMode
+                  ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md"
+                  : "bg-white/20 border border-white/20"
+              } shadow-lg rounded-xl p-8 relative`}
+              spotlightColor={isDarkMode ? "#4c1d95" : "#9b7dcf"}
             >
               <div className="relative z-10">
-                <h3 className="text-2xl font-exo text-slate-700 mb-6">
+                <h3
+                  className={`text-2xl font-exo ${
+                    isDarkMode ? "dark:text-slate-200" : "text-slate-700"
+                  } mb-6`}
+                >
                   Connect
                 </h3>
 
@@ -256,7 +309,15 @@ const ContactSection = () => {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 text-slate-700 hover:text-purple-600 transition-colors p-2 hover:bg-white/30 rounded-md"
+                      className={`flex items-center gap-3 ${
+                        isDarkMode
+                          ? "dark:text-slate-300 hover:text-purple-400"
+                          : "text-slate-700 hover:text-purple-600"
+                      } transition-colors p-2 ${
+                        isDarkMode
+                          ? "hover:bg-slate-700/30"
+                          : "hover:bg-white/30"
+                      } rounded-md`}
                     >
                       <span className="text-[#7263b3]">{link.icon}</span>
                       <span className="font-mono">{link.name}</span>
@@ -267,19 +328,37 @@ const ContactSection = () => {
             </SpotlightCard>
 
             <SpotlightCard
-              className="bg-white/20 border border-white/20 shadow-lg rounded-xl p-8 backdrop-blur-md relative"
-              spotlightColor="#9b7dcf"
+              className={`${
+                isDarkMode
+                  ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md"
+                  : "bg-white/20 border border-white/20"
+              } shadow-lg rounded-xl p-8 relative`}
+              spotlightColor={isDarkMode ? "#4c1d95" : "#9b7dcf"}
             >
               <div className="relative z-10">
-                <h3 className="text-2xl font-exo text-slate-700 mb-4">
+                <h3
+                  className={`text-2xl font-exo ${
+                    isDarkMode ? "dark:text-slate-200" : "text-slate-700"
+                  } mb-4`}
+                >
                   Location
                 </h3>
-                <p className="font-mono text-slate-600">
+                <p
+                  className={`font-mono ${
+                    isDarkMode ? "dark:text-slate-300" : "text-slate-600"
+                  }`}
+                >
                   Yavatmal, Maharashtra
                   <br />
                   India
                 </p>
-                <div className="mt-4 font-mono text-slate-600 border-t border-slate-200 pt-3">
+                <div
+                  className={`mt-4 font-mono ${
+                    isDarkMode
+                      ? "dark:text-slate-300 dark:border-slate-700"
+                      : "text-slate-600 border-slate-200"
+                  } border-t pt-3`}
+                >
                   <p className="text-sm">Local Time:</p>
                   <p className="text-md font-medium">{indianTime}</p>
                   <p className="text-md">{indianDate}</p>

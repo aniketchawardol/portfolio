@@ -1,14 +1,24 @@
 import React from "react";
 import BlurRevealText from "./BlurRevealText";
 import MetaBalls from "../assets/Animations/MetaBalls/MetaBalls";
+import { useIsDarkMode } from "../hooks/useIsDarkMode";
+import ThemedCard from "./ui/ThemedCard";
 
 const AboutSection = () => {
+  const isDarkMode = useIsDarkMode();
+
   return (
-    <div className="flex h-screen items-center justify-center w-full bg-gradient-to-t from-[#cbb4f0] via-[#b6a6e3] to-[#6c5ca7] relative">
+    <div
+      className={`flex h-screen items-center justify-center w-full ${
+        isDarkMode
+          ? "bg-gradient-to-b dark:from-[#1e0438] dark:via-[#1d0c3a] dark:to-[#1a103c]"
+          : "bg-gradient-to-b from-[#6c5ca7] via-[#8771b8] to-[#a28cd1]"
+      } relative`}
+    >
       <div className="absolute inset-0 flex items-center justify-center z-0 ">
         <MetaBalls
-          color="#d4bdf4"
-          cursorBallColor="#d4bdf4"
+          color={isDarkMode ? "#4c1d95" : "#d4bdf4"}
+          cursorBallColor={isDarkMode ? "#7e22ce" : "#d4bdf4"}
           cursorBallSize={2}
           ballCount={15}
           animationSize={30}
@@ -19,14 +29,19 @@ const AboutSection = () => {
           speed={0.3}
         />
       </div>
-      <div className="w-[80%] relative z-10 bg-white/20 backdrop-blur-md rounded-2xl border border-white/20 shadow-lg">
-        <div className="font-mono text-slate-700 p-6 rounded-2xl text-2xl items-center">
+
+      <ThemedCard className="w-[80%] relative z-10" withSpotlight={false}>
+        <div
+          className={`font-mono ${
+            isDarkMode ? "dark:text-slate-200" : "text-slate-700"
+          } rounded-2xl text-2xl items-center`}
+        >
           <BlurRevealText
-            text="Hello I'm Aniket, a passionate Full-Stack Developer with hands-on experience in building scalable web applications using React, Node.js, MongoDB, and real-time technologies like Socket.IO. Along with this I have a strong foundation in Data Structures and Algorithms, with a problem-solving mindset and a focus on writing efficient, clean code."
+            text="Hello! I'm Aniket, a passionate Full-Stack Developer with hands-on experience in building scalable web applications using React, Node.js, MongoDB, and real-time technologies like Socket.IO. Along with this I have a strong foundation in Data Structures and Algorithms, with a problem-solving mindset and a focus on writing efficient, clean code."
             className="leading-relaxed text-justify"
           />
         </div>
-      </div>
+      </ThemedCard>
     </div>
   );
 };

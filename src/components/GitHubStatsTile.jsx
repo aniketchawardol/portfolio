@@ -13,7 +13,7 @@ import {
 import { SiGithubactions } from "react-icons/si";
 import { BiGitRepoForked } from "react-icons/bi";
 
-const GitHubStatsTile = ({ title, value, category, icon }) => {
+const GitHubStatsTile = ({ title, value, category, icon, isDarkMode }) => {
   // Determine tile size based on stat category
   const isLarge = [
     "totalRepos",
@@ -128,13 +128,23 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
   if (category === "languages" && Array.isArray(value)) {
     return (
       <div
-        className={`${gridSpan} bg-white/20 backdrop-blur-md border border-white/20 shadow-lg rounded-md p-4 flex flex-col transition-all hover:shadow-lg`}
+        className={`${gridSpan} ${
+          isDarkMode
+            ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md"
+            : "bg-white/20 border border-white/20"
+        } shadow-lg rounded-md p-4 flex flex-col transition-all hover:shadow-lg`}
       >
         <div className="flex items-center mb-3">
           <div className="flex-shrink-0 mr-3">
             <FaCode size={32} color={getIconColor()} />
           </div>
-          <span className="text-slate-700 font-medium">{title}</span>
+          <span
+            className={`${
+              isDarkMode ? "dark:text-slate-200" : "text-slate-700"
+            } font-medium`}
+          >
+            {title}
+          </span>
         </div>
 
         <div className="flex flex-col space-y-2 flex-1">
@@ -146,10 +156,20 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
                   backgroundColor: lang.color || getLanguageColor(lang.name),
                 }}
               ></div>
-              <span className="text-sm font-medium text-slate-600 flex-1">
+              <span
+                className={`text-sm font-medium ${
+                  isDarkMode ? "dark:text-slate-300" : "text-slate-600"
+                } flex-1`}
+              >
                 {lang.name}
               </span>
-              <span className="text-xs text-slate-500">{lang.percentage}%</span>
+              <span
+                className={`text-xs ${
+                  isDarkMode ? "dark:text-slate-400" : "text-slate-500"
+                }`}
+              >
+                {lang.percentage}%
+              </span>
             </div>
           ))}
         </div>
@@ -157,12 +177,15 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
     );
   }
 
-
   // Special rendering for profile tile
   if (category === "profile" && value) {
     return (
       <div
-        className={`${gridSpan} bg-transparent border-2 border-slate-400 rounded-md p-4 flex flex-col transition-all hover:shadow-lg`}
+        className={`${gridSpan} ${
+          isDarkMode
+            ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md"
+            : "bg-transparent border-slate-400"
+        } border-2 rounded-md p-4 flex flex-col transition-all hover:shadow-lg`}
       >
         <div className="flex items-center mb-3">
           <div className="flex-shrink-0 mr-3">
@@ -173,17 +196,35 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
             />
           </div>
           <div>
-            <span className="text-slate-700 font-medium block">
+            <span
+              className={`${
+                isDarkMode ? "dark:text-slate-200" : "text-slate-700"
+              } font-medium block`}
+            >
               {value.name || value.login}
             </span>
-            <span className="text-slate-500 text-sm">
+            <span
+              className={`${
+                isDarkMode ? "dark:text-slate-400" : "text-slate-500"
+              } text-sm`}
+            >
               {value.bio || "GitHub Developer"}
             </span>
           </div>
         </div>
         <div className="flex justify-between text-sm mt-2">
-          <div className="text-slate-600">Following: {value.following}</div>
-          <div className="text-slate-600">
+          <div
+            className={`${
+              isDarkMode ? "dark:text-slate-300" : "text-slate-600"
+            }`}
+          >
+            Following: {value.following}
+          </div>
+          <div
+            className={`${
+              isDarkMode ? "dark:text-slate-300" : "text-slate-600"
+            }`}
+          >
             Public Repos: {value.public_repos}
           </div>
         </div>
@@ -195,13 +236,23 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
   if (category === "allRepos" && Array.isArray(value)) {
     return (
       <div
-        className={`col-span-3 row-span-2 bg-white/20 backdrop-blur-md border border-white/20 shadow-lg rounded-md p-4 flex flex-col transition-all hover:shadow-lg`}
+        className={`col-span-3 row-span-2 ${
+          isDarkMode
+            ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md"
+            : "bg-white/20 border border-white/20"
+        } shadow-lg rounded-md p-4 flex flex-col transition-all hover:shadow-lg`}
       >
         <div className="flex items-center mb-3">
           <div className="flex-shrink-0 mr-3">
             <FaGithub size={32} color="#2563eb" />
           </div>
-          <span className="text-slate-700 font-medium">{title}</span>
+          <span
+            className={`${
+              isDarkMode ? "dark:text-slate-200" : "text-slate-700"
+            } font-medium`}
+          >
+            {title}
+          </span>
         </div>
 
         <div className="flex flex-col space-y-1 overflow-y-auto max-h-48 pr-2">
@@ -214,12 +265,20 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
               }
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm hover:underline text-slate-700 flex items-center py-1 border-b border-slate-200"
+              className={`text-sm hover:underline ${
+                isDarkMode ? "dark:text-slate-300" : "text-slate-700"
+              } flex items-center py-1 border-b ${
+                isDarkMode ? "dark:border-slate-700" : "border-slate-200"
+              }`}
             >
               <span className="mr-auto truncate max-w-[70%]">{repo.name}</span>
               <div className="flex items-center space-x-2 flex-shrink-0">
                 {repo.language && (
-                  <span className="text-xs bg-slate-200 px-1.5 py-0.5 rounded">
+                  <span
+                    className={`text-xs ${
+                      isDarkMode ? "dark:bg-slate-700" : "bg-slate-200"
+                    } px-1.5 py-0.5 rounded`}
+                  >
                     {repo.language}
                   </span>
                 )}
@@ -229,7 +288,11 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
                       size={12}
                       className="text-emerald-500 mr-1"
                     />
-                    <span className="text-xs text-slate-500">
+                    <span
+                      className={`text-xs ${
+                        isDarkMode ? "dark:text-slate-400" : "text-slate-500"
+                      }`}
+                    >
                       {repo.forks_count}
                     </span>
                   </div>
@@ -238,7 +301,11 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
             </a>
           ))}
           {value.length > 10 && (
-            <span className="text-xs text-center text-slate-500 italic pt-1">
+            <span
+              className={`text-xs text-center ${
+                isDarkMode ? "dark:text-slate-400" : "text-slate-500"
+              } italic pt-1`}
+            >
               And {value.length - 10} more repositories...
             </span>
           )}
@@ -249,12 +316,22 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
 
   return (
     <div
-      className={`${gridSpan} bg-white/20 backdrop-blur-md border border-white/20 shadow-lg rounded-md p-4 flex flex-col transition-all hover:scale-95 hover:shadow-lg cursor-pointer`}
+      className={`${gridSpan} ${
+        isDarkMode
+          ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md"
+          : "bg-white/20 border border-white/20"
+      } shadow-lg rounded-md p-4 flex flex-col transition-all hover:shadow-lg cursor-pointer`}
     >
       <div className="flex items-center h-full">
         <div className="flex-shrink-0 mr-3">{icon || getIcon()}</div>
         <div className="flex flex-col">
-          <span className="text-slate-700 font-medium">{title}</span>
+          <span
+            className={`${
+              isDarkMode ? "dark:text-slate-200" : "text-slate-700"
+            } font-medium`}
+          >
+            {title}
+          </span>
           <span
             className={`text-${isLarge ? "xl" : "lg"} font-bold ${
               isLarge ? "mt-2" : "mt-1"

@@ -9,6 +9,7 @@ import GitHubStats from "./components/GitHubStats";
 import ProjectsSection from "./components/ProjectsSection";
 import ContactSection from "./components/ContactSection";
 import { useScrollSnap } from "./utils/scrollSnap";
+import { ThemeProvider } from "./utils/ThemeProvider";
 
 function App() {
   // Initialize scroll snap functionality
@@ -37,7 +38,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <ThemeProvider>
       <Navigation />
       <div id="home" className="snap-section">
         <HeroSection />
@@ -60,7 +61,7 @@ function App() {
       <div id="contact" className="snap-section">
         <ContactSection />
       </div>
-    </>
+    </ThemeProvider>
   );
 }
 

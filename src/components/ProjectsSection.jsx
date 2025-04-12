@@ -1,5 +1,7 @@
 import React from "react";
 import ProjectTile from "./ProjectTile";
+import SectionContainer from "./layout/SectionContainer";
+import SectionHeading from "./ui/SectionHeading";
 
 const projects = [
   {
@@ -41,25 +43,27 @@ const projects = [
 ];
 
 const ProjectsSection = () => {
+  const gradientDark =
+    "dark:from-[#0f0a29] dark:via-[#16073a] dark:to-[#1e0438]";
+  const gradientLight = "from-[#cbb4f0] via-[#b6a6e3] to-[#a28cd1]";
+
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-t from-[#cbb4f0] via-[#a28cd1] to-[#8672b8] py-16 relative">
-      <div className="absolute inset-0 flex items-center justify-center z-0"></div>
+    <SectionContainer
+      id="projects"
+      gradientDark={gradientDark}
+      gradientLight={gradientLight}
+    >
+      <SectionHeading
+        title="Featured Projects"
+        subtitle="A showcase of my recent development work and personal projects"
+      />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <h2 className="text-4xl font-halfomania text-slate-700 text-center mb-6">
-          Featured Projects
-        </h2>
-        <p className="text-center text-slate-600 mb-16 font-mono">
-          A showcase of my recent development work and personal projects
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <ProjectTile key={index} {...project} />
-          ))}
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {projects.map((project, index) => (
+          <ProjectTile key={index} {...project} />
+        ))}
       </div>
-    </div>
+    </SectionContainer>
   );
 };
 
