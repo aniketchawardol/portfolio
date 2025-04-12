@@ -17,9 +17,9 @@ const ThemedCard = ({
 
   const baseClasses = `${
     isDarkMode
-      ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md"
+      ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30"
       : "bg-white/20 border border-white/20"
-  } shadow-lg rounded-md ${padding} ${className}`;
+  } shadow-lg rounded-md  backdrop-blur-md ${padding} ${className}`;
 
   if (!withSpotlight) {
     return (
