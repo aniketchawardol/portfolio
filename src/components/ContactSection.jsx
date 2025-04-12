@@ -67,13 +67,12 @@ const ContactSection = () => {
         subject: formData.subject,
         message: formData.message,
       };
- 
+
       const response = await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         templateParams
       );
-
 
       // Email sent successfully
       setFormStatus("success");
@@ -114,20 +113,25 @@ const ContactSection = () => {
   return (
     <div
       id="contact"
-      className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-lav to-offwhite py-16 relative"
+      className="w-full min-h-screen flex items-center justify-center bg-gradient-to-t from-[#8672b8] via-[#a28cd1] to-[#cbb4f0] py-16 relative"
     >
       <div className="container mx-auto px-4 relative z-10">
-        <h2 className="text-4xl font-halfomania text-slate-700 text-center mb-6">
+        <h2 className="text-4xl font-halfomania text-slate-700 text-center">
           Get In Touch
         </h2>
-        <p className="text-center text-slate-600 mb-16 font-mono">
+        <p className="text-center text-slate-600  font-mono">
           Feel free to reach out for collaborations, opportunities, or just a
-          friendly chat
+          friendly chat!
         </p>
-        <div className="h-10">
+        <div className="h-15">
           {formStatus === "error" && (
             <p className="text-red-600 font-mono text-center">
               Failed to send message. Please try again later.
+            </p>
+          )}
+          {formStatus === "success" && (
+            <p className="mt-3 text-green-600 font-mono text-center">
+              Message sent successfully! I'll get back to you soon.
             </p>
           )}
         </div>
@@ -228,12 +232,6 @@ const ContactSection = () => {
                         ? "Sending..."
                         : "Send Message"}
                     </button>
-
-                    {formStatus === "success" && (
-                      <p className="mt-3 text-green-600 font-mono text-center">
-                        Message sent successfully! I'll get back to you soon.
-                      </p>
-                    )}
                   </div>
                 </form>
               </div>

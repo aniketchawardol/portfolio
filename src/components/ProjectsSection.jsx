@@ -6,12 +6,20 @@ const projects = [
     title: "Doctors.com",
     description:
       "Developed Doctors.com, a comprehensive healthcare platform enabling secure patient report uploads, hospital searches, and efficient report management.",
-    technologies: ["React", "Node.js", "MongoDB", "Express.js", "TailwindCSS", "JWT"],
-    imageUrl: "./Doctors.com.png",
-    projectUrl:[{frontend: "https://github.com/aniketchawardol/Doctors.com-frontend"},
-      {backend: "https://github.com/aniketchawardol/Doctors.com-backend"}
+    technologies: [
+      "React",
+      "Node.js",
+      "MongoDB",
+      "Express.js",
+      "TailwindCSS",
+      "JWT",
     ],
-    livelink: "https://doctors-com-frontend.vercel.app/"
+    imageUrl: "./Doctors.com.png",
+    projectUrl: [
+      { frontend: "https://github.com/aniketchawardol/Doctors.com-frontend" },
+      { backend: "https://github.com/aniketchawardol/Doctors.com-backend" },
+    ],
+    livelink: "https://doctors-com-frontend.vercel.app/",
   },
   {
     title: "Code Sathi",
@@ -20,7 +28,7 @@ const projects = [
     technologies: ["React", "TailwindCSS", "Socket.IO", "Auth0", "REST APIs"],
     imageUrl: "./CodeSathi.png",
     projectUrl: ["https://github.com/aniketchawardol/CodeSync"],
-    livelink: "https://codesarthi.onrender.com/"
+    livelink: "https://codesarthi.onrender.com/",
   },
   {
     title: "Blog App",
@@ -34,9 +42,8 @@ const projects = [
 
 const ProjectsSection = () => {
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-offwhite to-lav py-16 relative">
-      <div className="absolute inset-0 flex items-center justify-center z-0">
-      </div>
+    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-t from-[#cbb4f0] via-[#a28cd1] to-[#8672b8] py-16 relative">
+      <div className="absolute inset-0 flex items-center justify-center z-0"></div>
 
       <div className="container mx-auto px-4 relative z-10">
         <h2 className="text-4xl font-halfomania text-slate-700 text-center mb-6">

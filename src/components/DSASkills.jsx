@@ -105,7 +105,7 @@ const DSASkills = () => {
   const dsaStats = prepareDSAStats();
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-offwhite to-lav py-16 font-exo">
+    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-[#a28cd1] via-[#b6a6e3] to-[#cbb4f0] py-16 font-exo">
       <div className="container mx-auto px-4 ">
         <h2 className="text-4xl font-halfomania text-slate-700 text-center mb-6">
           DSA Proficiency
@@ -134,7 +134,7 @@ const DSASkills = () => {
             }`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block font-mono text-slate-700 py-2 px-6 rounded-lg hover:bg-slate-100 transition-all"
+            className="flex-grow text-center bg-[#7263b3] text-white py-2 px-4 rounded-md hover:bg-[#5e4b9c] transition-colors"
           >
             View Full Profile
           </a>

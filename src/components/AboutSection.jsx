@@ -4,11 +4,11 @@ import MetaBalls from "../assets/Animations/MetaBalls/MetaBalls";
 
 const AboutSection = () => {
   return (
-    <div className="flex h-screen items-center justify-center w-full bg-linear-to-t from-lav to-offwhite relative">
+    <div className="flex h-screen items-center justify-center w-full bg-gradient-to-t from-[#cbb4f0] via-[#b6a6e3] to-[#6c5ca7] relative">
       <div className="absolute inset-0 flex items-center justify-center z-0 ">
         <MetaBalls
-          color="#f4f7fc"
-          cursorBallColor="#f4f7fc"
+          color="#d4bdf4"
+          cursorBallColor="#d4bdf4"
           cursorBallSize={2}
           ballCount={15}
           animationSize={30}

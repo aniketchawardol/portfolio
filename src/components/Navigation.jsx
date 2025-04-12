@@ -53,7 +53,7 @@ const Navigation = () => {
 
   return (
     <div className="fixed top-0 w-full flex items-center justify-center z-50">
-      <div className="flex font-mono text-xl w-[40%] justify-evenly mt-[30px] bg-white/20 backdrop-blur-md border border-white/20 shadow-lg text-slate-600 p-2 rounded-2xl">
+      <div className="flex font-mono text-md w-[40%] justify-evenly mt-[30px] bg-white/20 backdrop-blur-md border border-white/20 shadow-lg text-slate-600 p-2 rounded-2xl">
         {navItems.map((item) => (
           <button
             key={item.id}

@@ -48,7 +48,7 @@ const ProjectTile = ({
             href={livelink}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-grow text-center bg-[#7263b3] text-white py-2 px-4 rounded-md hover:bg-[#5e4b9c] transition-colors"
+            className="flex-grow text-center bg-[#7263b3] text-white py-2 px-4 rounded-md hover:bg-[#5e4b9c] transition-colors ease-in-out duration-150"
           >
             Live Demo
           </a>
@@ -70,7 +70,7 @@ const ProjectTile = ({
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-grow text-center bg-[#3f3860] text-white py-2 px-4 rounded-md hover:bg-[#332d4d] transition-colors"
+                    className="flex-grow text-center bg-[#3f3860] text-white py-2 px-4 rounded-md hover:bg-[#332d4d] transition-colors ease-in-out duration-150"
                   >
                     {type.charAt(0).toUpperCase() + type.slice(1)}
                   </a>
@@ -82,7 +82,7 @@ const ProjectTile = ({
                 href={projectUrl[0]}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-grow text-center bg-[#3f3860] text-white py-2 px-4 rounded-md hover:bg-[#332d4d] transition-colors"
+                className="flex-grow text-center bg-[#3f3860] text-white py-2 px-4 rounded-md hover:bg-[#332d4d] transition-colors ease-in-out duration-150"
               >
                 GitHub
               </a>
@@ -91,7 +91,7 @@ const ProjectTile = ({
                 href={projectUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-grow text-center bg-[#3f3860] text-white py-2 px-4 rounded-md hover:bg-[#332d4d] transition-colors"
+                className="flex-grow text-center bg-[#3f3860] text-white py-2 px-4 rounded-md hover:bg-[#332d4d] transition-colors ease-in-out duration-150"
               >
                 View Project
               </a>

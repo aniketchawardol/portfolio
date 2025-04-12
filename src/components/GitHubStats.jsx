@@ -20,8 +20,6 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
           `https://api.github.com/users/${username}/repos?per_page=100`
         );
 
-
-
         // Calculate languages from repos
         const languages = {};
         reposResponse.data.forEach((repo) => {
@@ -142,7 +140,7 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
   const gitHubStats = prepareGitHubStats();
 
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-gradient-to-t from-offwhite to-lav py-16 font-exo">
+    <div className="w-full h-screen flex items-center justify-center bg-gradient-to-t from-[#8672b8] via-[#a28cd1] to-[#cbb4f0] py-16 font-exo">
       <div className="container mx-auto px-4">
         {/* Display GitHub avatar at the top */}
         {githubData?.profile?.avatar_url && (
@@ -185,7 +183,7 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
             }
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block font-mono text-slate-700 border-2 border-slate-500 py-2 px-6 rounded-lg hover:bg-slate-100 transition-all"
+            className="flex-grow text-center bg-[#7263b3] text-white py-2 px-4 rounded-md hover:bg-[#5e4b9c] transition-colors"
           >
             View GitHub Profile
           </a>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import RotatingText from "../assets/TextAnimations/RotatingText/RotatingText";
+import Spline from "@splinetool/react-spline";
 
 const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -58,11 +59,11 @@ const HeroSection = () => {
   return (
     <div
       ref={sectionRef}
-      className="bg-gray-100 bg-linear-to-b from-lav to-offwhite relative h-screen pt-[80px]"
+      className="bg-gray-100 bg-linear-to-b from-[#cbb4f0] via-[#a28cd1] to-[#6c5ba7] relative h-screen pt-[80px]"
     >
-      <div className="absolute mt-[15%] ml-[40%] h-[300px] w-[300px] rounded-full bg-gradient-to-bl from-purple-400 z-0 shadow-purple-300 shadow-2xl"></div>
+      <div className="absolute mt-[10%] ml-[40%] h-[300px] w-[300px] rounded-full bg-gradient-to-bl from-purple-400 z-10 shadow-[0_0_100px_40px_#c6a4f2]"></div>
 
-      <div className="relative z-10 ml-[20%] mt-[17%] flex items-end">
+      <div className="relative z-10 ml-[20%] mt-[13%] flex items-end">
         <motion.h1
           className="text-[150px] font-moonwalk text-slate-700"
           initial="hidden"
@@ -100,6 +101,17 @@ const HeroSection = () => {
           />
         </div>
       </div>
+      <a
+        href="https://drive.google.com/file/d/1l9gNabeeMXGSswVi7uhsfyErmp6dVipR/view?usp=sharing"
+        className="ml-[40%] font-exo text-xl hover:text-white p-3 w-fit rounded-full  hover:bg-[#7263b3] transition-all duration-150 ease-in-out relative z-10"
+      >
+        My Resume
+      </a>
+
+      <Spline className="absolute bottom-0 right-0 w-full h-full z-0 "
+       scene="https://prod.spline.design/TA6v0WtbHxdYhxoR/scene.splinecode"  
+      />
+ 
     </div>
   );
 };
