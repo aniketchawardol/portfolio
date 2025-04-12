@@ -140,7 +140,7 @@ const ContactSection = () => {
           <div className="md:w-2/3">
             <SpotlightCard
               className="bg-white/20 border border-white/20 shadow-lg rounded-xl p-8 backdrop-blur-md h-full relative"
-              spotlightColor="#a89ce1"
+              spotlightColor="#9b7dcf"
             >
               <div className="relative z-10">
                 <h3 className="text-2xl font-exo text-slate-700 mb-6">
@@ -242,7 +242,7 @@ const ContactSection = () => {
           <div className="md:w-1/3 space-y-6">
             <SpotlightCard
               className="bg-white/20 border border-white/20 shadow-lg rounded-xl p-8 backdrop-blur-md relative"
-              spotlightColor="#a89ce1"
+              spotlightColor="#9b7dcf"
             >
               <div className="relative z-10">
                 <h3 className="text-2xl font-exo text-slate-700 mb-6">
@@ -268,7 +268,7 @@ const ContactSection = () => {
 
             <SpotlightCard
               className="bg-white/20 border border-white/20 shadow-lg rounded-xl p-8 backdrop-blur-md relative"
-              spotlightColor="#a89ce1"
+              spotlightColor="#9b7dcf"
             >
               <div className="relative z-10">
                 <h3 className="text-2xl font-exo text-slate-700 mb-4">

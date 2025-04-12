@@ -11,8 +11,8 @@ const ProjectTile = ({
 }) => {
   return (
     <SpotlightCard
-      className="custom-spotlight-card flex flex-col bg-white/20 border border-white/20 shadow-lg rounded-md p-6 h-full backdrop-blur-md"
-      spotlightColor="#a89ce1"
+      className="custom-spotlight-card flex flex-col bg-white/20 border border-white/20 shadow-lg rounded-md p-6 h-full backdrop-blur-md hover:scale-110 transition-all duration-200 ease-in-out"
+      spotlightColor="#9b7dcf"
     >
       {imageUrl && (
         <div className="mb-4 z-10 overflow-hidden rounded-md">

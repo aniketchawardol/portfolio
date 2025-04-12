@@ -31,6 +31,24 @@
   --font-exo: "exo", sans-serif;
 }
 
+/* Disable default scrolling behavior */
+html {
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-y: auto;
+}
+
+/* Snap section styling */
+.snap-section {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
 @layer components {
   .navbutton {
     @apply after:block after:w-0 after:h-[2px] after:bg-black after:transition-all after:duration-300 hover:after:w-full;

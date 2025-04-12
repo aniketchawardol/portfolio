@@ -142,24 +142,25 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
   return (
     <div className="w-full h-screen flex items-center justify-center bg-gradient-to-t from-[#8672b8] via-[#a28cd1] to-[#cbb4f0] py-16 font-exo">
       <div className="container mx-auto px-4">
-        {/* Display GitHub avatar at the top */}
+        <div className="flex w-full items-center justify-center mb-4">
         {githubData?.profile?.avatar_url && (
-          <div className="items-center mb-8 flex justify-center">
+          <div>
             <img
               src={githubData.profile.avatar_url}
               alt={`${username}'s GitHub avatar`}
               className="w-24 h-24 rounded-full border-4 border-slate-300 shadow-lg inline"
             />
-            <h3 className="inline text-xl font-bold mt-3 font-mono m-2">
+            <h3 className="inline text-xl font-bold  font-mono m-2 mt-4">
               {githubData.profile.name || username}
             </h3>
           </div>
         )}
 
-        <h2 className="text-4xl font-halfomania text-slate-700 text-center mb-6">
+        <h2 className="text-4xl font-halfomania text-slate-700 ">
           GitHub Activity
         </h2>
-        <p className="text-center text-slate-600 mb-16 font-mono">
+        </div>
+        <p className="text-center text-slate-600  font-mono">
           My open-source contributions and project portfolio
         </p>
 

@@ -39,6 +39,16 @@ const Navigation = () => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
+
+      // Set active section immediately for better UX
+      setActiveSection(sectionId);
+
+      // Disable scroll handling briefly to avoid conflicts
+      const scrollHandler = window.onwheel;
+      window.onwheel = null;
+      setTimeout(() => {
+        window.onwheel = scrollHandler;
+      }, 1000);
     }
   };
 
