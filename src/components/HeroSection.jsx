@@ -86,7 +86,7 @@ const HeroSection = () => {
         }`}
       ></div>
 
-      <div className="relative z-10 lg:ml-[20%] mt-[40%] md:mt-[20%] lg:mt-[13%] flex lg:items-end  justify-center lg:justify-normal">
+      <div className="relative w-full z-10 lg:ml-[20%] mt-[40%] md:mt-[20%] lg:mt-[13%] flex lg:items-end">
         <motion.h1
           className={`text-[100px] lg:text-[150px] font-moonwalk ${
             isDarkMode() ? "dark:text-slate-200" : "text-slate-700"
