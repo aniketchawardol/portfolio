@@ -79,14 +79,14 @@ const HeroSection = () => {
       } relative h-screen pt-[80px] ${isDarkMode() ? "northern-lights" : ""}`}
     >
       <div
-        className={`absolute mt-[10%] ml-[20%] lg:ml-[40%] h-[300px] w-[300px] rounded-full z-10 ${
+        className={`absolute mt-[20%] md:mt-[10%] ml-[20%] lg:ml-[40%] h-[300px] w-[300px] rounded-full z-10 ${
           isDarkMode()
             ? "bg-gradient-to-bl dark:from-purple-900 z-10 dark:shadow-[0_0_100px_40px_#4c1d95]"
             : "bg-gradient-to-bl from-purple-400 z-10 shadow-[0_0_100px_40px_#c6a4f2]"
         }`}
       ></div>
 
-      <div className="relative z-10 lg:ml-[20%] mt-[25%] md:mt-[20%] lg:mt-[13%] flex lg:items-end  justify-center lg:justify-normal">
+      <div className="relative z-10 lg:ml-[20%] mt-[40%] md:mt-[20%] lg:mt-[13%] flex lg:items-end  justify-center lg:justify-normal">
         <motion.h1
           className={`text-[100px] lg:text-[150px] font-moonwalk ${
             isDarkMode() ? "dark:text-slate-200" : "text-slate-700"
