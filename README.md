@@ -1,12 +1,118 @@
-# React + Vite
+# Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal portfolio website built with modern web technologies, featuring a responsive design with dark and light mode support, animated UI elements, and integration with external APIs to showcase projects, skills, and development activity.
 
-Currently, two official plugins are available:
+![Portfolio Demo](./public/portfolio-screenshot.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Responsive Design**: Optimized for all device sizes
+- **Light/Dark Mode**: Automatic theme detection with manual override
+- **Animated UI**: Smooth animations and transitions using Framer Motion
+- **Interactive Sections**:
+  - Hero section with animated text
+  - About section with blur-reveal text effect
+  - Skills showcase with tech tiles
+  - Projects portfolio with project details
+  - DSA skills dashboard with LeetCode stats
+  - GitHub integration showing contribution activity
+  - Contact form with EmailJS integration
+- **Custom Animations**: MetaBalls animation, northern lights effect, and more
+- **GitHub Activity Visualization**: Contribution heatmap and repository stats
+- **Smooth Scrolling**: Section-based navigation with scroll snapping
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technologies Used
+
+- **Frontend Framework**: React with Vite
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion, GSAP, React-bits
+- **3D Elements**: Spline
+- **External APIs**:
+  - GitHub API for repository and contribution data
+  - LeetCode Stats API for coding statistics
+- **Form Processing**: EmailJS for contact form submissions
+- **UI Components**: React-bits components with spotlight effects, themed cards
+- **Icons**: React Icons
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v16+)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+
+   ```sh
+   git clone https://github.com/aniketchawardol/portfolio
+   cd portfolio
+   ```
+
+2. Install dependencies
+
+   ```sh
+   npm install
+   # or
+   yarn
+   ```
+
+3. Create a `.env` file in the project root with the following variables:
+
+   ```
+   VITE_APP_GITHUB_TOKEN=your_github_token
+   VITE_SERVICE_ID=your_emailjs_service_id
+   VITE_TEMPLATE_ID=your_emailjs_template_id
+   VITE_PUBLIC_KEY=your_emailjs_public_key
+   ```
+
+4. Start the development server
+   ```sh
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+## Customization
+
+The portfolio is designed to be easily customizable:
+
+- **Personal Information**: Update content in component files
+- **Projects**: Modify the `projects` array in `ProjectsSection.jsx`
+- **Skills**: Edit the `allTechnologies` array in `SkillsSection.jsx`
+- **Color Schemes**: Modify the gradient variables in each section component
+- **GitHub Integration**: Update the username in `GitHubStats.jsx` component
+- **LeetCode Integration**: Update the username in API request in `DSASkills.jsx`
+
+## Building for Production
+
+```sh
+npm run build
+# or
+yarn build
+```
+
+The build artifacts will be located in the `dist/` directory.
+
+## Deployment
+
+This site can be deployed to any static site hosting service such as Vercel, Netlify, or GitHub Pages.
+
+```sh
+npm run preview
+# or
+yarn preview
+```
+
+## Resources
+
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [React-bits](https://www.reactbits.dev/) - UI component library
+- [Spline](https://spline.design/) - 3D design tool
+- [All Free Fonts](https://www.allfreefonts.co/) - Font resources
+- [React Icons](https://react-icons.github.io/react-icons/) - Icon library
+- [EmailJS](https://www.emailjs.com/) - Email sending service
+
+
+
