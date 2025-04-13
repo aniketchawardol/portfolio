@@ -23,11 +23,11 @@ const DSATile = ({ title, value, category, icon, isDarkMode }) => {
     "contributionPoints",
   ].includes(category);
 
-  // Set grid span classes based on importance
+  // Set grid span classes based on importance with responsive design
   const gridSpan = isLarge
-    ? "col-span-2 row-span-2" // Large 2x2 tiles
+    ? "col-span-2 row-span-2 sm:col-span-2 md:col-span-2" // Large 2x2 tiles
     : isMedium
-    ? "col-span-2 row-span-1" // Medium wide tiles
+    ? "col-span-2 row-span-1 sm:col-span-2 md:col-span-2" // Medium wide tiles
     : "col-span-1 row-span-1"; // Small square tiles
 
   // Choose color based on category
@@ -56,25 +56,38 @@ const DSATile = ({ title, value, category, icon, isDarkMode }) => {
 
   // Get icon based on category
   const getIcon = () => {
+    return (
+      <>
+        {(isLarge || isMedium) && (
+          <div className="hidden sm:block">
+            {renderIcon(isLarge ? 80 : 40)}
+          </div>
+        )}
+        <div className="sm:hidden">
+          {renderIcon(isLarge ? 50 : isMedium ? 30 : 24)}
+        </div>
+      </>
+    );
+  };
+
+  const renderIcon = (size) => {
     switch (category) {
       case "totalSolved":
-        return <SiLeetcode size={isLarge ? 80 : 40} color={getIconColor()} />;
+        return <SiLeetcode size={size} color={getIconColor()} />;
       case "easySolved":
-        return <FaCode size={isLarge ? 80 : 40} color={getIconColor()} />;
+        return <FaCode size={size} color={getIconColor()} />;
       case "mediumSolved":
-        return <FaLaptopCode size={isLarge ? 80 : 40} color={getIconColor()} />;
+        return <FaLaptopCode size={size} color={getIconColor()} />;
       case "hardSolved":
-        return <FaAlgolia size={isLarge ? 80 : 40} color={getIconColor()} />;
+        return <FaAlgolia size={size} color={getIconColor()} />;
       case "ranking":
-        return <FaTrophy size={isLarge ? 80 : 40} color={getIconColor()} />;
+        return <FaTrophy size={size} color={getIconColor()} />;
       case "acceptanceRate":
-        return (
-          <FaCheckCircle size={isLarge ? 80 : 40} color={getIconColor()} />
-        );
+        return <FaCheckCircle size={size} color={getIconColor()} />;
       case "contributionPoints":
-        return <FaCrown size={isLarge ? 80 : 40} color={getIconColor()} />;
+        return <FaCrown size={size} color={getIconColor()} />;
       default:
-        return <FaChartLine size={isLarge ? 80 : 40} color={getIconColor()} />;
+        return <FaChartLine size={size} color={getIconColor()} />;
     }
   };
 
@@ -84,20 +97,20 @@ const DSATile = ({ title, value, category, icon, isDarkMode }) => {
         isDarkMode
           ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md"
           : "bg-white/20 shadow-lg"
-      } rounded-md p-4 flex h-full transition-all hover:shadow-lg cursor-pointer`}
+      } rounded-md p-2 sm:p-4 flex h-full transition-all hover:shadow-lg cursor-pointer`}
     >
       <div className="flex items-center">
-        <div className="flex-shrink-0 mr-3">{icon || getIcon()}</div>
+        <div className="flex-shrink-0 mr-2 sm:mr-3">{icon || getIcon()}</div>
         <div>
           <span
             className={`${
               isDarkMode ? "dark:text-slate-200" : "text-slate-700"
-            } font-medium text-${isLarge ? "xl" : "lg"} block`}
+            } font-medium text-sm sm:text-${isLarge ? "xl" : "lg"} block`}
           >
             {title}
           </span>
           <span
-            className={`text-${isLarge ? "2xl" : "lg"} font-bold`}
+            className={`text-sm sm:text-${isLarge ? "2xl" : "lg"} font-bold`}
             style={{ color: getIconColor() }}
           >
             {value}

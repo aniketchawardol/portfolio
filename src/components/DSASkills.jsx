@@ -154,7 +154,7 @@ const DSASkills = () => {
                 : "rgba(124, 58, 237, 0.35)"
             }
           >
-            <div className="grid grid-cols-6 auto-rows-auto gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 auto-rows-auto gap-3 sm:gap-4 md:gap-5">
               {dsaStats.map((stat, index) => (
                 <DSATile
                   key={index}
