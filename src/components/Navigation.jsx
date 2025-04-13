@@ -111,33 +111,35 @@ const Navigation = () => {
       </div>
 
       {/* Mobile Menu Dropdown */}
-      {mobileMenuOpen && (
-        <div
-          className={`md:hidden fixed top-[100px] left-0 right-0 mx-4 p-4 rounded-lg shadow-lg backdrop-blur-md ${
-            isDarkMode
-              ? "dark:bg-[#2e1065]/20 dark:border-[#4c1d95]/30 backdrop-blur-md dark:text-slate-300"
-              : "bg-white/20 border-white/20 text-slate-600"
-          } border grid grid-cols-2 gap-3 z-50 transition-all duration-300 w-[80%] mx-auto`}
-        >
-          {NAV_ITEMS.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className={`p-2 text-center rounded-md ${
-                activeSection === item.id
-                  ? isDarkMode
-                    ? "bg-[#4c1d95]/50 dark:text-purple-300"
-                    : "bg-purple-100 text-purple-600"
-                  : ""
-              } hover:bg-opacity-20 ${
-                isDarkMode ? "hover:bg-purple-800" : "hover:bg-purple-100"
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-      )}
+      <div
+        className={`md:hidden fixed top-[100px] left-0 right-0 mx-4 p-4 rounded-lg shadow-lg backdrop-blur-md transition-all ease-in-out duration-300 ${
+          isDarkMode
+            ? "dark:bg-[#2e1065]/20 dark:border-[#4c1d95]/30 backdrop-blur-md dark:text-slate-300"
+            : "bg-white/20 border-white/20 text-slate-600"
+        } border grid grid-cols-2 gap-3 z-50 w-[80%] mx-auto ${
+          mobileMenuOpen 
+            ? "opacity-100 pointer-events-auto" 
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
+        {NAV_ITEMS.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => scrollToSection(item.id)}
+            className={`p-2 text-center rounded-md ${
+              activeSection === item.id
+                ? isDarkMode
+                  ? "bg-[#4c1d95]/50 dark:text-purple-300"
+                  : "bg-purple-100 text-purple-600"
+                : ""
+            } hover:bg-opacity-20 ${
+              isDarkMode ? "hover:bg-purple-800" : "hover:bg-purple-100"
+            }`}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

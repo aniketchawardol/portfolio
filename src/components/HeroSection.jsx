@@ -79,16 +79,16 @@ const HeroSection = () => {
       } relative h-screen pt-[80px] ${isDarkMode() ? "northern-lights" : ""}`}
     >
       <div
-        className={`absolute mt-[10%] ml-[40%] h-[300px] w-[300px] rounded-full z-10 ${
+        className={`absolute mt-[10%] ml-[20%] lg:ml-[40%] h-[300px] w-[300px] rounded-full z-10 ${
           isDarkMode()
             ? "bg-gradient-to-bl dark:from-purple-900 z-10 dark:shadow-[0_0_100px_40px_#4c1d95]"
             : "bg-gradient-to-bl from-purple-400 z-10 shadow-[0_0_100px_40px_#c6a4f2]"
         }`}
       ></div>
 
-      <div className="relative z-10 ml-[20%] mt-[13%] flex items-end">
+      <div className="relative z-10 lg:ml-[20%] mt-[25%] md:mt-[20%] lg:mt-[13%] flex lg:items-end  justify-center lg:justify-normal">
         <motion.h1
-          className={`text-[150px] font-moonwalk ${
+          className={`text-[100px] lg:text-[150px] font-moonwalk ${
             isDarkMode() ? "dark:text-slate-200" : "text-slate-700"
           }`}
           initial="hidden"
@@ -107,7 +107,7 @@ const HeroSection = () => {
         </motion.h1>
         <div className="mb-[58px] absolute z-0 ml-[32%]">
           <p
-            className={`font-exo ${
+            className={`font-exo hidden lg:inline ${
               isDarkMode() ? "dark:text-slate-200" : "text-slate-700"
             } text-3xl ml-4`}
           >
@@ -122,18 +122,19 @@ const HeroSection = () => {
             ]}
             mainClassName={`${ 
               isDarkMode() ? "dark:text-purple-300" : "text-purple-500"
-            } overflow-hidden rounded-lg text-[60px] font-halfomania absolute top-4`}
+            } overflow-hidden  font-halfomania absolute top-[120px] lg:top-4`}
             staggerFrom={"last"}
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "-120%" }}
             staggerDuration={0.025}
-            splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+            splitLevelClassName="overflow-hidden text-[30px] lg:text-[60px]"
             transition={{ type: "spring", damping: 30, stiffness: 400 }}
             rotationInterval={2000}
           />
         </div>
       </div>
+      <div className="lg:hidden h-6"></div>
       <a
         href="https://drive.google.com/file/d/1l9gNabeeMXGSswVi7uhsfyErmp6dVipR/view?usp=sharing"
         className={`ml-[40%] font-exo text-xl ${
