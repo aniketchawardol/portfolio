@@ -86,7 +86,7 @@ const HeroSection = () => {
         }`}
       ></div>
 
-      <div className="relative w-full z-10 lg:ml-[20%] mt-[40%] md:mt-[20%] lg:mt-[13%] flex lg:items-end">
+      <div className="relative md:w-full z-10 lg:ml-[20%] mt-[40%] md:mt-[20%] lg:mt-[13%] flex lg:items-end">
         <motion.h1
           className={`text-[100px] lg:text-[150px] font-moonwalk ${
             isDarkMode() ? "dark:text-slate-200" : "text-slate-700"
@@ -105,7 +105,7 @@ const HeroSection = () => {
         >
           ANIKET
         </motion.h1>
-        <div className="mb-[58px] z-0">
+        <div className="absolute md:relative mb-[58px] ml-[20%] md:ml-0 z-0">
           <p
             className={`font-exo hidden lg:inline ${
               isDarkMode() ? "dark:text-slate-200" : "text-slate-700"
