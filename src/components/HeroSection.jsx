@@ -134,7 +134,7 @@ const HeroSection = () => {
           />
         </div>
       </div>
-      <div className="lg:hidden h-6"></div>
+      <div className="lg:hidden h-30"></div>
       <a
         href="https://drive.google.com/file/d/1l9gNabeeMXGSswVi7uhsfyErmp6dVipR/view?usp=sharing"
         className={`ml-[40%] font-exo text-xl ${

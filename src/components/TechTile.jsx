@@ -35,14 +35,14 @@ const TechTile = ({ tech, index }) => {
           : "bg-white/20 border border-white/20"
       } rounded-md p-4 flex flex-col transition-all hover:shadow-lg cursor-pointer shadow-lg`}
     >
-      <div className="flex items-center h-full">
-        <div className="flex-shrink-0 mr-3">
+      <div className="flex items-center justify-center md:justify-start h-full">
+        <div className="flex-shrink-0 md:mr-3">
           <TechIcon tech={tech} />
         </div>
         <span
           className={`${
             isDarkMode ? "dark:text-slate-200" : "text-slate-700"
-          } font-medium overflow-hidden text-ellipsis ${
+          } font-medium hidden md:inline overflow-hidden text-ellipsis ${
             isLarge ? "text-2xl" : isMedium ? "text-xl" : "text-md"
           }`}
         >
