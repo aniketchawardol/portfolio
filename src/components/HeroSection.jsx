@@ -156,10 +156,9 @@ const HeroSection = () => {
         <span className="absolute inset-0 animate-shimmer bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.5),transparent)] bg-[length:200%_100%]"></span>
       </a>
 
-      {/* Always render Spline in light mode, never in dark mode */}
       {!isDarkMode() && (
         <Spline
-          className="absolute bottom-0 right-0 w-full h-full z-0"
+          className="absolute bottom-0 right-0 w-full h-full z-0 pointer-events-none"
           scene="https://prod.spline.design/TA6v0WtbHxdYhxoR/scene.splinecode"
         />
       )}

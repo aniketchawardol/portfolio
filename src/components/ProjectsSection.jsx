@@ -38,7 +38,7 @@ const projects = [
       "A full-stack blogging application. Implemented user authentication, blog post management (create, edit, delete), rich text editor and a responsive UI.",
     technologies: ["React", "Node.js", "Appwrite", "TinyMCE", "React Redux"],
     imageUrl: "./blogapp.png",
-    projectUrl: ["https://github.com/aniketchawardol/blogappt"],
+    projectUrl: ["https://github.com/aniketchawardol/blogapp"],
   },
 ];
 
