@@ -79,7 +79,7 @@ const HeroSection = () => {
       } relative h-screen pt-[80px] ${isDarkMode() ? "northern-lights" : ""}`}
     >
       <div
-        className={`absolute mt-[10%] ml-[40%] h-[300px] w-[300px] rounded-full ${
+        className={`absolute mt-[10%] ml-[40%] h-[300px] w-[300px] rounded-full z-10 ${
           isDarkMode()
             ? "bg-gradient-to-bl dark:from-purple-900 z-10 dark:shadow-[0_0_100px_40px_#4c1d95]"
             : "bg-gradient-to-bl from-purple-400 z-10 shadow-[0_0_100px_40px_#c6a4f2]"
@@ -105,7 +105,7 @@ const HeroSection = () => {
         >
           ANIKET
         </motion.h1>
-        <div className="mb-3 absolute z-0 left-[560px]">
+        <div className="mb-[58px] absolute z-0 ml-[32%]">
           <p
             className={`font-exo ${
               isDarkMode() ? "dark:text-slate-200" : "text-slate-700"
@@ -120,9 +120,9 @@ const HeroSection = () => {
               "DSA Enthusiast",
               "UI/UX Designer",
             ]}
-            mainClassName={`${
+            mainClassName={`${ 
               isDarkMode() ? "dark:text-purple-300" : "text-purple-500"
-            } overflow-hidden rounded-lg text-[90px] font-halfomania`}
+            } overflow-hidden rounded-lg text-[60px] font-halfomania absolute top-4`}
             staggerFrom={"last"}
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
