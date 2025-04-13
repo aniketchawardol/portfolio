@@ -59,9 +59,7 @@ const DSATile = ({ title, value, category, icon, isDarkMode }) => {
     return (
       <>
         {(isLarge || isMedium) && (
-          <div className="hidden sm:block">
-            {renderIcon(isLarge ? 80 : 40)}
-          </div>
+          <div className="hidden sm:block">{renderIcon(isLarge ? 80 : 40)}</div>
         )}
         <div className="sm:hidden">
           {renderIcon(isLarge ? 50 : isMedium ? 30 : 24)}
