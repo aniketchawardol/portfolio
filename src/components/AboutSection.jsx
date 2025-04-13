@@ -34,7 +34,7 @@ const AboutSection = () => {
         <div
           className={`font-mono ${
             isDarkMode ? "dark:text-slate-200" : "text-slate-700"
-          } rounded-2xl text-2xl items-center`}
+          } rounded-2xl md:text-2xl items-center`}
         >
           <BlurRevealText
             text="Hello! I'm Aniket, a passionate Full-Stack Developer with hands-on experience in building scalable web applications using React, Node.js, MongoDB, and real-time technologies like Socket.IO. Along with this I have a strong foundation in Data Structures and Algorithms, with a problem-solving mindset and a focus on writing efficient, clean code."
