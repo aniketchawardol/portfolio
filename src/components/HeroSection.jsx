@@ -105,7 +105,7 @@ const HeroSection = () => {
         >
           ANIKET
         </motion.h1>
-        <div className="mb-[58px] absolute z-0 ml-[32%]">
+        <div className="mb-[58px] z-0">
           <p
             className={`font-exo hidden lg:inline ${
               isDarkMode() ? "dark:text-slate-200" : "text-slate-700"
