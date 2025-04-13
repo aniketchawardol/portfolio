@@ -107,6 +107,34 @@ body {
   }
 }
 
+/* Add fade-out animation */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.8s ease-out forwards;
+}
+
+/* Add fade-in animation for main content */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in forwards;
+}
+
 /* Snap section styling */
 .snap-section {
   min-height: 100vh;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Navigation from "./components/Navigation";
 import HeroSection from "./components/HeroSection";
@@ -9,36 +9,107 @@ import GitHubStats from "./components/GitHubStats";
 import ProjectsSection from "./components/ProjectsSection";
 import ContactSection from "./components/ContactSection";
 import { useScrollSnap } from "./utils/scrollSnap";
-import { ThemeProvider } from "./utils/ThemeProvider";
+import { ThemeProvider, useTheme } from "./utils/ThemeProvider";
+import Lottie from "react-lottie";
+import animationData from "./assets/Animations/loading/loading.json";
 
-function App() {
+function AppContent() {
+  // Add states for loading and animations
+  const [loading, setLoading] = useState(true);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+  const [contentVisible, setContentVisible] = useState(false);
+  const { theme } = useTheme();
+  const isDarkMode =
+    theme === "dark" ||
+    (theme === "system" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches);
+
   // Initialize scroll snap functionality
   useScrollSnap();
 
-  // Prevent default scroll behavior for keyboard navigation
+  // Set up loading effect
   useEffect(() => {
-    const preventDefaultScroll = (e) => {
-      if (
-        [
-          "ArrowDown",
-          "ArrowUp",
-          "Space",
-          "PageDown",
-          "PageUp",
-          "Home",
-          "End",
-        ].includes(e.code)
-      ) {
-        e.preventDefault();
-      }
-    };
+    // Simulate loading time or wait for resources
+    const timer = setTimeout(() => {
+      // Start fade-out animation
+      setIsFadingOut(true);
 
-    window.addEventListener("keydown", preventDefaultScroll);
-    return () => window.removeEventListener("keydown", preventDefaultScroll);
+      // Set loading to false AND make content visible after animation completes
+      const animationTimer = setTimeout(() => {
+        setContentVisible(true); // Set content visible first
+        requestAnimationFrame(() => {
+          setLoading(false); // Then remove loading screen on next frame
+        });
+      }, 200); // Slightly shorter than animation duration
+
+      return () => clearTimeout(animationTimer);
+    }, 2500); // Show loading animation for 2.5 seconds
+
+    return () => clearTimeout(timer);
   }, []);
 
+  // Get dynamic animation size based on viewport
+  const getAnimationSize = () => {
+    if (typeof window === "undefined") return { width: 400, height: 400 };
+
+    // These breakpoints align with Tailwind's defaults
+    if (window.innerWidth < 640) return { width: 280, height: 280 }; // Small screens
+    if (window.innerWidth < 1024) return { width: 350, height: 350 }; // Medium screens
+    return { width: 400, height: 400 }; // Large screens
+  };
+
+  const [animationSize, setAnimationSize] = useState(getAnimationSize());
+
+  // Update animation size on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setAnimationSize(getAnimationSize());
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+
+  // Lottie animation options
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
+  // Conditionally render loading animation or main content
+  if (loading) {
+    return (
+      <div
+        className={`fixed top-0 left-0 right-0 bottom-0 w-screen h-screen flex items-center justify-center overflow-hidden z-50 ${
+          isDarkMode
+            ? "bg-gradient-to-b dark:from-[#0f0a29] dark:via-[#191036] dark:to-[#1e0438] northern-lights"
+            : "bg-gradient-to-b from-[#cbb4f0] via-[#b6a6e3] to-[#a28cd1]"
+        } ${isFadingOut ? "fade-out" : ""}`}
+        style={{
+          minHeight: "100%",
+          minWidth: "100%",
+        }}
+      >
+        <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-full p-4">
+          <Lottie
+            options={defaultOptions}
+            height={animationSize.height}
+            width={animationSize.width}
+            isClickToPauseDisabled={true}
+            style={{ maxWidth: "100vw" }}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <ThemeProvider>
+    <div className={contentVisible ? "fade-in" : "opacity-0"}>
       <Navigation />
       <div id="home" className="snap-section">
         <HeroSection />
@@ -61,6 +132,14 @@ function App() {
       <div id="contact" className="snap-section">
         <ContactSection />
       </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
     </ThemeProvider>
   );
 }
