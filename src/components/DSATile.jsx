@@ -38,7 +38,7 @@ const DSATile = ({ title, value, category, icon, isDarkMode }) => {
       case "easySolved":
         return "#00b8a3"; // Green
       case "mediumSolved":
-        return "#ffc01e"; // Yellow
+        return "#b89e19"; // Yellow
       case "hardSolved":
         return "#ef4743"; // Red
       case "ranking":
