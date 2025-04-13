@@ -147,23 +147,23 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
 
   return (
     <div
-      className={`w-full h-screen flex items-center justify-center ${
+      className={`w-full min-h-screen flex items-center justify-center ${
         isDarkMode
           ? "bg-gradient-to-b dark:from-[#0a0621] dark:via-[#0c0825] dark:to-[#0f0a29]"
           : "bg-gradient-to-b from-[#a28cd1] via-[#b6a6e3] to-[#cbb4f0]"
-      } py-16 font-exo`}
+      } py-8 md:py-16 font-exo`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex w-full items-center justify-center mb-4">
+        <div className="flex flex-col items-center justify-center mb-6 md:mb-4">
           {githubData?.profile?.avatar_url && (
-            <div>
+            <div className="flex flex-col m-2 md:flex-row items-center">
               <img
                 src={githubData.profile.avatar_url}
                 alt={`${username}'s GitHub avatar`}
-                className="w-24 h-24 rounded-full border-4 border-slate-300 shadow-lg inline"
+                className="w-16 h-16 md:w-24 md:h-24 rounded-full border-4 border-slate-300 shadow-lg mb-3 md:mb-0 md:inline"
               />
               <h3
-                className={`inline text-xl font-bold font-mono m-2 mt-4 ${
+                className={`text-lg md:text-xl font-bold font-mono md:m-2 md:mt-4 ${
                   isDarkMode ? "dark:text-slate-200" : ""
                 }`}
               >
@@ -173,9 +173,9 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
           )}
 
           <h2
-            className={`text-4xl font-halfomania ${
+            className={`text-3xl md:text-4xl font-halfomania ${
               isDarkMode ? "dark:text-slate-200" : "text-slate-700"
-            }`}
+            } mt-2 md:mt-0`}
           >
             GitHub Activity
           </h2>
@@ -183,13 +183,13 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
         <p
           className={`text-center ${
             isDarkMode ? "dark:text-slate-300" : "text-slate-600"
-          } font-mono`}
+          } font-mono mb-6 md:mb-8`}
         >
           My open-source contributions and project portfolio
         </p>
 
         <SpotlightCard
-          className={`p-8 rounded-xl mx-auto ${
+          className={`p-4 md:p-8 rounded-xl mx-auto ${
             isDarkMode
               ? "dark:bg-[#2e1065]/10 dark:border-[#4c1d95]/10"
               : "bg-white/10 border-white/10"
@@ -198,7 +198,7 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
             isDarkMode ? "rgba(168, 85, 247, 0.45)" : "rgba(124, 58, 237, 0.35)"
           }
         >
-          <div className="grid grid-cols-6 auto-rows-auto gap-3 grid-auto-flow-dense">
+          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-6 auto-rows-auto gap-3 grid-auto-flow-dense">
             {gitHubStats.map((stat, index) => (
               <GitHubStatsTile
                 key={index}
@@ -211,14 +211,14 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
           </div>
         </SpotlightCard>
 
-        <div className="text-center mt-8">
+        <div className="text-center mt-6 md:mt-8">
           <a
             href={
               githubData?.profile?.html_url || `https://github.com/${username}`
             }
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex-grow text-center ${
+            className={`inline-block ${
               isDarkMode
                 ? "bg-[#5c4a99] hover:bg-[#473677]"
                 : "bg-[#7263b3] hover:bg-[#5e4b9c]"
