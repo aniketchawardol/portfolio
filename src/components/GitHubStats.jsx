@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GitHubStatsTile from "./GitHubStatsTile";
+import GitHubHeatmap from "./GitHubHeatmap";
 import { useTheme } from "../utils/ThemeProvider";
 import SpotlightCard from "../assets/Components/SpotlightCard/SpotlightCard";
 
@@ -17,14 +18,67 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
   useEffect(() => {
     const fetchGitHubData = async () => {
       try {
+        // Get token from environment variables
+        const token = import.meta.env.VITE_APP_GITHUB_TOKEN;
+        
+        // Configure headers with GitHub token for authentication
+        const headers = {
+          Authorization: `token ${token}`,
+        };
+
+        // REST API calls
         const userResponse = await axios.get(
-          `https://api.github.com/users/${username}`
+          `https://api.github.com/users/${username}`,
+          { headers }
         );
-
+        
         const reposResponse = await axios.get(
-          `https://api.github.com/users/${username}/repos?per_page=100`
+          `https://api.github.com/users/${username}/repos?per_page=100`,
+          { headers }
         );
 
+        // GraphQL query to fetch contribution data
+        const graphqlQuery = {
+          query: `
+          {
+            user(login: "${username}") {
+              contributionsCollection {
+                contributionCalendar {
+                  totalContributions
+                  weeks {
+                    contributionDays {
+                      date
+                      contributionCount
+                      color
+                    }
+                  }
+                }
+              }
+            }
+          }`,
+        };
+
+        const contributionsResponse = await axios.post(
+          "https://api.github.com/graphql",
+          graphqlQuery,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        // Process contributions data
+        const contributionCalendar = 
+          contributionsResponse.data?.data?.user?.contributionsCollection?.contributionCalendar;
+        
+        const totalContributions = contributionCalendar?.totalContributions || 0;
+        
+        const contributionDays = contributionCalendar?.weeks
+          ?.flatMap((week) => week.contributionDays) || [];
+
+        // Process languages data
         const languages = {};
         reposResponse.data.forEach((repo) => {
           if (repo.language) {
@@ -60,25 +114,27 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
           repositories: reposResponse.data,
           languages: languagesArray,
           topRepositories,
+          contributionData: {
+            totalContributions,
+            contributionDays
+          },
           stats: {
             totalRepos: userResponse.data.public_repos,
-            followers: userResponse.data.followers,
-            following: userResponse.data.following,
-            totalStars: reposResponse.data.reduce(
-              (acc, repo) => acc + repo.stargazers_count,
-              0
-            ),
             totalForks: reposResponse.data.reduce(
               (acc, repo) => acc + repo.forks_count,
               0
             ),
-            totalContributions: Math.floor(Math.random() * 1500) + 500,
+            totalContributions
           },
         });
         setLoading(false);
       } catch (err) {
         console.error("GitHub API Error:", err);
-        setError("Failed to load GitHub data");
+        if (err.response && err.response.status === 401) {
+          setError("Authentication failed. Please check your GitHub token.");
+        } else {
+          setError("Failed to load GitHub data");
+        }
         setLoading(false);
       }
     };
@@ -93,10 +149,19 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
   const prepareGitHubStats = () => {
     if (!githubData) return [];
 
-    const { stats, languages, topRepositories, repositories, profile } =
-      githubData;
+    const { stats, languages, repositories } = githubData;
 
     return [
+      {
+        title: "All Repositories",
+        value: repositories,
+        category: "allRepos",
+      },
+      {
+        title: "Top Languages",
+        value: languages,
+        category: "languages",
+      },
       {
         title: "Total Repositories",
         value: stats.totalRepos,
@@ -111,17 +176,7 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
         title: "Total Contributions",
         value: stats.totalContributions,
         category: "totalContributions",
-      },
-      {
-        title: "All Repositories",
-        value: repositories,
-        category: "allRepos",
-      },
-      {
-        title: "Top Languages",
-        value: languages,
-        category: "languages",
-      },
+      }
     ];
   };
 
@@ -210,6 +265,27 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
             ))}
           </div>
         </SpotlightCard>
+        
+        {/* GitHub Heatmap */}
+        <div className="mt-8 md:mt-12">
+          <SpotlightCard
+            className={`p-4 md:p-8 rounded-xl mx-auto ${
+              isDarkMode
+                ? "dark:bg-[#2e1065]/10 dark:border-[#4c1d95]/10"
+                : "bg-white/10 border-white/10"
+            } border`}
+            spotlightColor={
+              isDarkMode ? "rgba(168, 85, 247, 0.45)" : "rgba(124, 58, 237, 0.35)"
+            }
+          >
+            {githubData?.contributionData?.contributionDays && (
+              <GitHubHeatmap 
+                contributionDays={githubData.contributionData.contributionDays} 
+                isDarkMode={isDarkMode} 
+              />
+            )}
+          </SpotlightCard>
+        </div>
 
         <div className="text-center mt-6 md:mt-8">
           <a

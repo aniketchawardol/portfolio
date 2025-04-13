@@ -91,6 +91,23 @@ const ContactSection = () => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    // Submit form when Enter is pressed without Shift key
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault(); // Prevent newline insertion
+
+      // Check if all required fields are filled
+      if (
+        formData.name &&
+        formData.email &&
+        formData.subject &&
+        formData.message
+      ) {
+        handleSubmit(e);
+      }
+    }
+  };
+
   const socialLinks = [
     {
       name: "GitHub",
@@ -256,6 +273,7 @@ const ContactSection = () => {
                       onChange={handleChange}
                       required
                       rows={5}
+                      onKeyDown={handleKeyDown}
                       className={`w-full px-4 py-2 ${
                         isDarkMode
                           ? "dark:bg-[#1e1b4b]/50 dark:border-[#4c1d95]/30 dark:text-slate-200 focus:ring-purple-500"
@@ -278,6 +296,12 @@ const ContactSection = () => {
                         ? "Sending..."
                         : "Send Message"}
                     </button>
+                    <p className="text-xs text-center mt-2 text-slate-400 font-mono">
+                      You can also Press{" "}
+                      <span className="font-bold">Enter</span> to send,{" "}
+                      <span className="font-bold">use Shift+Enter</span> for new
+                      line
+                    </p>
                   </div>
                 </form>
               </div>

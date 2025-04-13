@@ -120,7 +120,7 @@ const HeroSection = () => {
               "DSA Enthusiast",
               "UI/UX Designer",
             ]}
-            mainClassName={`${ 
+            mainClassName={`${
               isDarkMode() ? "dark:text-purple-300" : "text-purple-500"
             } overflow-hidden  font-halfomania absolute top-[120px] lg:top-4`}
             staggerFrom={"last"}
@@ -137,11 +137,23 @@ const HeroSection = () => {
       <div className="lg:hidden h-30"></div>
       <a
         href="https://drive.google.com/file/d/1l9gNabeeMXGSswVi7uhsfyErmp6dVipR/view?usp=sharing"
-        className={`ml-[40%] font-exo text-xl ${
-          isDarkMode() ? "dark:text-slate-200" : "text-slate-700"
-        } hover:text-white p-3 w-fit rounded-full hover:bg-[#7263b3] dark:hover:bg-[#4c1d95] transition-all duration-150 ease-in-out relative z-10`}
+        className={`ml-[40%] font-exo text-xl relative z-10 inline-block px-6 py-3 rounded-full 
+        ${
+          isDarkMode()
+            ? "bg-gradient-to-r from-indigo-900 to-purple-900 text-white border border-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.5)]"
+            : "bg-gradient-to-r from-violet-400 to-fuchsia-500 text-white shadow-md"
+        } 
+        overflow-hidden transform hover:scale-105 transition-all duration-300 ease-out`}
       >
-        My Resume
+        <span className="relative z-10">My Resume</span>
+        <span
+          className={`absolute inset-0 ${
+            isDarkMode()
+              ? "bg-gradient-to-r from-purple-600/20 to-indigo-800/20"
+              : "bg-gradient-to-r from-pink-500/20 to-violet-500/20"
+          }`}
+        ></span>
+        <span className="absolute inset-0 animate-shimmer bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.5),transparent)] bg-[length:200%_100%]"></span>
       </a>
 
       {/* Always render Spline in light mode, never in dark mode */}

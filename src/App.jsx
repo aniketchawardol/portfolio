@@ -109,7 +109,7 @@ function AppContent() {
   }
 
   return (
-    <div className={contentVisible ? "fade-in" : "opacity-0"}>
+    <div className={`${contentVisible ? "fade-in" : "opacity-0"}`}>
       <Navigation />
       <div id="home" className="snap-section">
         <HeroSection />

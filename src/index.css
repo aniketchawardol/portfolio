@@ -135,6 +135,20 @@ body {
   animation: fadeIn 1s ease-in forwards;
 }
 
+/* Resume button shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 10s infinite;
+}
+
 /* Snap section styling */
 .snap-section {
   min-height: 100vh;
