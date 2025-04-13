@@ -3,9 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link href="/src/styles.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hey There! I'm</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <!-- Preload critical fonts to prevent layout shifts -->
+    <link
+      rel="preload"
+      href="/src/assets/fonts/MoonWalk.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/src/assets/fonts/Halfomania.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/src/assets/fonts/Exo2-Regular.otf"
+      as="font"
+      type="font/otf"
+      crossorigin
+    />
+    <!-- Ensure dark mode doesn't cause flash of unstyled content -->
+    <script>
+      // Immediately set dark mode based on user preference to avoid FOUC
+      (function () {
+        const theme = localStorage.getItem("theme");
+        if (
+          theme === "dark" ||
+          (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      })();
+    </script>
+    <title>Aniket's Portfolio</title>
   </head>
   <body>
     <div id="root"></div>

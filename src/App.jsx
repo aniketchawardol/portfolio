@@ -13,6 +13,19 @@ import { ThemeProvider, useTheme } from "./utils/ThemeProvider";
 import Lottie from "react-lottie";
 import animationData from "./assets/Animations/loading/loading.json";
 
+// Ensure critical styles are included and not purged
+const CriticalStylesPreserver = () => {
+  return (
+    <div style={{ display: "none" }} aria-hidden="true">
+      {/* These elements are not displayed, but ensure critical styles are preserved */}
+      <div className="dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md"></div>
+      <div className="bg-white/20 border-white/20 text-slate-600"></div>
+      <div className="dark:from-[#0f0a29] dark:via-[#191036] dark:to-[#1e0438]"></div>
+      <div className="from-[#cbb4f0] via-[#b6a6e3] to-[#a28cd1]"></div>
+    </div>
+  );
+};
+
 function AppContent() {
   // Add states for loading and animations
   const [loading, setLoading] = useState(true);
@@ -70,7 +83,6 @@ function AppContent() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
   // Lottie animation options
   const defaultOptions = {
     loop: true,
@@ -110,6 +122,7 @@ function AppContent() {
 
   return (
     <div className={`${contentVisible ? "fade-in" : "opacity-0"}`}>
+      <CriticalStylesPreserver />
       <Navigation />
       <div id="home" className="snap-section">
         <HeroSection />
