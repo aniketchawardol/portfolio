@@ -32,10 +32,7 @@ function AppContent() {
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
   const { theme } = useTheme();
-  const isDarkMode =
-    theme === "dark" ||
-    (theme === "system" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches);
+
 
   // Initialize scroll snap functionality
   useScrollSnap();
@@ -97,11 +94,9 @@ function AppContent() {
   if (loading) {
     return (
       <div
-        className={`fixed top-0 left-0 right-0 bottom-0 w-screen h-screen flex items-center justify-center overflow-hidden z-50 ${
-          isDarkMode
-            ? "bg-gradient-to-b dark:from-[#0f0a29] dark:via-[#191036] dark:to-[#1e0438] northern-lights"
-            : "bg-gradient-to-b from-[#cbb4f0] via-[#b6a6e3] to-[#a28cd1]"
-        } ${isFadingOut ? "fade-out" : ""}`}
+        className={`fixed top-0 left-0 right-0 bottom-0 w-screen h-screen flex items-center justify-center overflow-hidden z-50 
+        bg-gradient-to-b from-[#cbb4f0] via-[#b6a6e3] to-[#a28cd1] dark:from-[#0f0a29] dark:via-[#191036] dark:to-[#1e0438] dark:northern-lights 
+        ${isFadingOut ? "fade-out" : ""}`}
         style={{
           minHeight: "100%",
           minWidth: "100%",

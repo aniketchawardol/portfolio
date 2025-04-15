@@ -1,5 +1,4 @@
 import React from "react";
-import { useIsDarkMode } from "../../hooks/useIsDarkMode";
 import PropTypes from "prop-types";
 
 /**
@@ -13,16 +12,11 @@ const SectionContainer = ({
   gradientDark = "dark:from-[#0f0a29] dark:via-[#191036] dark:to-[#1e0438]",
   heightClass = "min-h-screen",
 }) => {
-  const isDarkMode = useIsDarkMode();
-
   return (
     <div
       id={id}
-      className={`w-full ${heightClass} flex items-center justify-center ${
-        isDarkMode
-          ? `bg-gradient-to-b ${gradientDark}`
-          : `bg-gradient-to-b ${gradientLight}`
-      } py-16 relative ${className}`}
+      className={`w-full ${heightClass} flex items-center justify-center 
+      bg-gradient-to-b ${gradientLight} ${gradientDark} py-16 relative ${className}`}
     >
       <div className="container mx-auto px-4 relative z-10">{children}</div>
     </div>

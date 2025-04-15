@@ -2,24 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import RotatingText from "../assets/TextAnimations/RotatingText/RotatingText";
 import Spline from "@splinetool/react-spline";
-import { useTheme } from "../utils/ThemeProvider";
+import { useIsDarkMode } from "../hooks/useIsDarkMode";
 
 const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const sectionRef = useRef(null);
-  const { theme } = useTheme();
-
-  // Check if we're in dark mode
-  const isDarkMode = () => {
-    if (theme === "dark") return true;
-    if (
-      theme === "system" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    )
-      return true;
-    return false;
-  };
+  const isDarkMode = useIsDarkMode();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -72,25 +61,16 @@ const HeroSection = () => {
   return (
     <div
       ref={sectionRef}
-      className={`bg-gray-100 dark:bg-slate-900 ${
-        !isDarkMode()
-          ? "bg-gradient-to-b from-[#cbb4f0] via-[#b6a6e3] to-[#6c5ca7]"
-          : "bg-gradient-to-b dark:from-[#0f0a29] dark:via-[#191036] dark:to-[#1e0438]"
-      } relative h-screen pt-[80px] ${isDarkMode() ? "northern-lights" : ""}`}
+      className="bg-gray-100 dark:bg-slate-900 
+      bg-gradient-to-b dark:from-[#0f0a29] dark:via-[#191036] dark:to-[#1e0438] northern-lights
+          from-[#cbb4f0] via-[#b6a6e3] to-[#6c5ca7]
+    relative h-screen pt-[80px]"
     >
-      <div
-        className={`absolute mt-[20%] md:mt-[10%] ml-[20%] lg:ml-[40%] h-[300px] w-[300px] rounded-full z-10 ${
-          isDarkMode()
-            ? "bg-gradient-to-bl dark:from-purple-900 z-10 dark:shadow-[0_0_100px_40px_#4c1d95]"
-            : "bg-gradient-to-bl from-purple-400 z-10 shadow-[0_0_100px_40px_#c6a4f2]"
-        }`}
-      ></div>
+      <div className="absolute mt-[20%] md:mt-[10%] ml-[20%] lg:ml-[40%] h-[300px] w-[300px] rounded-full z-10 bg-gradient-to-bl from-purple-400 dark:from-purple-900 z-10 shadow-[0_0_100px_40px_#c6a4f2] dark:shadow-[0_0_100px_40px_#4c1d95]"></div>
 
       <div className="relative md:w-full z-10 lg:ml-[20%] mt-[40%] md:mt-[20%] lg:mt-[13%] flex lg:items-end">
         <motion.h1
-          className={`text-[100px] lg:text-[150px] font-moonwalk ${
-            isDarkMode() ? "dark:text-slate-200" : "text-slate-700"
-          }`}
+          className="text-[100px] lg:text-[150px] font-moonwalk text-slate-700 dark:text-slate-200"
           initial="hidden"
           animate={isLoaded ? "visible" : "hidden"}
           variants={headingVariants}
@@ -106,11 +86,7 @@ const HeroSection = () => {
           ANIKET
         </motion.h1>
         <div className="absolute md:relative mb-[58px] ml-[20%] md:ml-0 z-0">
-          <p
-            className={`font-exo hidden lg:inline ${
-              isDarkMode() ? "dark:text-slate-200" : "text-slate-700"
-            } text-3xl ml-4`}
-          >
+          <p className="font-exo hidden lg:inline text-slate-700 dark:text-slate-200 text-3xl ml-4">
             and I'm a
           </p>
           <RotatingText
@@ -120,9 +96,9 @@ const HeroSection = () => {
               "DSA Enthusiast",
               "UI/UX Designer",
             ]}
-            mainClassName={`${
-              isDarkMode() ? "dark:text-purple-300" : "text-purple-500"
-            } overflow-hidden  font-halfomania absolute top-[120px] lg:top-4`}
+            mainClassName="
+            dark:text-purple-300 text-purple-500
+           overflow-hidden  font-halfomania absolute top-[120px] lg:top-4"
             staggerFrom={"last"}
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
@@ -138,25 +114,15 @@ const HeroSection = () => {
       <a
         href="https://drive.google.com/file/d/1l9gNabeeMXGSswVi7uhsfyErmp6dVipR/view?usp=sharing"
         className={`ml-[40%] font-exo text-xl relative z-10 inline-block px-6 py-3 rounded-full 
-        ${
-          isDarkMode()
-            ? "bg-gradient-to-r from-indigo-900 to-purple-900 text-white border border-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.5)]"
-            : "bg-gradient-to-r from-violet-400 to-fuchsia-500 text-white shadow-md"
-        } 
+        bg-gradient-to-r from-violet-400 to-fuchsia-500 text-white shadow-md dark:from-indigo-900 dark:to-purple-900 dark:border dark:border-purple-500 dark:shadow-[0_0_15px_rgba(168,85,247,0.5)]
         overflow-hidden transform hover:scale-105 transition-all duration-300 ease-out`}
       >
         <span className="relative z-10">My Resume</span>
-        <span
-          className={`absolute inset-0 ${
-            isDarkMode()
-              ? "bg-gradient-to-r from-purple-600/20 to-indigo-800/20"
-              : "bg-gradient-to-r from-pink-500/20 to-violet-500/20"
-          }`}
-        ></span>
+        <span className="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-violet-500/20 dark:from-purple-600/20 dark:to-indigo-800/20"></span>
         <span className="absolute inset-0 animate-shimmer bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.5),transparent)] bg-[length:200%_100%]"></span>
       </a>
 
-      {!isDarkMode() && (
+      {!isDarkMode && (
         <Spline
           className="absolute bottom-0 right-0 w-full h-full z-0 pointer-events-none"
           scene="https://prod.spline.design/TA6v0WtbHxdYhxoR/scene.splinecode"

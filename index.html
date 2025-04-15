@@ -30,15 +30,10 @@
       type="font/otf"
       crossorigin
     />
-    <!-- Ensure dark mode doesn't cause flash of unstyled content -->
     <script>
-      // Immediately set dark mode based on user preference to avoid FOUC
+      // Immediately set dark mode based on system preference to avoid FOUC
       (function () {
-        const theme = localStorage.getItem("theme");
-        if (
-          theme === "dark" ||
-          (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ) {
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
           document.documentElement.classList.add("dark");
         } else {
           document.documentElement.classList.remove("dark");

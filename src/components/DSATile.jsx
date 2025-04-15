@@ -10,9 +10,9 @@ import {
 } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 
-const DSATile = ({ title, value, category, icon, isDarkMode }) => {
+const DSATile = ({ title, value, category, icon }) => {
   // Determine tile size based on stat category
-  const isLarge = ["totalSolved", "ranking", "submissionCalendar"].includes(
+  const isLarge = ["totalSolved", "ranking"].includes(
     category
   );
   const isMedium = [
@@ -91,24 +91,22 @@ const DSATile = ({ title, value, category, icon, isDarkMode }) => {
 
   return (
     <div
-      className={`${gridSpan} ${
-        isDarkMode
-          ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md"
-          : "bg-white/20 shadow-lg"
-      } rounded-md p-2 sm:p-4 flex h-full transition-all hover:shadow-lg cursor-pointer`}
+      className={`${gridSpan}
+  dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md
+   bg-white/20 shadow-lg
+    rounded-md p-2 sm:p-4 flex h-full transition-all hover:shadow-lg cursor-pointer`}
     >
       <div className="flex items-center">
         <div className="flex-shrink-0 mr-2 sm:mr-3">{icon || getIcon()}</div>
         <div>
           <span
-            className={`${
-              isDarkMode ? "dark:text-slate-200" : "text-slate-700"
-            } font-medium text-sm sm:text-${isLarge ? "xl" : "lg"} block`}
+            className={`dark:text-slate-200 text-slate-700
+             font-medium text-sm sm:text-${ isLarge ? "xl" : "sm" } block`}
           >
             {title}
           </span>
           <span
-            className={`text-sm sm:text-${isLarge ? "2xl" : "lg"} font-bold`}
+            className={`text-sm sm:text-${isLarge ? "xl" : "lg"} font-bold`}
             style={{ color: getIconColor() }}
           >
             {value}

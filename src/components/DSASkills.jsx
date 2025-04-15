@@ -100,14 +100,11 @@ const DSASkills = () => {
   if (loading) {
     return (
       <div
-        className={`w-full flex items-center justify-center py-16 ${
-          isDarkMode ? "dark:bg-slate-900" : ""
-        }`}
+        className="w-full flex items-center justify-center py-16 dark:bg-slate-900"
       >
         <div
-          className={`text-2xl ${
-            isDarkMode ? "dark:text-slate-300" : "text-slate-600"
-          } font-mono`}
+          className="text-2xl dark:text-slate-300 text-slate-600
+          font-mono"
         >
           Loading LeetCode stats...
         </div>
@@ -119,35 +116,29 @@ const DSASkills = () => {
 
   return (
     <div
-      className={`w-full min-h-screen flex items-center justify-center ${
-        isDarkMode
-          ? "bg-gradient-to-b dark:from-[#150d37] dark:via-[#100a2c] dark:to-[#0a0621]"
-          : "bg-gradient-to-b from-[#cbb4f0] via-[#b6a6e3] to-[#a28cd1]"
-      } py-16 font-exo`}
+      className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b dark:from-[#150d37] dark:via-[#100a2c] dark:to-[#0a0621]
+         from-[#cbb4f0] via-[#b6a6e3] to-[#a28cd1]
+     py-16 font-exo"
     >
       <div className="container mx-auto px-4">
         <h2
-          className={`text-4xl font-halfomania ${
-            isDarkMode ? "dark:text-slate-200" : "text-slate-700"
-          } text-center mb-6`}
+          className="text-4xl font-halfomania dark:text-slate-200 text-slate-700
+           text-center mb-6"
         >
           DSA Proficiency
         </h2>
         <p
-          className={`text-center ${
-            isDarkMode ? "dark:text-slate-300" : "text-slate-600"
-          } mb-16 font-mono`}
+          className="text-center dark:text-slate-300 text-slate-600
+        mb-16 font-mono"
         >
           My LeetCode problem-solving journey and statistics
         </p>
 
         <div className="mx-auto">
           <SpotlightCard
-            className={`rounded-xl ${
-              isDarkMode
-                ? "dark:bg-[#2e1065]/10 dark:border-[#4c1d95]/10"
-                : "bg-white/10 border-white/10"
-            } border p-6`}
+            className="rounded-xl 
+              dark:bg-[#2e1065]/10 dark:border-[#4c1d95]/10 bg-white/10 border-white/10
+      border p-6"
             spotlightColor={
               isDarkMode
                 ? "rgba(168, 85, 247, 0.45)"
@@ -175,11 +166,10 @@ const DSASkills = () => {
             }`}
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex-grow text-center ${
-              isDarkMode
-                ? "bg-[#5c4a99] hover:bg-[#473677]"
-                : "bg-[#7263b3] hover:bg-[#5e4b9c]"
-            } text-white py-2 px-4 rounded-md transition-colors`}
+            className="flex-grow text-center 
+             dark:bg-[#5c4a99] dark:hover:bg-[#473677]
+                bg-[#7263b3] hover:bg-[#5e4b9c]
+           text-white py-2 px-4 rounded-md transition-colors"
           >
             View Full Profile
           </a>

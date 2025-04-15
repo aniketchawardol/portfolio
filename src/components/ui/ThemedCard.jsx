@@ -1,5 +1,4 @@
 import React from "react";
-import { useIsDarkMode } from "../../hooks/useIsDarkMode";
 import SpotlightCard from "../../assets/Components/SpotlightCard/SpotlightCard";
 import PropTypes from "prop-types";
 
@@ -13,13 +12,8 @@ const ThemedCard = ({
   withSpotlight = true,
   ...props
 }) => {
-  const isDarkMode = useIsDarkMode();
 
-  const baseClasses = `${
-    isDarkMode
-      ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30"
-      : "bg-white/20 border border-white/20"
-  } shadow-lg rounded-md  backdrop-blur-md ${padding} ${className}`;
+  const baseClasses = `bg-white/20 border border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 shadow-lg rounded-md backdrop-blur-md ${padding} ${className}`;
 
   if (!withSpotlight) {
     return (
@@ -32,7 +26,7 @@ const ThemedCard = ({
   return (
     <SpotlightCard
       className={baseClasses}
-      spotlightColor={isDarkMode ? "#4c1d95" : "#9b7dcf"}
+      spotlightColor="var(--spotlight-color)"
       {...props}
     >
       {children}

@@ -1,35 +1,19 @@
-import { useTheme } from "../utils/ThemeProvider";
-import { useEffect, useState } from "react";
-
-/**
- * Custom hook that returns whether the current theme is dark mode
- * @returns {boolean} - True if dark mode is active
- */
+import { useState, useEffect } from "react";
 export function useIsDarkMode() {
-  const { theme } = useTheme();
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [systemPrefersDark, setSystemPrefersDark] = useState(
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  );
 
   useEffect(() => {
-    // Initial check
-    const checkDarkMode = () => {
-      return (
-        theme === "dark" ||
-        (theme === "system" &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches)
-      );
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const handleChange = () => {
+      setSystemPrefersDark(mediaQuery.matches);
     };
 
-    setIsDarkMode(checkDarkMode());
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
-    // Set up listener for system preference changes if using system theme
-    if (theme === "system") {
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      const handleChange = () => setIsDarkMode(checkDarkMode());
-
-      mediaQuery.addEventListener("change", handleChange);
-      return () => mediaQuery.removeEventListener("change", handleChange);
-    }
-  }, [theme]);
-
-  return isDarkMode;
+  return systemPrefersDark;
 }

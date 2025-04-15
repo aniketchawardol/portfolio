@@ -1,7 +1,6 @@
 import React from "react";
 import ThemedCard from "./ui/ThemedCard";
 import PropTypes from "prop-types";
-import { useIsDarkMode } from "../hooks/useIsDarkMode";
 
 const ProjectTile = ({
   title,
@@ -11,7 +10,6 @@ const ProjectTile = ({
   projectUrl,
   livelink,
 }) => {
-  const isDarkMode = useIsDarkMode();
 
   return (
     <ThemedCard className="flex flex-col h-full">
@@ -25,19 +23,11 @@ const ProjectTile = ({
         </div>
       )}
 
-      <h3
-        className={`text-xl font-exo ${
-          isDarkMode ? "dark:text-slate-200" : "text-slate-700"
-        } mb-2 z-10`}
-      >
+      <h3 className="text-xl font-exo text-slate-700 dark:text-slate-200 mb-2 z-10">
         {title}
       </h3>
 
-      <p
-        className={`${
-          isDarkMode ? "dark:text-slate-300" : "text-slate-600"
-        } font-mono mb-4 flex-grow z-10`}
-      >
+      <p className="text-slate-600 dark:text-slate-300 font-mono mb-4 flex-grow z-10">
         {description}
       </p>
 
@@ -47,11 +37,7 @@ const ProjectTile = ({
             {technologies.map((tech, index) => (
               <span
                 key={index}
-                className={`text-xs ${
-                  isDarkMode
-                    ? "dark:bg-[#3b0764]/50 dark:text-slate-300"
-                    : "bg-white/30 text-slate-700"
-                } px-2 py-1 rounded-full`}
+                className="text-xs bg-white/30 text-slate-700 dark:bg-[#3b0764]/50 dark:text-slate-300 px-2 py-1 rounded-full"
               >
                 {tech}
               </span>

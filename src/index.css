@@ -53,10 +53,30 @@ body {
 /* Dark mode settings */
 :root {
   color-scheme: light;
+  --metaball-color: #d4bdf4;
+  --spotlight-color: #9b7dcf;
+
+  /* GitHub heatmap light mode colors */
+  --heatmap-empty: #ebedf0;
+  --heatmap-level-1: #9be9a8;
+  --heatmap-level-2: #40c463;
+  --heatmap-level-3: #30a14e;
+  --heatmap-level-4: #216e39;
+  --heatmap-level-5: #0a4620;
 }
 
 :root.dark {
   color-scheme: dark;
+  --metaball-color: #4c1d95;
+  --spotlight-color: #4c1d95;
+
+  /* GitHub heatmap dark mode colors */
+  --heatmap-empty: #161b22;
+  --heatmap-level-1: #0e4429;
+  --heatmap-level-2: #006d32;
+  --heatmap-level-3: #26a641;
+  --heatmap-level-4: #39d353;
+  --heatmap-level-5: #4afa7b;
 }
 
 /* Northern lights animation for dark mode */

@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ThemeToggle from "./ThemeToggle";
-import { useTheme } from "../utils/ThemeProvider";
 import NavigationButton from "./NavigationButton";
 import { NAV_ITEMS } from "../constants/navigation";
 import { FaBars, FaTimes } from "react-icons/fa";
@@ -8,11 +6,6 @@ import { FaBars, FaTimes } from "react-icons/fa";
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { theme } = useTheme();
-  const isDarkMode =
-    theme === "dark" ||
-    (theme === "system" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches);
 
   useEffect(() => {
     // Function to determine which section is currently in view
@@ -59,11 +52,7 @@ const Navigation = () => {
   };
 
   const getContainerClasses = () => {
-    return `backdrop-blur-md flex font-mono text-md justify-evenly mt-[30px] ${
-      isDarkMode
-        ? "dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md dark:text-slate-300"
-        : "bg-white/20 border-white/20 text-slate-600"
-    } border shadow-lg p-2 rounded-2xl`;
+    return `mx-auto my-4 flex justify-evenly items-center bg-white/20 border-white/20 text-slate-600 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 dark:text-slate-300 backdrop-blur-md border shadow-lg p-2 rounded-2xl`;
   };
 
   return (
@@ -78,14 +67,9 @@ const Navigation = () => {
             label={item.label}
             id={item.id}
             isActive={activeSection === item.id}
-            isDarkMode={isDarkMode}
             onClick={scrollToSection}
           />
         ))}
-
-        <div className="mx-3">
-          <ThemeToggle />
-        </div>
       </div>
 
       {/* Mobile Navigation */}
@@ -93,16 +77,11 @@ const Navigation = () => {
         className={`md:hidden flex ${getContainerClasses()} justify-between`}
       >
         <div className="flex items-center">
-          <div className="mr-2">
-            <ThemeToggle />
-          </div>
-
           {/* Hamburger Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`p-2 rounded-lg ${
-              isDarkMode ? "dark:text-slate-200" : "text-slate-700"
-            }`}
+            className="p-2 rounded-lg 
+              dark:text-slate-200 text-slate-700"
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <FaTimes /> : <FaBars />}
@@ -112,13 +91,11 @@ const Navigation = () => {
 
       {/* Mobile Menu Dropdown */}
       <div
-        className={`md:hidden fixed top-[100px] left-0 right-0 mx-4 p-4 rounded-lg shadow-lg backdrop-blur-md transition-all ease-in-out duration-300 ${
-          isDarkMode
-            ? "dark:bg-[#2e1065]/20 dark:border-[#4c1d95]/30 backdrop-blur-md dark:text-slate-300"
-            : "bg-white/20 border-white/20 text-slate-600"
-        } border grid grid-cols-2 gap-3 z-50 w-[80%] mx-auto ${
-          mobileMenuOpen 
-            ? "opacity-100 pointer-events-auto" 
+        className={`md:hidden fixed top-[100px] left-0 right-0 mx-4 p-4 rounded-lg shadow-lg backdrop-blur-md transition-all ease-in-out duration-300 
+        bg-white/20 border-white/20 text-slate-600 dark:bg-[#2e1065]/20 dark:border-[#4c1d95]/30 dark:text-slate-300
+        border grid grid-cols-2 gap-3 z-50 w-[80%] mx-auto ${
+          mobileMenuOpen
+            ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
         }`}
       >
@@ -128,13 +105,9 @@ const Navigation = () => {
             onClick={() => scrollToSection(item.id)}
             className={`p-2 text-center rounded-md ${
               activeSection === item.id
-                ? isDarkMode
-                  ? "bg-[#4c1d95]/50 dark:text-purple-300"
-                  : "bg-purple-100 text-purple-600"
+                ? "bg-[#4c1d95]/50 dark:text-purple-300 text-purple-600"
                 : ""
-            } hover:bg-opacity-20 ${
-              isDarkMode ? "hover:bg-purple-800" : "hover:bg-purple-100"
-            }`}
+            } hover:bg-opacity-20 hover:bg-purple-100 dark:hover:bg-purple-800`}
           >
             {item.label}
           </button>
