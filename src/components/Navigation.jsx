@@ -73,15 +73,11 @@ const Navigation = () => {
       </div>
 
       {/* Mobile Navigation */}
-      <div
-        className={`md:hidden flex ${getContainerClasses()} justify-between`}
-      >
-        <div className="flex items-center">
-          {/* Hamburger Menu Button */}
+      <div className="md:hidden w-full flex justify-end my-4">
+        <div className="flex items-center bg-white/20 border-white/20 text-slate-600 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 dark:text-slate-300 backdrop-blur-md border shadow-lg p-2 rounded-2xl">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg 
-              dark:text-slate-200 text-slate-700"
+            className="p-2 rounded-lg dark:text-slate-200 text-slate-700"
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <FaTimes /> : <FaBars />}
@@ -91,7 +87,7 @@ const Navigation = () => {
 
       {/* Mobile Menu Dropdown */}
       <div
-        className={`md:hidden fixed top-[100px] left-0 right-0 mx-4 p-4 rounded-lg shadow-lg backdrop-blur-md transition-all ease-in-out duration-300 
+        className={`md:hidden fixed top-[100px] left-0 right-0 p-4 rounded-lg shadow-lg backdrop-blur-md transition-all ease-in-out duration-300 
         bg-white/20 border-white/20 text-slate-600 dark:bg-[#2e1065]/20 dark:border-[#4c1d95]/30 dark:text-slate-300
         border grid grid-cols-2 gap-3 z-50 w-[80%] mx-auto ${
           mobileMenuOpen

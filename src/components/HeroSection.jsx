@@ -66,7 +66,7 @@ const HeroSection = () => {
           from-[#cbb4f0] via-[#b6a6e3] to-[#6c5ca7]
     relative h-screen pt-[80px]"
     >
-      <div className="absolute mt-[20%] md:mt-[10%] ml-[20%] lg:ml-[40%] h-[300px] w-[300px] rounded-full z-10 bg-gradient-to-bl from-purple-400 dark:from-purple-900 z-10 shadow-[0_0_100px_40px_#c6a4f2] dark:shadow-[0_0_100px_40px_#4c1d95]"></div>
+      <div className="absolute mt-[20%] md:mt-[10%] ml-[20%] lg:ml-[40%] h-[300px] w-[300px] rounded-full z-10 bg-gradient-to-bl from-purple-400 dark:from-purple-900  shadow-[0_0_100px_40px_#c6a4f2] dark:shadow-[0_0_100px_40px_#4c1d95]"></div>
 
       <div className="relative md:w-full z-10 lg:ml-[20%] mt-[40%] md:mt-[20%] lg:mt-[13%] flex lg:items-end">
         <motion.h1
