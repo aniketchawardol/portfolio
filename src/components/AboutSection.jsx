@@ -15,7 +15,7 @@ const AboutSection = () => {
     >
       <div className="absolute inset-0 flex items-center justify-center z-0 ">
         <MetaBalls
-          color={isDarkMode ? "#4c1d95" : "#d4bdf4"}
+          color={isDarkMode ? "#7e22ce" : "#d4bdf4"}
           cursorBallColor={isDarkMode ? "#7e22ce" : "#d4bdf4"}
           cursorBallSize={2}
           ballCount={15}

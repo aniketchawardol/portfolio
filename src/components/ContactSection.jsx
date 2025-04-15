@@ -122,7 +122,7 @@ const ContactSection = () => {
     {
       name: "Email",
       icon: <FaEnvelope size={24} />,
-      url: "mailto:aniketchawardol@example.com",
+      url: "mailto:aniketchawardol@gmail.com",
     },
   ];
 

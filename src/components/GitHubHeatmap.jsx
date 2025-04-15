@@ -24,16 +24,18 @@ const GitHubHeatmap = ({ contributionDays, isDarkMode }) => {
   // Calculate max contributions in a day (for scaling colors)
   const maxCount = Math.max(...values.map((v) => v.count), 1);
 
-  const getColorForValue = (value, maxCount) => {
-    if (!value || value.count === 0) return "var(--heatmap-empty)";
+  // Get color class based on contribution intensity
+  const getContributionClass = (value) => {
+    if (!value || value.count === 0)
+      return isDarkMode ? "color-empty-dark" : "color-empty";
 
     const intensity = Math.min(value.count / maxCount, 1);
 
-    if (intensity < 0.15) return "var(--heatmap-level-1)";
-    if (intensity < 0.4) return "var(--heatmap-level-2)";
-    if (intensity < 0.7) return "var(--heatmap-level-3)";
-    if (intensity < 0.9) return "var(--heatmap-level-4)";
-    return "var(--heatmap-level-5)";
+    if (intensity < 0.15) return "color-scale-1";
+    if (intensity < 0.4) return "color-scale-2";
+    if (intensity < 0.7) return "color-scale-3";
+    if (intensity < 0.9) return "color-scale-4";
+    return "color-scale-5";
   };
 
   // Get tooltip title for a day
@@ -48,9 +50,7 @@ const GitHubHeatmap = ({ contributionDays, isDarkMode }) => {
   };
 
   return (
-    <div
-      className="w-full dark:text-slate-300 text-slate-700"
-    >
+    <div className="w-full dark:text-slate-300 text-slate-700">
       <h3 className="text-lg font-bold mb-2">Contribution Activity</h3>
       <div className="overflow-x-auto pb-2">
         <div className="min-w-[750px]">
@@ -58,12 +58,7 @@ const GitHubHeatmap = ({ contributionDays, isDarkMode }) => {
             startDate={startDate}
             endDate={today}
             values={values}
-            classForValue={(value) => {
-              if (!value || value.count === 0) {
-                return isDarkMode ? "color-empty-dark" : "color-empty";
-              }
-              return "color-filled";
-            }}
+            classForValue={getContributionClass}
             titleForValue={getTooltipTitle}
             tooltipDataAttrs={(value) => {
               if (!value || !value.date) {
@@ -85,8 +80,20 @@ const GitHubHeatmap = ({ contributionDays, isDarkMode }) => {
         .color-empty-dark {
           fill: var(--heatmap-empty);
         }
-        .color-filled {
-          fill: ${(value) => getColorForValue(value, maxCount)};
+        .color-scale-1 {
+          fill: var(--heatmap-level-1);
+        }
+        .color-scale-2 {
+          fill: var(--heatmap-level-2);
+        }
+        .color-scale-3 {
+          fill: var(--heatmap-level-3);
+        }
+        .color-scale-4 {
+          fill: var(--heatmap-level-4);
+        }
+        .color-scale-5 {
+          fill: var(--heatmap-level-5);
         }
         .react-calendar-heatmap text {
           font-size: 8px;
