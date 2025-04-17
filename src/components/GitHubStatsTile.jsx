@@ -145,7 +145,7 @@ const GitHubStatsTile = ({ title, value, category, icon}) => {
   if (category === "languages" && Array.isArray(value)) {
     return (
       <div
-        className={`${getGridSpan()} bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-md p-3 md:p-4 flex flex-col transition-all hover:shadow-lg`}
+        className={`${getGridSpan()} bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-md p-3 md:p-4 h-full flex flex-col transition-all hover:shadow-lg`}
       >
         <div className="flex items-center mb-2 md:mb-3">
           <div className="flex-shrink-0 mr-2 md:mr-3">
@@ -257,7 +257,7 @@ const GitHubStatsTile = ({ title, value, category, icon}) => {
 
   return (
     <div
-      className={`${getGridSpan()} bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-md p-3 md:p-4 flex flex-col transition-all hover:shadow-lg cursor-pointer`}
+      className={`${getGridSpan()} bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-md p-3 md:p-4 flex flex-col transition-all hover:shadow-lg h-full cursor-pointer`}
     >
       <div className="flex items-center h-full">
         <div className="flex-shrink-0 mr-2 md:mr-3">{icon || getIcon()}</div>

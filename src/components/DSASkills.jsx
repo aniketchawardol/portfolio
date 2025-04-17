@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DSATile from "./DSATile";
 import { useTheme } from "../utils/ThemeProvider";
-import SpotlightCard from "../assets/Components/SpotlightCard/SpotlightCard";
+
 
 const DSASkills = () => {
   const [leetCodeData, setLeetCodeData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [hoveredTileId, setHoveredTileId] = useState(null);
   const { theme } = useTheme();
   const isDarkMode =
     theme === "dark" ||
@@ -99,9 +100,7 @@ const DSASkills = () => {
 
   if (loading) {
     return (
-      <div
-        className="w-full flex items-center justify-center py-16 dark:bg-slate-900"
-      >
+      <div className="w-full flex items-center justify-center py-16 dark:bg-slate-900">
         <div
           className="text-2xl dark:text-slate-300 text-slate-600
           font-mono"
@@ -135,28 +134,21 @@ const DSASkills = () => {
         </p>
 
         <div className="mx-auto">
-          <SpotlightCard
-            className="rounded-xl 
-              dark:bg-[#2e1065]/10 dark:border-[#4c1d95]/10 bg-white/10 border-white/10
-      border p-6"
-            spotlightColor={
-              isDarkMode
-                ? "rgba(168, 85, 247, 0.45)"
-                : "rgba(124, 58, 237, 0.35)"
-            }
-          >
-            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 auto-rows-auto gap-3 sm:gap-4 md:gap-5">
-              {dsaStats.map((stat, index) => (
-                <DSATile
-                  key={index}
-                  title={stat.title}
-                  value={stat.value}
-                  category={stat.category}
-                  isDarkMode={isDarkMode}
-                />
-              ))}
-            </div>
-          </SpotlightCard>
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 auto-rows-auto gap-3 sm:gap-4 md:gap-5">
+            {dsaStats.map((stat, index) => (
+              <DSATile
+                key={index}
+                title={stat.title}
+                value={stat.value}
+                category={stat.category}
+                isDarkMode={isDarkMode}
+                isHovered={hoveredTileId === index}
+                isAnyHovered={hoveredTileId !== null}
+                onHover={() => setHoveredTileId(index)}
+                onLeave={() => setHoveredTileId(null)}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="text-center mt-12">

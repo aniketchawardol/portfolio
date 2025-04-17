@@ -56,7 +56,7 @@ const Navigation = () => {
   };
 
   return (
-    <div className="fixed top-0 w-full flex items-center justify-center z-50 px-4">
+    <div className="fixed top-0 font-mono w-full flex items-center justify-center z-50 px-4">
       {/* Desktop Navigation */}
       <div
         className={`hidden md:flex ${getContainerClasses()} md:w-[80%] lg:w-[60%] xl:w-[40%]`}

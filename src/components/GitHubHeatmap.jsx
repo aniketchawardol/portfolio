@@ -1,7 +1,7 @@
 import React from "react";
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
-import { format, subYears, parseISO } from "date-fns";
+import { format, subYears } from "date-fns";
 
 const GitHubHeatmap = ({ contributionDays, isDarkMode }) => {
   // Get date range (1 year ago from today)
@@ -73,7 +73,7 @@ const GitHubHeatmap = ({ contributionDays, isDarkMode }) => {
           />
         </div>
       </div>
-      <style jsx>{`
+      <style>{`
         .color-empty {
           fill: var(--heatmap-empty);
         }

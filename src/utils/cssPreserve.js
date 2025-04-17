@@ -44,6 +44,11 @@ export const preserveClasses = () => {
     "dark:text-slate-300",
     "bg-white/30",
     "text-slate-700",
+
+    // Meteor shower classes
+    "meteor-shower",
+    "meteor",
+
     "bg-white/20",
     "shadow-lg",
 

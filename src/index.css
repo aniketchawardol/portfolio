@@ -127,7 +127,120 @@ body {
   }
 }
 
-/* Add fade-out animation */
+/* Meteor shower animation for dark mode */
+.meteor-shower {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeInShower 1.5s ease-in forwards;
+}
+
+@keyframes fadeInShower {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.meteor {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0)
+  );
+  border-radius: 100%;
+  animation: meteor linear infinite;
+  transform: rotate(45deg);
+  opacity: 0; /* Ensure meteors start invisible */
+}
+
+@keyframes meteor {
+  0% {
+    opacity: 0;
+    transform: translateX(0) translateY(0) rotate(45deg);
+  }
+  5% {
+    opacity: 0; /* Keep meteors invisible a bit longer */
+  }
+  10% {
+    opacity: 1; /* Fade in later in the animation */
+  }
+  70% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100vh) translateY(100vh) rotate(45deg);
+  }
+}
+
+/* Create multiple meteor variations */
+.meteor:nth-child(1) {
+  top: 5%;
+  left: 0%;
+  width: 60px; /* Smaller width */
+  animation-duration: 4s;
+  animation-delay: 1.2s;
+}
+
+.meteor:nth-child(2) {
+  top: 8%;
+  left: 15%;
+  width: 90px;
+  animation-duration: 5s;
+  animation-delay: 0.3s;
+}
+
+.meteor:nth-child(3) {
+  top: 1%;
+  left: 25%;
+  width: 40px;
+  animation-duration: 3.2s;
+  animation-delay: 2.5s;
+}
+
+.meteor:nth-child(4) {
+  top: 3%;
+  left: 50%;
+  width: 70px;
+  animation-duration: 4.5s;
+  animation-delay: 0.8s;
+}
+
+.meteor:nth-child(5) {
+  top: 50%;
+  left: 8%;
+  width: 50px;
+  animation-duration: 6s;
+  animation-delay: 3.8s;
+}
+
+.meteor:nth-child(6) {
+  top: 50%;
+  left: 2%;
+  width: 55px;
+  animation-duration: 3.8s;
+  animation-delay: 1.6s;
+}
+
+.meteor:nth-child(7) {
+  top: 2%;
+  left: 50%;
+  width: 65px;
+  animation-duration: 5.2s;
+  animation-delay: 0.7s;
+}
+
 @keyframes fadeOut {
   from {
     opacity: 1;
@@ -141,7 +254,6 @@ body {
   animation: fadeOut 0.8s ease-out forwards;
 }
 
-/* Add fade-in animation for main content */
 @keyframes fadeIn {
   from {
     opacity: 0;

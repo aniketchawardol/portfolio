@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import PropTypes from "prop-types";
 import {
   FaAlgolia,
   FaCode,
@@ -10,11 +11,18 @@ import {
 } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 
-const DSATile = ({ title, value, category, icon }) => {
+const DSATile = ({
+  title,
+  value,
+  category,
+  icon,
+  isHovered,
+  isAnyHovered,
+  onHover,
+  onLeave,
+}) => {
   // Determine tile size based on stat category
-  const isLarge = ["totalSolved", "ranking"].includes(
-    category
-  );
+  const isLarge = ["totalSolved", "ranking"].includes(category);
   const isMedium = [
     "easySolved",
     "mediumSolved",
@@ -89,19 +97,47 @@ const DSATile = ({ title, value, category, icon }) => {
     }
   };
 
+  const tileRef = useRef(null);
+
+  // Direct DOM manipulation for smoother transitions
+  useEffect(() => {
+    const el = tileRef.current;
+    if (!el) return;
+
+    if (isHovered) {
+      el.style.transform = "scale(1.1)";
+      el.style.zIndex = "10";
+      el.style.filter = "blur(0px)";
+    } else if (isAnyHovered) {
+      el.style.transform = "scale(1)";
+      el.style.zIndex = "1";
+      el.style.filter = "blur(2px)";
+    } else {
+      el.style.transform = "scale(1)";
+      el.style.zIndex = "1";
+      el.style.filter = "blur(0px)";
+    }
+  }, [isHovered, isAnyHovered]);
+
   return (
     <div
+      ref={tileRef}
       className={`${gridSpan}
-  dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md
-   bg-white/20 shadow-lg
-    rounded-md p-2 sm:p-4 flex h-full transition-all hover:shadow-lg cursor-pointer`}
+        dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md
+        bg-white/20 shadow-lg
+        rounded-md p-2 sm:p-4 flex h-full`}
+      style={{
+        transition: "transform 0.3s ease-in-out, filter 0.2s ease-in-out",
+      }}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
     >
       <div className="flex items-center">
         <div className="flex-shrink-0 mr-2 sm:mr-3">{icon || getIcon()}</div>
         <div>
           <span
             className={`dark:text-slate-200 text-slate-700
-             font-medium text-sm sm:text-${ isLarge ? "xl" : "sm" } block`}
+             font-medium text-sm sm:text-${isLarge ? "xl" : "sm"} block`}
           >
             {title}
           </span>
@@ -115,6 +151,17 @@ const DSATile = ({ title, value, category, icon }) => {
       </div>
     </div>
   );
+};
+
+DSATile.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  isDarkMode: PropTypes.bool,
+  isHovered: PropTypes.bool,
+  isAnyHovered: PropTypes.bool,
+  onHover: PropTypes.func,
+  onLeave: PropTypes.func,
 };
 
 export default DSATile;

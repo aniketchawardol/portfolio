@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import GitHubStatsTile from "./GitHubStatsTile";
 import GitHubHeatmap from "./GitHubHeatmap";
@@ -10,19 +10,54 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const isDarkMode = useIsDarkMode();
+  const [hoveredTileId, setHoveredTileId] = useState(null);
+  const tileRefs = useRef({});
+
+  const prepareGitHubStats = () => {
+    if (!githubData) return [];
+
+    const { stats, languages, repositories } = githubData;
+
+    return [
+      {
+        title: "All Repositories",
+        value: repositories,
+        category: "allRepos",
+      },
+      {
+        title: "Top Languages",
+        value: languages,
+        category: "languages",
+      },
+      {
+        title: "Total Repositories",
+        value: stats.totalRepos,
+        category: "totalRepos",
+      },
+      {
+        title: "Total Forks",
+        value: stats.totalForks,
+        category: "forks",
+      },
+      {
+        title: "Total Contributions",
+        value: stats.totalContributions,
+        category: "totalContributions",
+      },
+    ];
+  };
+
+  const gitHubStats = githubData ? prepareGitHubStats() : [];
 
   useEffect(() => {
     const fetchGitHubData = async () => {
       try {
-        // Get token from environment variables
         const token = import.meta.env.VITE_APP_GITHUB_TOKEN;
 
-        // Configure headers with GitHub token for authentication
         const headers = {
           Authorization: `token ${token}`,
         };
 
-        // REST API calls
         const userResponse = await axios.get(
           `https://api.github.com/users/${username}`,
           { headers }
@@ -33,7 +68,6 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
           { headers }
         );
 
-        // GraphQL query to fetch contribution data
         const graphqlQuery = {
           query: `
           {
@@ -65,7 +99,6 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
           }
         );
 
-        // Process contributions data
         const contributionCalendar =
           contributionsResponse.data?.data?.user?.contributionsCollection
             ?.contributionCalendar;
@@ -78,7 +111,6 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
             (week) => week.contributionDays
           ) || [];
 
-        // Process languages data
         const languages = {};
         reposResponse.data.forEach((repo) => {
           if (repo.language) {
@@ -142,43 +174,32 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
     fetchGitHubData();
   }, [username]);
 
+  useEffect(() => {
+    if (!gitHubStats.length) return;
+
+    gitHubStats.forEach((_, index) => {
+      const el = tileRefs.current[index];
+      if (!el) return;
+
+      if (hoveredTileId === index) {
+        el.style.transform = "scale(1.1)";
+        el.style.zIndex = "10";
+        el.style.filter = "blur(0px)";
+      } else if (hoveredTileId !== null) {
+        el.style.transform = "scale(1)";
+        el.style.zIndex = "1";
+        el.style.filter = "blur(2px)";
+      } else {
+        el.style.transform = "scale(1)";
+        el.style.zIndex = "1";
+        el.style.filter = "blur(0px)";
+      }
+    });
+  }, [hoveredTileId, gitHubStats]);
+
   if (error || !githubData) {
     return null;
   }
-
-  const prepareGitHubStats = () => {
-    if (!githubData) return [];
-
-    const { stats, languages, repositories } = githubData;
-
-    return [
-      {
-        title: "All Repositories",
-        value: repositories,
-        category: "allRepos",
-      },
-      {
-        title: "Top Languages",
-        value: languages,
-        category: "languages",
-      },
-      {
-        title: "Total Repositories",
-        value: stats.totalRepos,
-        category: "totalRepos",
-      },
-      {
-        title: "Total Forks",
-        value: stats.totalForks,
-        category: "forks",
-      },
-      {
-        title: "Total Contributions",
-        value: stats.totalContributions,
-        category: "totalContributions",
-      },
-    ];
-  };
 
   if (loading) {
     return (
@@ -197,8 +218,6 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
       </div>
     );
   }
-
-  const gitHubStats = prepareGitHubStats();
 
   return (
     <div
@@ -231,24 +250,38 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
           My open-source contributions and project portfolio
         </p>
 
-        <SpotlightCard
-          className={`p-4 md:p-8 rounded-xl mx-auto bg-white/10 border-white/10 dark:bg-[#2e1065]/10 dark:border-[#4c1d95]/10 border`}
-          spotlightColor={
-            isDarkMode ? "rgba(168, 85, 247, 0.45)" : "rgba(124, 58, 237, 0.35)"
-          }
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-6 auto-rows-auto gap-3 grid-auto-flow-dense">
-            {gitHubStats.map((stat, index) => (
-              <GitHubStatsTile
+        <div className="grid grid-cols-3 mt-8">
+          {gitHubStats.map((stat, index) => {
+            // Determine the grid placement based on category
+            let gridClass = "";
+            if (stat.category === "allRepos") {
+              gridClass = "col-span-1 row-span-2"; // Make All Repos span 2 rows
+            } else {
+              gridClass = "col-span-1 row-span-1"; // Other tiles are normal size
+            }
+
+            return (
+              <div
                 key={index}
-                title={stat.title}
-                value={stat.value}
-                category={stat.category}
-                isDarkMode={isDarkMode}
-              />
-            ))}
-          </div>
-        </SpotlightCard>
+                ref={(el) => (tileRefs.current[index] = el)}
+                className={` p-2 ${gridClass}`}
+                style={{
+                  transition:
+                    "transform 0.2s ease-in-out, filter 0.2s ease-in-out",
+                }}
+                onMouseEnter={() => setHoveredTileId(index)}
+                onMouseLeave={() => setHoveredTileId(null)}
+              >
+                <GitHubStatsTile
+                  title={stat.title}
+                  value={stat.value}
+                  category={stat.category}
+                  isDarkMode={isDarkMode}
+                />
+              </div>
+            );
+          })}
+        </div>
 
         {/* GitHub Heatmap */}
         <div className="mt-8 md:mt-12">
