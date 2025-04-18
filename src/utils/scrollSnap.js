@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 
 export function useSmoothScroll() {
   const scrollToElement = (target) => {
