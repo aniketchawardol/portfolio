@@ -250,7 +250,7 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
           My open-source contributions and project portfolio
         </p>
 
-        <div className="grid grid-cols-3 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 mt-8">
           {gitHubStats.map((stat, index) => {
             // Determine the grid placement based on category
             let gridClass = "";
