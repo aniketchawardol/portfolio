@@ -11,5 +11,11 @@ export default {
       },
     },
   },
+  // Add safelist to prevent purging
+  safelist: [
+    {
+      pattern: /.*/, 
+    },
+  ],
   plugins: [],
 };
