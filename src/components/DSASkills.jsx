@@ -3,11 +3,11 @@ import axios from "axios";
 import DSATile from "./DSATile";
 import { useTheme } from "../utils/ThemeProvider";
 
-
 const DSASkills = () => {
   const [leetCodeData, setLeetCodeData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
   const [hoveredTileId, setHoveredTileId] = useState(null);
   const { theme } = useTheme();
   const isDarkMode =
@@ -78,15 +78,25 @@ const DSASkills = () => {
   const fetchLeetCodeData = async () => {
     try {
       const response = await axios.get(
-        "https://leetcode-stats-api.herokuapp.com/aniketchawardol"
+        import.meta.env.VITE_LEETCODE_API 
       );
+
 
       setLeetCodeData(response.data);
       setLoading(false);
+      setError(null); // Clear any previous errors
     } catch (err) {
       console.error("Error details:", err);
       setError("Failed to load LeetCode data");
-      setLoading(false);
+
+      // Set up retry with exponential backoff
+      const retryDelay = Math.min(1000 * 2 ** retryCount, 10000); // Max 10 seconds
+      console.log(`Retrying in ${retryDelay / 1000} seconds...`);
+
+      setTimeout(() => {
+        setRetryCount((prevCount) => prevCount + 1);
+        fetchLeetCodeData();
+      }, retryDelay);
     }
   };
 
@@ -94,18 +104,21 @@ const DSASkills = () => {
     fetchLeetCodeData();
   }, []);
 
-  if (error || !leetCodeData) {
-    return null;
-  }
-
-  if (loading) {
+  // Always show loading screen if we have no data yet, even if there's an error
+  // (since we're going to retry automatically)
+  if (loading || !leetCodeData) {
     return (
-      <div className="w-full flex items-center justify-center py-16 dark:bg-slate-900">
+      <div className="w-full h-screen flex items-center justify-center py-16 dark:bg-slate-900">
         <div
           className="text-2xl dark:text-slate-300 text-slate-600
-          font-mono"
+          font-mono text-center" 
         >
-          Loading LeetCode stats...
+          <div>Loading LeetCode stats...</div>
+          {error && retryCount > 0 && (
+            <div className="text-sm mt-2">
+              Attempt #{retryCount} - Retrying...
+            </div>
+          )}
         </div>
       </div>
     );
