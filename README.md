@@ -14,7 +14,6 @@ A personal portfolio website built with modern web technologies, featuring a res
   - About section with blur-reveal text effect
   - Skills showcase with tech tiles
   - Projects portfolio with project details
-  - DSA skills dashboard with LeetCode stats
   - GitHub integration showing contribution activity
   - Contact form with EmailJS integration
 - **Custom Animations**: MetaBalls animation, northern lights effect, and more
@@ -83,7 +82,6 @@ The portfolio is designed to be easily customizable:
 - **Skills**: Edit the `allTechnologies` array in `SkillsSection.jsx`
 - **Color Schemes**: Modify the gradient variables in each section component
 - **GitHub Integration**: Update the username in `GitHubStats.jsx` component
-- **LeetCode Integration**: Update the username in API request in `DSASkills.jsx`
 
 ## Building for Production
 

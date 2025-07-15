@@ -4,7 +4,6 @@ import Navigation from "./components/Navigation";
 import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
 import SkillsSection from "./components/SkillsSection";
-import DSASkills from "./components/DSASkills";
 import GitHubStats from "./components/GitHubStats";
 import ProjectsSection from "./components/ProjectsSection";
 import ContactSection from "./components/ContactSection";
@@ -127,9 +126,6 @@ function AppContent() {
       </div>
       <div id="skills" className="snap-section">
         <SkillsSection />
-      </div>
-      <div id="dsa" className="snap-section">
-        <DSASkills />
       </div>
       <div id="github" className="snap-section">
         <GitHubStats />

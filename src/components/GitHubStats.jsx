@@ -222,9 +222,8 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
   return (
     <div
       className="w-full min-h-screen flex items-center justify-center 
-      
-          bg-gradient-to-b dark:from-[#0a0621] dark:via-[#0c0825] dark:to-[#0f0a29]
-          from-[#a28cd1] via-[#b6a6e3] to-[#cbb4f0]
+          bg-gradient-to-b dark:from-[#150d37] dark:via-[#0c0825] dark:to-[#0f0a29]
+          from-[#cbb4f0] via-[#b6a6e3] to-[#cbb4f0]
       py-8 md:py-16 font-exo"
     >
       <div className="container mx-auto px-4">
