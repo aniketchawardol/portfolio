@@ -8,6 +8,7 @@ const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [meteorActive, setMeteorActive] = useState(false);
+  const [isFontLoaded, setIsFontLoaded] = useState(false);
   const sectionRef = useRef(null);
   const isDarkMode = useIsDarkMode();
 
@@ -29,6 +30,14 @@ const HeroSection = () => {
     }, 300);
 
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => setIsFontLoaded(true));
+    } else {
+      setIsFontLoaded(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -97,7 +106,7 @@ const HeroSection = () => {
         <motion.h1
           className="text-[100px] lg:text-[150px] font-moonwalk text-slate-700 dark:text-slate-200"
           initial="hidden"
-          animate={isLoaded ? "visible" : "hidden"}
+          animate={isLoaded && isFontLoaded ? "visible" : "hidden"}
           variants={headingVariants}
           style={
             hasScrolled
