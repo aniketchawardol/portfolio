@@ -1,6 +1,7 @@
 import React from "react";
 import ThemedCard from "./ui/ThemedCard";
 import PropTypes from "prop-types";
+import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
 const ProjectTile = ({
   title,
@@ -10,6 +11,7 @@ const ProjectTile = ({
   projectUrl,
   livelink,
 }) => {
+  const { isTouchDevice } = useDeviceDetection();
   return (
     <ThemedCard className="flex flex-col h-full">
       {imageUrl && (
@@ -51,7 +53,11 @@ const ProjectTile = ({
             href={livelink}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-grow text-center bg-[#5c4a99] text-white py-2 px-4 rounded-md hover:bg-[#473677] transition-colors ease-in-out duration-150"
+            className={`flex-grow text-center bg-[#5c4a99] text-white py-2 px-4 rounded-md ${
+              !isTouchDevice 
+                ? "hover:bg-[#473677]" 
+                : "active:bg-[#473677]"
+            } transition-colors ease-in-out duration-150`}
           >
             Live Demo
           </a>
@@ -71,7 +77,11 @@ const ProjectTile = ({
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-grow text-center bg-[#2d2545] text-white py-2 px-4 rounded-md hover:bg-[#221c34] transition-colors ease-in-out duration-150"
+                    className={`flex-grow text-center bg-[#2d2545] text-white py-2 px-4 rounded-md ${
+                      !isTouchDevice 
+                        ? "hover:bg-[#221c34]" 
+                        : "active:bg-[#221c34]"
+                    } transition-colors ease-in-out duration-150`}
                   >
                     {type.charAt(0).toUpperCase() + type.slice(1)}
                   </a>
@@ -82,7 +92,11 @@ const ProjectTile = ({
                 href={projectUrl[0]}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-grow text-center bg-[#2d2545] text-white py-2 px-4 rounded-md hover:bg-[#221c34] transition-colors ease-in-out duration-150"
+                className={`flex-grow text-center bg-[#2d2545] text-white py-2 px-4 rounded-md ${
+                  !isTouchDevice 
+                    ? "hover:bg-[#221c34]" 
+                    : "active:bg-[#221c34]"
+                } transition-colors ease-in-out duration-150`}
               >
                 GitHub
               </a>
@@ -91,7 +105,11 @@ const ProjectTile = ({
                 href={projectUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-grow text-center bg-[#2d2545] text-white py-2 px-4 rounded-md hover:bg-[#221c34] transition-colors ease-in-out duration-150"
+                className={`flex-grow text-center bg-[#2d2545] text-white py-2 px-4 rounded-md ${
+                  !isTouchDevice 
+                    ? "hover:bg-[#221c34]" 
+                    : "active:bg-[#221c34]"
+                } transition-colors ease-in-out duration-150`}
               >
                 View Project
               </a>

@@ -4,12 +4,14 @@ import RotatingText from "../assets/TextAnimations/RotatingText/RotatingText";
 import Spline from "@splinetool/react-spline";
 import { useIsDarkMode } from "../hooks/useIsDarkMode";
 import { GradualSpacing } from "./GradualSpacing";
+import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
 const HeroSection = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [meteorActive, setMeteorActive] = useState(false);
   const sectionRef = useRef(null);
   const isDarkMode = useIsDarkMode();
+  const { isTouchDevice } = useDeviceDetection();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -117,7 +119,11 @@ const HeroSection = () => {
         href={import.meta.env.VITE_RESUME_LINK}
         className={`ml-[40%] font-exo text-xl relative z-10 inline-block px-6 py-3 rounded-full 
         bg-gradient-to-r from-violet-400 to-fuchsia-500 text-white shadow-md dark:from-indigo-900 dark:to-purple-900 dark:border dark:border-purple-500 dark:shadow-[0_0_15px_rgba(168,85,247,0.5)]
-        overflow-hidden transform hover:scale-105 transition-all duration-300 ease-out`}
+        overflow-hidden transform ${
+          !isTouchDevice 
+            ? "hover:scale-105" 
+            : "active:scale-105"
+        } transition-all duration-300 ease-out`}
       >
         <span className="relative z-10">My Resume</span>
         <span className="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-violet-500/20 dark:from-purple-600/20 dark:to-indigo-800/20"></span>

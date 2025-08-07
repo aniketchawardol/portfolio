@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useDeviceDetection } from "../../../hooks/useDeviceDetection";
 
 const glowColorMap = {
   blue: { base: 220, spread: 200 },
@@ -27,8 +28,12 @@ const GlowCard = ({
 }) => {
   const cardRef = useRef(null);
   const innerRef = useRef(null);
+  const { isTouchDevice } = useDeviceDetection();
 
   useEffect(() => {
+    // Don't add pointer tracking on touch devices to avoid performance issues
+    if (isTouchDevice) return;
+
     const syncPointer = (e) => {
       const { clientX: x, clientY: y } = e;
 
@@ -48,7 +53,7 @@ const GlowCard = ({
 
     document.addEventListener("pointermove", syncPointer);
     return () => document.removeEventListener("pointermove", syncPointer);
-  }, []);
+  }, [isTouchDevice]);
 
   // Update theme-dependent CSS custom properties when isDarkMode changes
   useEffect(() => {
@@ -216,7 +221,9 @@ const GlowCard = ({
       "--before-saturation": currentIsDarkMode ? "70" : "50",
       "--before-lightness": currentIsDarkMode ? "55" : "40",
       "--after-lightness": currentIsDarkMode ? "80" : "90",
-      backgroundImage: `radial-gradient(
+      backgroundImage: isTouchDevice 
+        ? "none" // Disable resource-intensive background effects on touch devices
+        : `radial-gradient(
         var(--spotlight-size) var(--spotlight-size) at
         calc(var(--x, 0) * 1px)
         calc(var(--y, 0) * 1px),
@@ -226,10 +233,10 @@ const GlowCard = ({
       backgroundSize:
         "calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)))",
       backgroundPosition: "50% 50%",
-      backgroundAttachment: "fixed",
+      backgroundAttachment: isTouchDevice ? "scroll" : "fixed", // Use scroll attachment on touch for better performance
       border: "var(--border-size) solid var(--backup-border)",
       position: "relative",
-      touchAction: "none",
+      touchAction: isTouchDevice ? "auto" : "none", // Allow scrolling on touch devices
     };
 
     // Add width and height if provided
@@ -252,7 +259,7 @@ const GlowCard = ({
       inset: calc(var(--border-size) * -1);
       border: var(--border-size) solid transparent;
       border-radius: calc(var(--radius) * 1px);
-      background-attachment: fixed;
+      background-attachment: ${isTouchDevice ? "scroll" : "fixed"};
       background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
       background-repeat: no-repeat;
       background-position: 50% 50%;
@@ -262,22 +269,26 @@ const GlowCard = ({
     }
     
     [data-glow]::before {
-      background-image: radial-gradient(
+      background-image: ${isTouchDevice 
+        ? "none" 
+        : `radial-gradient(
         calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
         calc(var(--x, 0) * 1px)
         calc(var(--y, 0) * 1px),
         hsl(280 calc(var(--before-saturation) * 1%) calc(var(--before-lightness) * 1%) / var(--border-spot-opacity)), transparent 100%
-      );
-      filter: brightness(1.5);
+      )`};
+      filter: ${isTouchDevice ? "none" : "brightness(1.5)"};
     }
     
     [data-glow]::after {
-      background-image: radial-gradient(
+      background-image: ${isTouchDevice 
+        ? "none" 
+        : `radial-gradient(
         calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
         calc(var(--x, 0) * 1px)
         calc(var(--y, 0) * 1px),
         hsl(280 20% calc(var(--after-lightness) * 1%) / var(--border-light-opacity)), transparent 100%
-      );
+      )`};
     }
     
     [data-glow] [data-glow] {

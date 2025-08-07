@@ -291,7 +291,14 @@ body {
 
 @layer components {
   .navbutton {
-    @apply after:block after:w-0 after:h-[2px] after:bg-black dark:after:bg-white after:transition-all after:duration-300 hover:after:w-full;
+    @apply after:block after:w-0 after:h-[2px] after:bg-black dark:after:bg-white after:transition-all after:duration-300;
+  }
+  
+  /* Only add hover effects on non-touch devices */
+  @media (hover: hover) and (pointer: fine) {
+    .navbutton:hover {
+      @apply after:w-full;
+    }
   }
 
   .navbutton.active {

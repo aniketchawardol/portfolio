@@ -3,6 +3,7 @@ import GlowCard from "../assets/Components/GlowCard/GlowCard";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
 import { useTheme } from "../utils/ThemeProvider";
+import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
@@ -18,6 +19,7 @@ const ContactSection = () => {
   const [formStatus, setFormStatus] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
   const { theme } = useTheme();
+  const { isTouchDevice } = useDeviceDetection();
   const isDarkMode =
     theme === "dark" ||
     (theme === "system" &&
@@ -245,7 +247,11 @@ const ContactSection = () => {
                     <button
                       type="submit"
                       disabled={formStatus === "submitting"}
-                      className="w-full py-3 px-6 bg-[#7263b3] hover:bg-[#5e4b9c] dark:bg-[#5c4a99] dark:hover:bg-[#473677] text-white rounded-xl transition-colors disabled:opacity-70"
+                      className={`w-full py-3 px-6 bg-[#7263b3] ${
+                        !isTouchDevice 
+                          ? "hover:bg-[#5e4b9c] dark:hover:bg-[#473677]" 
+                          : "active:bg-[#5e4b9c] dark:active:bg-[#473677]"
+                      } dark:bg-[#5c4a99] text-white rounded-xl transition-colors disabled:opacity-70`}
                     >
                       {formStatus === "submitting"
                         ? "Sending..."
@@ -281,13 +287,14 @@ const ContactSection = () => {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 dark:text-slate-300
-                          text-slate-700 hover:text-purple-600
+                      className={`flex items-center gap-3 dark:text-slate-300
+                          text-slate-700 ${
+                            !isTouchDevice 
+                              ? "hover:text-purple-600 hover:bg-white/30 dark:hover:bg-slate-700/30" 
+                              : "active:text-purple-600 active:bg-white/30 dark:active:bg-slate-700/30"
+                          }
                       transition-colors p-2
-  
-                          dark:hover:bg-slate-700/30
-                          hover:bg-white/30
-                      rounded-md"
+                          rounded-md`}
                     >
                       <span className="text-[#7263b3]">{link.icon}</span>
                       <span className="font-mono">{link.name}</span>

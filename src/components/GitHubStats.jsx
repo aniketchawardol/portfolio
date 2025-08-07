@@ -4,12 +4,14 @@ import GitHubStatsTile from "./GitHubStatsTile";
 import GitHubHeatmap from "./GitHubHeatmap";
 import { useIsDarkMode } from "../hooks/useIsDarkMode";
 import GlowCard from "../assets/Components/GlowCard/GlowCard";
+import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
 const GitHubStats = ({ username = "aniketchawardol" }) => {
   const [githubData, setGithubData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const isDarkMode = useIsDarkMode();
+  const { isTouchDevice } = useDeviceDetection();
   const [hoveredTileId, setHoveredTileId] = useState(null);
   const tileRefs = useRef({});
 
@@ -175,7 +177,7 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
   }, [username]);
 
   useEffect(() => {
-    if (!gitHubStats.length) return;
+    if (!gitHubStats.length || isTouchDevice) return;
 
     gitHubStats.forEach((_, index) => {
       const el = tileRefs.current[index];
@@ -195,7 +197,7 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
         el.style.filter = "blur(0px)";
       }
     });
-  }, [hoveredTileId, gitHubStats]);
+  }, [hoveredTileId, gitHubStats, isTouchDevice]);
 
   if (error || !githubData) {
     return null;
@@ -265,11 +267,13 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
                 ref={(el) => (tileRefs.current[index] = el)}
                 className={`${gridClass}`}
                 style={{
-                  transition:
-                    "transform 0.2s ease-in-out, filter 0.2s ease-in-out",
+                  transition: isTouchDevice 
+                    ? "none"
+                    : "transform 0.2s ease-in-out, filter 0.2s ease-in-out",
                 }}
-                onMouseEnter={() => setHoveredTileId(index)}
-                onMouseLeave={() => setHoveredTileId(null)}
+                onMouseEnter={!isTouchDevice ? () => setHoveredTileId(index) : undefined}
+                onMouseLeave={!isTouchDevice ? () => setHoveredTileId(null) : undefined}
+                onClick={isTouchDevice ? () => setHoveredTileId(index) : undefined}
               >
                 <GitHubStatsTile
                   title={stat.title}
@@ -308,7 +312,11 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
             }
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-[#7263b3] hover:bg-[#5e4b9c] dark:bg-[#5c4a99] dark:hover:bg-[#473677] text-white py-2 px-4 rounded-xl transition-colors"
+            className={`inline-block bg-[#7263b3] ${
+              !isTouchDevice 
+                ? "hover:bg-[#5e4b9c] dark:hover:bg-[#473677]" 
+                : "active:bg-[#5e4b9c] dark:active:bg-[#473677]"
+            } dark:bg-[#5c4a99] text-white py-2 px-4 rounded-xl transition-colors`}
           >
             View GitHub Profile
           </a>

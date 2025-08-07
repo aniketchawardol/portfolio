@@ -8,8 +8,10 @@ import {
 } from "react-icons/fa";
 import { SiGithubactions } from "react-icons/si";
 import { BiGitRepoForked } from "react-icons/bi";
+import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
 const GitHubStatsTile = ({ title, value, category, icon }) => {
+  const { isTouchDevice } = useDeviceDetection();
   // Determine tile size based on stat category
   const isLarge = [
     "totalRepos",
@@ -145,7 +147,9 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
   if (category === "languages" && Array.isArray(value)) {
     return (
       <div
-        className={`${getGridSpan()} bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 h-full flex flex-col transition-all hover:shadow-lg`}
+        className={`${getGridSpan()} bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 h-full flex flex-col transition-all ${
+          !isTouchDevice ? "hover:shadow-lg" : ""
+        }`}
       >
         <div className="flex items-center mb-2 md:mb-3">
           <div className="flex-shrink-0 mr-2 md:mr-3">
@@ -185,7 +189,9 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
         className={`${getGridSpan()} 
             dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md
             bg-white/20 border border-white/20
-       shadow-lg rounded-xl p-6 flex flex-col transition-all hover:shadow-lg`}
+       shadow-lg rounded-xl p-6 flex flex-col transition-all ${
+         !isTouchDevice ? "hover:shadow-lg" : ""
+       }`}
       >
         <div className="flex items-center mb-2 md:mb-3">
           <div className="flex-shrink-0 mr-2 md:mr-3">
@@ -209,10 +215,12 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
               }
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs md:text-sm hover:underline 
+              className={`text-xs md:text-sm ${
+                !isTouchDevice ? "hover:underline" : ""
+              } 
               dark:text-slate-300 text-slate-700
             flex items-center py-0.5 md:py-1 border-b 
-               dark:border-slate-700 border-slate-200"
+               dark:border-slate-700 border-slate-200`}
             >
               <span className="mr-auto truncate max-w-[70%]">{repo.name}</span>
               <div className="flex items-center space-x-1 md:space-x-2 flex-shrink-0">
@@ -254,7 +262,9 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
 
   return (
     <div
-      className={`${getGridSpan()} bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 flex flex-col transition-all hover:shadow-lg h-full cursor-pointer`}
+      className={`${getGridSpan()} bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 flex flex-col transition-all ${
+        !isTouchDevice ? "hover:shadow-lg" : ""
+      } h-full ${!isTouchDevice ? "cursor-pointer" : ""}`}
     >
       <div className="flex items-center h-full">
         <div className="flex-shrink-0 mr-2 md:mr-3">{icon || getIcon()}</div>

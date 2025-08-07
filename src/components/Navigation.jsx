@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import NavigationButton from "./NavigationButton";
 import { NAV_ITEMS } from "../constants/navigation";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isTouchDevice } = useDeviceDetection();
 
   useEffect(() => {
     // Function to determine which section is currently in view
@@ -103,7 +105,11 @@ const Navigation = () => {
               activeSection === item.id
                 ? "bg-[#4c1d95]/50 dark:text-purple-300 text-purple-600"
                 : ""
-            } hover:bg-opacity-20 hover:bg-purple-100 dark:hover:bg-purple-800`}
+            } ${
+              !isTouchDevice 
+                ? "hover:bg-opacity-20 hover:bg-purple-100 dark:hover:bg-purple-800" 
+                : "active:bg-opacity-20 active:bg-purple-100 dark:active:bg-purple-800"
+            }`}
           >
             {item.label}
           </button>
