@@ -58,7 +58,7 @@ const ProjectsSection = () => {
         subtitle="A showcase of my recent development work and personal projects"
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {projects.map((project, index) => (
           <ProjectTile key={index} {...project} />
         ))}

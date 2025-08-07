@@ -10,11 +10,10 @@ const ProjectTile = ({
   projectUrl,
   livelink,
 }) => {
-
   return (
     <ThemedCard className="flex flex-col h-full">
       {imageUrl && (
-        <div className="w-full h-48 overflow-hidden rounded-md mb-4">
+        <div className="w-full h-48 overflow-hidden rounded-xl mb-6">
           <img
             src={imageUrl}
             alt={title}
@@ -27,12 +26,12 @@ const ProjectTile = ({
         {title}
       </h3>
 
-      <p className="text-slate-600 dark:text-slate-300 font-mono mb-4 flex-grow z-10">
+      <p className="text-slate-600 dark:text-slate-300 font-mono mb-6 flex-grow z-10">
         {description}
       </p>
 
       {technologies && technologies.length > 0 && (
-        <div className="mb-4 z-10">
+        <div className="mb-6 z-10">
           <div className="flex flex-wrap gap-2">
             {technologies.map((tech, index) => (
               <span

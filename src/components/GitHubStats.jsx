@@ -3,7 +3,7 @@ import axios from "axios";
 import GitHubStatsTile from "./GitHubStatsTile";
 import GitHubHeatmap from "./GitHubHeatmap";
 import { useIsDarkMode } from "../hooks/useIsDarkMode";
-import SpotlightCard from "../assets/Components/SpotlightCard/SpotlightCard";
+import GlowCard from "../assets/Components/GlowCard/GlowCard";
 
 const GitHubStats = ({ username = "aniketchawardol" }) => {
   const [githubData, setGithubData] = useState(null);
@@ -245,11 +245,11 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
             GitHub Activity
           </h2>
         </div>
-        <p className="text-center text-slate-600 dark:text-slate-300 font-mono mb-6 md:mb-8">
+        <p className="text-center text-slate-600 dark:text-slate-300 font-mono mb-6">
           My open-source contributions and project portfolio
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {gitHubStats.map((stat, index) => {
             // Determine the grid placement based on category
             let gridClass = "";
@@ -263,7 +263,7 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
               <div
                 key={index}
                 ref={(el) => (tileRefs.current[index] = el)}
-                className={` p-2 ${gridClass}`}
+                className={`${gridClass}`}
                 style={{
                   transition:
                     "transform 0.2s ease-in-out, filter 0.2s ease-in-out",
@@ -283,18 +283,14 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
         </div>
 
         {/* GitHub Heatmap */}
-        <div className="mt-8 md:mt-12">
-          <SpotlightCard
-            className="p-4 md:p-8 rounded-xl mx-auto 
-
+        <div className="mt-6">
+          <GlowCard
+            className="p-6 rounded-xl mx-auto max-w-full
              dark:bg-[#2e1065]/10 dark:border-[#4c1d95]/10
              bg-white/10 border-white/10
             border"
-            spotlightColor={
-              isDarkMode
-                ? "rgba(168, 85, 247, 0.45)"
-                : "rgba(124, 58, 237, 0.35)"
-            }
+            isDarkMode={isDarkMode}
+            customSize={true}
           >
             {githubData?.contributionData?.contributionDays && (
               <GitHubHeatmap
@@ -302,17 +298,17 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
                 isDarkMode={isDarkMode}
               />
             )}
-          </SpotlightCard>
+          </GlowCard>
         </div>
 
-        <div className="text-center mt-6 md:mt-8">
+        <div className="text-center mt-6">
           <a
             href={
               githubData?.profile?.html_url || `https://github.com/${username}`
             }
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-[#7263b3] hover:bg-[#5e4b9c] dark:bg-[#5c4a99] dark:hover:bg-[#473677] text-white py-2 px-4 rounded-md transition-colors"
+            className="inline-block bg-[#7263b3] hover:bg-[#5e4b9c] dark:bg-[#5c4a99] dark:hover:bg-[#473677] text-white py-2 px-4 rounded-xl transition-colors"
           >
             View GitHub Profile
           </a>

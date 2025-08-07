@@ -2,13 +2,7 @@ import React, { useRef, useEffect } from "react";
 import TechIcon from "./TechIcon";
 import PropTypes from "prop-types";
 
-const TechTile = ({
-  tech,
-  isHovered,
-  isAnyHovered,
-  onHover,
-  onLeave,
-}) => {
+const TechTile = ({ tech, isHovered, isAnyHovered, onHover, onLeave }) => {
   // Determine tile size based on technology category
   const isLarge = ["MongoDB", "Express.js", "React JS", "Node.js"].includes(
     tech
@@ -56,7 +50,7 @@ const TechTile = ({
       ref={tileRef}
       className={`${gridSpan} font-exo
           bg-white/20 border border-white/20
-          rounded-md p-4 flex flex-col shadow-lg cursor-pointer dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30`}
+          rounded-xl p-6 flex flex-col shadow-lg cursor-pointer dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30`}
       style={{
         transition: "transform 0.3s ease-in-out, filter 0.2s",
       }}

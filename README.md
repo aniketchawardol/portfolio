@@ -24,7 +24,7 @@ A personal portfolio website built with modern web technologies, featuring a res
 
 - **Frontend Framework**: React with Vite
 - **Styling**: Tailwind CSS
-- **Animations**: Framer Motion, GSAP, React-bits
+- **Animations**: Framer Motion, React-bits
 - **3D Elements**: Spline
 - **External APIs**:
   - GitHub API for repository and contribution data
@@ -111,6 +111,3 @@ yarn preview
 - [All Free Fonts](https://www.allfreefonts.co/) - Font resources
 - [React Icons](https://react-icons.github.io/react-icons/) - Icon library
 - [EmailJS](https://www.emailjs.com/) - Email sending service
-
-
-

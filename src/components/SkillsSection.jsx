@@ -3,7 +3,6 @@ import TechTile from "./TechTile";
 import SectionContainer from "./layout/SectionContainer";
 import SectionHeading from "./ui/SectionHeading";
 
-
 const allTechnologies = [
   "HTML",
   "CSS",
@@ -54,7 +53,7 @@ const SkillsSection = () => {
     >
       <SectionHeading title="Skills & Technologies" />
       {/* Windows 10 start menu style grid */}
-      <div className="grid grid-cols-6 auto-rows-auto gap-5 grid-auto-flow-dense">
+      <div className="grid grid-cols-6 auto-rows-auto gap-6 grid-auto-flow-dense">
         {allTechnologies.map((tech, index) => (
           <TechTile
             key={index}

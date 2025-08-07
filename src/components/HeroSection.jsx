@@ -3,12 +3,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import RotatingText from "../assets/TextAnimations/RotatingText/RotatingText";
 import Spline from "@splinetool/react-spline";
 import { useIsDarkMode } from "../hooks/useIsDarkMode";
+import { GradualSpacing } from "./GradualSpacing";
 
 const HeroSection = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [meteorActive, setMeteorActive] = useState(false);
-  const [isFontLoaded, setIsFontLoaded] = useState(false);
   const sectionRef = useRef(null);
   const isDarkMode = useIsDarkMode();
 
@@ -23,22 +22,6 @@ const HeroSection = () => {
     ["0rem", "6rem"]
   );
   const headingOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 300);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(() => setIsFontLoaded(true));
-    } else {
-      setIsFontLoaded(true);
-    }
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,23 +44,6 @@ const HeroSection = () => {
 
     return () => clearTimeout(timer);
   }, [isDarkMode]);
-
-  const headingVariants = {
-    hidden: {
-      letterSpacing: "8rem",
-      opacity: 0,
-    },
-    visible: {
-      letterSpacing: "0rem",
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 50,
-        damping: 20,
-        duration: 1.2,
-      },
-    },
-  };
 
   return (
     <div
@@ -103,12 +69,16 @@ const HeroSection = () => {
       )}
 
       <div className="relative w-full z-10 lg:ml-[20%] mt-[40%] md:mt-[20%] lg:mt-[13%] flex lg:items-end">
-        <motion.h1
+        <GradualSpacing
+          text="ANIKET"
+          duration={0.6}
+          delayMultiple={0.08}
           className="text-[100px] lg:text-[150px] font-moonwalk text-slate-700 dark:text-slate-200"
-          initial="hidden"
-          animate={isLoaded && isFontLoaded ? "visible" : "hidden"}
-          variants={headingVariants}
-          style={
+          framerProps={{
+            hidden: { opacity: 0, y: 50, scale: 0.8 },
+            visible: { opacity: 1, y: 0, scale: 1 },
+          }}
+          scrollStyle={
             hasScrolled
               ? {
                   letterSpacing,
@@ -116,9 +86,7 @@ const HeroSection = () => {
                 }
               : {}
           }
-        >
-          ANIKET
-        </motion.h1>
+        />
         <div className="absolute md:relative mb-[58px] ml-[20%] md:ml-0 z-0">
           <p className="font-exo hidden lg:inline text-slate-700 dark:text-slate-200 text-3xl ml-4">
             and I'm a

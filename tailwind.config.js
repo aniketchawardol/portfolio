@@ -1,5 +1,5 @@
 export default {
-  content: false,
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class",
   theme: {
     extend: {
@@ -11,11 +11,5 @@ export default {
       },
     },
   },
-  // Add safelist to prevent purging
-  safelist: [
-    {
-      pattern: /.*/, 
-    },
-  ],
   plugins: [],
 };

@@ -50,10 +50,10 @@ const GitHubHeatmap = ({ contributionDays, isDarkMode }) => {
   };
 
   return (
-    <div className="w-full dark:text-slate-300 text-slate-700">
+    <div className="w-full max-w-full dark:text-slate-300 text-slate-700">
       <h3 className="text-lg font-bold mb-2">Contribution Activity</h3>
       <div className="overflow-x-auto pb-2">
-        <div className="min-w-[750px]">
+        <div className="w-full max-w-full min-w-[600px]">
           <CalendarHeatmap
             startDate={startDate}
             endDate={today}

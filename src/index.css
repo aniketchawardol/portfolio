@@ -31,10 +31,10 @@
   --font-exo: "exo", sans-serif;
 }
 
-/* Disable default scrolling behavior */
+/* Disable default scrolling behavior - Lenis will handle smooth scrolling */
 html {
   overflow-y: auto;
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* Disable native smooth scroll to let Lenis handle it */
 }
 
 body {

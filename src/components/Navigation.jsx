@@ -52,7 +52,7 @@ const Navigation = () => {
   };
 
   const getContainerClasses = () => {
-    return `mx-auto my-4 flex justify-evenly items-center bg-white/20 border-white/20 text-slate-600 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 dark:text-slate-300 backdrop-blur-md border shadow-lg p-2 rounded-2xl`;
+    return `mx-auto my-4 flex justify-evenly items-center bg-white/20 border-white/20 text-slate-600 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 dark:text-slate-300 backdrop-blur-md border shadow-lg p-2 rounded-xl`;
   };
 
   return (
@@ -74,7 +74,7 @@ const Navigation = () => {
 
       {/* Mobile Navigation */}
       <div className="md:hidden w-full flex justify-end my-4">
-        <div className="flex items-center bg-white/20 border-white/20 text-slate-600 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 dark:text-slate-300 backdrop-blur-md border shadow-lg p-2 rounded-2xl">
+        <div className="flex items-center bg-white/20 border-white/20 text-slate-600 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 dark:text-slate-300 backdrop-blur-md border shadow-lg p-2 rounded-xl">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-lg dark:text-slate-200 text-slate-700"

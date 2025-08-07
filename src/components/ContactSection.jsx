@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import SpotlightCard from "../assets/Components/SpotlightCard/SpotlightCard";
+import GlowCard from "../assets/Components/GlowCard/GlowCard";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
 import { useTheme } from "../utils/ThemeProvider";
@@ -137,7 +137,7 @@ const ContactSection = () => {
         <h2 className="text-4xl font-halfomania text-slate-700 dark:text-slate-200 text-center">
           Get In Touch
         </h2>
-        <p className="text-center text-slate-600 dark:text-slate-300 font-mono">
+        <p className="text-center mt-2 text-slate-600 dark:text-slate-300 font-mono">
           Feel free to reach out for collaborations, opportunities, or just a
           friendly chat!
         </p>
@@ -153,11 +153,12 @@ const ContactSection = () => {
             </p>
           )}
         </div>
-        <div className="flex flex-col md:flex-row gap-8 max-w-5xl mx-auto h-full">
+        <div className="flex flex-col md:flex-row gap-6 max-w-5xl mx-auto h-full">
           <div className="md:w-2/3">
-            <SpotlightCard
-              className="bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-8 h-full relative"
-              spotlightColor={isDarkMode ? "#4c1d95" : "#9b7dcf"}
+            <GlowCard
+              className="bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 h-full relative"
+              isDarkMode={isDarkMode}
+              customSize={true}
             >
               <div className="relative z-10">
                 <h3 className="text-2xl font-exo text-slate-700 dark:text-slate-200 mb-6">
@@ -180,7 +181,7 @@ const ContactSection = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 bg-white/50 border border-white/30 dark:bg-[#1e1b4b]/50 dark:border-[#4c1d95]/30 dark:text-slate-200 focus:ring-purple-400 dark:focus:ring-purple-500 rounded-md focus:outline-none focus:ring-2"
+                        className="w-full px-4 py-2 bg-white/50 border border-white/30 dark:bg-[#1e1b4b]/50 dark:border-[#4c1d95]/30 dark:text-slate-200 focus:ring-purple-400 dark:focus:ring-purple-500 rounded-xl focus:outline-none focus:ring-2"
                       />
                     </div>
 
@@ -198,7 +199,7 @@ const ContactSection = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 bg-white/50 border border-white/30 dark:bg-[#1e1b4b]/50 dark:border-[#4c1d95]/30 dark:text-slate-200 focus:ring-purple-400 dark:focus:ring-purple-500 rounded-md focus:outline-none focus:ring-2"
+                        className="w-full px-4 py-2 bg-white/50 border border-white/30 dark:bg-[#1e1b4b]/50 dark:border-[#4c1d95]/30 dark:text-slate-200 focus:ring-purple-400 dark:focus:ring-purple-500 rounded-xl focus:outline-none focus:ring-2"
                       />
                     </div>
                   </div>
@@ -217,7 +218,7 @@ const ContactSection = () => {
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 bg-white/50 border border-white/30 dark:bg-[#1e1b4b]/50 dark:border-[#4c1d95]/30 dark:text-slate-200 focus:ring-purple-400 dark:focus:ring-purple-500 rounded-md focus:outline-none focus:ring-2"
+                      className="w-full px-4 py-2 bg-white/50 border border-white/30 dark:bg-[#1e1b4b]/50 dark:border-[#4c1d95]/30 dark:text-slate-200 focus:ring-purple-400 dark:focus:ring-purple-500 rounded-xl focus:outline-none focus:ring-2"
                     />
                   </div>
 
@@ -236,7 +237,7 @@ const ContactSection = () => {
                       required
                       rows={5}
                       onKeyDown={handleKeyDown}
-                      className="w-full px-4 py-2 bg-white/50 border border-white/30 dark:bg-[#1e1b4b]/50 dark:border-[#4c1d95]/30 dark:text-slate-200 focus:ring-purple-400 dark:focus:ring-purple-500 rounded-md focus:outline-none focus:ring-2 resize-none"
+                      className="w-full px-4 py-2 bg-white/50 border border-white/30 dark:bg-[#1e1b4b]/50 dark:border-[#4c1d95]/30 dark:text-slate-200 focus:ring-purple-400 dark:focus:ring-purple-500 rounded-xl focus:outline-none focus:ring-2 resize-none"
                     />
                   </div>
 
@@ -244,7 +245,7 @@ const ContactSection = () => {
                     <button
                       type="submit"
                       disabled={formStatus === "submitting"}
-                      className="w-full py-3 px-6 bg-[#7263b3] hover:bg-[#5e4b9c] dark:bg-[#5c4a99] dark:hover:bg-[#473677] text-white rounded-md transition-colors disabled:opacity-70"
+                      className="w-full py-3 px-6 bg-[#7263b3] hover:bg-[#5e4b9c] dark:bg-[#5c4a99] dark:hover:bg-[#473677] text-white rounded-xl transition-colors disabled:opacity-70"
                     >
                       {formStatus === "submitting"
                         ? "Sending..."
@@ -259,13 +260,14 @@ const ContactSection = () => {
                   </div>
                 </form>
               </div>
-            </SpotlightCard>
+            </GlowCard>
           </div>
 
           <div className="md:w-1/3 space-y-6">
-            <SpotlightCard
+            <GlowCard
               className="bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-8 relative"
-              spotlightColor={isDarkMode ? "#4c1d95" : "#9b7dcf"}
+              isDarkMode={isDarkMode}
+              customSize={true}
             >
               <div className="relative z-10">
                 <h3 className="text-2xl font-exo text-slate-700 dark:text-slate-200 mb-6">
@@ -293,18 +295,19 @@ const ContactSection = () => {
                   ))}
                 </div>
               </div>
-            </SpotlightCard>
+            </GlowCard>
 
-            <SpotlightCard
+            <GlowCard
               className="bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-8 relative"
-              spotlightColor={isDarkMode ? "#4c1d95" : "#9b7dcf"}
+              isDarkMode={isDarkMode}
+              customSize={true}
             >
               <div className="relative z-10">
-                <h3 className="text-2xl font-exo text-slate-700 dark:text-slate-200 mb-4">
+                <h3 className="text-2xl font-exo text-slate-700 dark:text-slate-200 mb-[25px]">
                   Location
                 </h3>
                 <p className="font-mono text-slate-600 dark:text-slate-300">
-                  Yavatmal, Maharashtra
+                  Gwalior, Madhya Pradesh
                   <br />
                   India
                 </p>
@@ -314,7 +317,7 @@ const ContactSection = () => {
                   <p className="text-md">{indianDate}</p>
                 </div>
               </div>
-            </SpotlightCard>
+            </GlowCard>
           </div>
         </div>
       </div>
