@@ -70,12 +70,12 @@ const HeroSection = () => {
         </div>
       )}
 
-      <div className="relative w-full z-10 lg:ml-[20%] mt-[40%] md:mt-[20%] lg:mt-[13%] flex lg:items-end">
+      <div className="relative w-screen z-10 lg:ml-[20%] mt-[40%] md:mt-[20%] lg:mt-[13%] flex lg:items-end overflow-hidden">
         <GradualSpacing
           text="ANIKET"
           duration={0.6}
           delayMultiple={0.08}
-          className="text-[100px] lg:text-[150px] font-moonwalk text-slate-700 dark:text-slate-200"
+          className="text-[100px] lg:text-[150px] font-moonwalk text-slate-700 dark:text-slate-200 w-full"
           framerProps={{
             hidden: { opacity: 0, y: 50, scale: 0.8 },
             visible: { opacity: 1, y: 0, scale: 1 },
@@ -89,7 +89,7 @@ const HeroSection = () => {
               : {}
           }
         />
-        <div className="absolute md:relative mb-[58px] ml-[20%] md:ml-0 z-0">
+        <div className="absolute md:relative md:mt-13 lg:mt-0 lg:mb-[62px] ml-[20%] md:ml-0 z-0">
           <p className="font-exo hidden lg:inline text-slate-700 dark:text-slate-200 text-3xl ml-4">
             and I'm a
           </p>
@@ -102,13 +102,13 @@ const HeroSection = () => {
             ]}
             mainClassName="
             dark:text-purple-300 text-purple-500
-           overflow-hidden  font-halfomania absolute top-[120px] lg:top-4"
+           overflow-hidden  font-halfomania absolute top-[120px] md:top-4"
             staggerFrom={"last"}
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "-120%" }}
             staggerDuration={0.025}
-            splitLevelClassName="overflow-hidden text-[30px] lg:text-[60px]"
+            splitLevelClassName="overflow-hidden text-[20px] md:text-[30px] lg:text-[60px]"
             transition={{ type: "spring", damping: 30, stiffness: 400 }}
             rotationInterval={2000}
           />
@@ -116,7 +116,7 @@ const HeroSection = () => {
       </div>
       <div className="lg:hidden h-30"></div>
       <a
-        href={import.meta.env.VITE_RESUME_LINK}
+        href={import.meta.env.VITE_RESUME_LINK} target="_blank" rel="noopener noreferrer"
         className={`ml-[40%] font-exo text-xl relative z-10 inline-block px-6 py-3 rounded-full 
         bg-gradient-to-r from-violet-400 to-fuchsia-500 text-white shadow-md dark:from-indigo-900 dark:to-purple-900 dark:border dark:border-purple-500 dark:shadow-[0_0_15px_rgba(168,85,247,0.5)]
         overflow-hidden transform ${
