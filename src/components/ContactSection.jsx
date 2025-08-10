@@ -119,7 +119,7 @@ const ContactSection = () => {
     {
       name: "LinkedIn",
       icon: <FaLinkedin size={24} />,
-      url: "https://linkedin.com/in/aniketchawardol",
+      url: "https://www.linkedin.com/in/aniket-chawardol/",
     },
     {
       name: "Email",
