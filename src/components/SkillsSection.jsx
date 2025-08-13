@@ -8,6 +8,7 @@ const allTechnologies = [
   "CSS",
   "JavaScript",
   "React JS",
+  "Next.js",
   "Node.js",
   "Express.js",
   "MongoDB",

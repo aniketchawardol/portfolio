@@ -3,7 +3,7 @@ import axios from "axios";
 import GitHubStatsTile from "./GitHubStatsTile";
 import GitHubHeatmap from "./GitHubHeatmap";
 import { useIsDarkMode } from "../hooks/useIsDarkMode";
-import GlowCard from "../assets/Components/GlowCard/GlowCard";
+import GlowCard from "./GlowCard";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
 const GitHubStats = ({ username = "aniketchawardol" }) => {

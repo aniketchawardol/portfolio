@@ -6,13 +6,16 @@ export const useLenis = () => {
 
   useEffect(() => {
     // Detect mobile/touch devices
-    const isTouchDevice = 
-      'ontouchstart' in window ||
+    const isTouchDevice =
+      "ontouchstart" in window ||
       navigator.maxTouchPoints > 0 ||
       navigator.msMaxTouchPoints > 0;
-    
-    const isMobile = window.innerWidth <= 768 || 
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    const isMobile =
+      window.innerWidth <= 768 ||
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
 
     // Don't initialize Lenis on mobile/touch devices for better native scrolling
     if (isMobile || isTouchDevice) {
@@ -21,12 +24,12 @@ export const useLenis = () => {
 
     // Initialize Lenis only for desktop
     lenisRef.current = new Lenis({
-      duration: 1.2,
+      duration: 2.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: "vertical",
       gestureDirection: "vertical",
       smooth: true,
-      mouseMultiplier: 1,
+      mouseMultiplier: 0.6,
       smoothTouch: false,
       touchMultiplier: 2,
       infinite: false,
@@ -51,7 +54,7 @@ export const useLenis = () => {
     if (lenisRef.current) {
       lenisRef.current.scrollTo(target, {
         offset: 0,
-        duration: 1.2,
+        duration: 2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         ...options,
       });

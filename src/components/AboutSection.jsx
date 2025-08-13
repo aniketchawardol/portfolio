@@ -1,5 +1,5 @@
 import React from "react";
-import BlurRevealText from "./BlurRevealText";
+import SimpleRevealText from "./SimpleRevealText";
 import MetaBalls from "../assets/Animations/MetaBalls/MetaBalls";
 import { useIsDarkMode } from "../hooks/useIsDarkMode";
 import ThemedCard from "./ui/ThemedCard";
@@ -33,7 +33,7 @@ const AboutSection = () => {
           className="dark:text-slate-200 text-slate-700
            md:text-2xl items-center"
         >
-          <BlurRevealText
+          <SimpleRevealText
             text="Hello! I'm Aniket, a passionate Full-Stack Developer with hands-on experience in building scalable web applications using React, Node.js, MongoDB, and real-time technologies like Socket.IO. Along with this I have a strong foundation in Data Structures and Algorithms, with a problem-solving mindset and a focus on writing efficient, clean code."
             className="leading-relaxed text-justify font-mono"
           />

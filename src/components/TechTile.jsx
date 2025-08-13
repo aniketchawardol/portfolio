@@ -6,9 +6,13 @@ import { useDeviceDetection } from "../hooks/useDeviceDetection";
 const TechTile = ({ tech, isHovered, isAnyHovered, onHover, onLeave }) => {
   const { isTouchDevice } = useDeviceDetection();
   // Determine tile size based on technology category
-  const isLarge = ["MongoDB", "Express.js", "React JS", "Node.js"].includes(
-    tech
-  );
+  const isLarge = [
+    "MongoDB",
+    "Express.js",
+    "React JS",
+    "Next.js",
+    "Node.js",
+  ].includes(tech);
   const isMedium = [
     "HTML",
     "CSS",
@@ -56,7 +60,9 @@ const TechTile = ({ tech, isHovered, isAnyHovered, onHover, onLeave }) => {
             !isTouchDevice ? "cursor-pointer" : ""
           } dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30`}
       style={{
-        transition: isTouchDevice ? "none" : "transform 0.3s ease-in-out, filter 0.2s",
+        transition: isTouchDevice
+          ? "none"
+          : "transform 0.3s ease-in-out, filter 0.2s",
       }}
       onMouseEnter={!isTouchDevice ? onHover : undefined}
       onMouseLeave={!isTouchDevice ? onLeave : undefined}

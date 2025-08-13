@@ -192,7 +192,7 @@ const MetaBalls = ({
       const baseScale = 5.0 + h1[1] * (10.0 - 5.0);
       const h2 = hash33(h1);
       const toggle = Math.floor(h2[0] * 2.0);
-      const radiusVal = 0.5 + h2[2] * (2.0 - 0.5);
+      const radiusVal = 0.8 + h2[2] * (2.0 - 0.5);
       ballParams.push({ st, dtFactor, baseScale, toggle, radius: radiusVal });
     }
 

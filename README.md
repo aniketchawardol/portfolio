@@ -2,8 +2,6 @@
 
 A personal portfolio website built with modern web technologies, featuring a responsive design with dark and light mode support, animated UI elements, and integration with external APIs to showcase projects, skills, and development activity.
 
-![Portfolio Demo](./public/image.png)
-
 ## Features
 
 - **Responsive Design**: Optimized for all device sizes

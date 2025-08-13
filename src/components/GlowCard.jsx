@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useDeviceDetection } from "../../../hooks/useDeviceDetection";
+import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
 const glowColorMap = {
   blue: { base: 220, spread: 200 },

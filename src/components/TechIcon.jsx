@@ -35,6 +35,7 @@ import {
   SiPython,
   SiAppwrite,
   SiCloudinary,
+  SiNextdotjs,
 } from "react-icons/si";
 
 const TechIcon = ({ tech }) => {
@@ -44,6 +45,7 @@ const TechIcon = ({ tech }) => {
       "MongoDB",
       "Express.js",
       "React JS",
+      "Next.js",
       "Node.js",
       "PostgreSQL",
       "SQL",
@@ -69,6 +71,8 @@ const TechIcon = ({ tech }) => {
         return <FaJs size={iconSize} color="#F7DF1E" />;
       case "React JS":
         return <FaReact size={iconSize} color="#61DAFB" />;
+      case "Next.js":
+        return <SiNextdotjs size={iconSize} color="#000000" />;
       case "React Redux":
         return (
           <img

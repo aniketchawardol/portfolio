@@ -1,5 +1,5 @@
 import React from "react";
-import GlowCard from "../../assets/Components/GlowCard/GlowCard";
+import GlowCard from "../GlowCard";
 import PropTypes from "prop-types";
 import { useTheme } from "../../utils/ThemeProvider";
 

@@ -33,12 +33,18 @@ const projects = [
     livelink: "https://codesarthi.onrender.com/",
   },
   {
-    title: "Blog App",
+    title: "YouTube Clone",
     description:
-      "A full-stack blogging application. Implemented user authentication, blog post management (create, edit, delete), rich text editor and a responsive UI.",
-    technologies: ["React", "Node.js", "Appwrite", "TinyMCE", "React Redux"],
+      "A video sharing platform with user authentication, video uploads with thumbnails, and a dynamic feed displaying the latest content.",
+    technologies: [
+      "Next.js",
+      "MongoDB",
+      "TailwindCSS",
+      "NextAuth.js",
+      "ImageKit",
+    ],
     imageUrl: "./blogapp.png",
-    projectUrl: ["https://github.com/aniketchawardol/blogapp"],
+    projectUrl: ["https://github.com/aniketchawardol/nextjs-yt-clone"],
   },
 ];
 

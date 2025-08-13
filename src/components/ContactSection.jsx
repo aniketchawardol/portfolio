@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import GlowCard from "../assets/Components/GlowCard/GlowCard";
+import GlowCard from "./GlowCard";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
 import { useTheme } from "../utils/ThemeProvider";
@@ -248,8 +248,8 @@ const ContactSection = () => {
                       type="submit"
                       disabled={formStatus === "submitting"}
                       className={`w-full py-3 px-6 bg-[#7263b3] ${
-                        !isTouchDevice 
-                          ? "hover:bg-[#5e4b9c] dark:hover:bg-[#473677]" 
+                        !isTouchDevice
+                          ? "hover:bg-[#5e4b9c] dark:hover:bg-[#473677]"
                           : "active:bg-[#5e4b9c] dark:active:bg-[#473677]"
                       } dark:bg-[#5c4a99] text-white rounded-xl transition-colors disabled:opacity-70`}
                     >
@@ -280,21 +280,18 @@ const ContactSection = () => {
                   Connect
                 </h3>
 
-                <div className="space-y-4">
+                <div className="flex flex-col gap-4">
                   {socialLinks.map((link, index) => (
                     <a
                       key={index}
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex items-center gap-3 dark:text-slate-300
-                          text-slate-700 ${
-                            !isTouchDevice 
-                              ? "hover:text-purple-600 hover:bg-white/30 dark:hover:bg-slate-700/30" 
-                              : "active:text-purple-600 active:bg-white/30 dark:active:bg-slate-700/30"
-                          }
-                      transition-colors p-2
-                          rounded-md`}
+                      className={`flex items-center gap-3 dark:text-slate-300 text-slate-700 ${
+                        !isTouchDevice
+                          ? "hover:text-purple-600 hover:bg-white/30 dark:hover:bg-slate-700/30"
+                          : "active:text-purple-600 active:bg-white/30 dark:active:bg-slate-700/30"
+                      } transition-colors p-2 rounded-md`}
                     >
                       <span className="text-[#7263b3]">{link.icon}</span>
                       <span className="font-mono">{link.name}</span>
@@ -305,7 +302,7 @@ const ContactSection = () => {
             </GlowCard>
 
             <GlowCard
-              className="bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-8 relative"
+              className="bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-8 relative mt-6"
               isDarkMode={isDarkMode}
               customSize={true}
             >
