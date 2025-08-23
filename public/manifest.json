@@ -15,11 +15,7 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": [
-    "business",
-    "developer",
-    "portfolio"
-  ],
+  "categories": ["business", "developer", "portfolio"],
   "lang": "en-US",
   "scope": "/",
   "id": "aniket-chawardol-portfolio"
