@@ -176,28 +176,18 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
     fetchGitHubData();
   }, [username]);
 
-  useEffect(() => {
-    if (!gitHubStats.length || isTouchDevice) return;
+  // Get transform classes for tiles
+  const getTileTransformClasses = (index) => {
+    if (isTouchDevice) return "";
 
-    gitHubStats.forEach((_, index) => {
-      const el = tileRefs.current[index];
-      if (!el) return;
-
-      if (hoveredTileId === index) {
-        el.style.transform = "scale(1.1)";
-        el.style.zIndex = "10";
-        el.style.filter = "blur(0px)";
-      } else if (hoveredTileId !== null) {
-        el.style.transform = "scale(1)";
-        el.style.zIndex = "1";
-        el.style.filter = "blur(2px)";
-      } else {
-        el.style.transform = "scale(1)";
-        el.style.zIndex = "1";
-        el.style.filter = "blur(0px)";
-      }
-    });
-  }, [hoveredTileId, gitHubStats, isTouchDevice]);
+    if (hoveredTileId === index) {
+      return "scale-105 z-10 blur-none tile-hovered";
+    } else if (hoveredTileId !== null) {
+      return "scale-100 z-[1] blur-[5px]";
+    } else {
+      return "scale-100 z-[1] blur-none";
+    }
+  };
 
   if (error || !githubData) {
     return null;
@@ -265,15 +255,20 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
               <div
                 key={index}
                 ref={(el) => (tileRefs.current[index] = el)}
-                className={`${gridClass}`}
-                style={{
-                  transition: isTouchDevice 
-                    ? "none"
-                    : "transform 0.2s ease-in-out, filter 0.2s ease-in-out",
-                }}
-                onMouseEnter={!isTouchDevice ? () => setHoveredTileId(index) : undefined}
-                onMouseLeave={!isTouchDevice ? () => setHoveredTileId(null) : undefined}
-                onClick={isTouchDevice ? () => setHoveredTileId(index) : undefined}
+                className={`${gridClass} ${
+                  !isTouchDevice
+                    ? `transition-tile ${getTileTransformClasses(index)}`
+                    : ""
+                } will-change-transform`}
+                onMouseEnter={
+                  !isTouchDevice ? () => setHoveredTileId(index) : undefined
+                }
+                onMouseLeave={
+                  !isTouchDevice ? () => setHoveredTileId(null) : undefined
+                }
+                onClick={
+                  isTouchDevice ? () => setHoveredTileId(index) : undefined
+                }
               >
                 <GitHubStatsTile
                   title={stat.title}
@@ -313,8 +308,8 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
             target="_blank"
             rel="noopener noreferrer"
             className={`inline-block bg-[#7263b3] ${
-              !isTouchDevice 
-                ? "hover:bg-[#5e4b9c] dark:hover:bg-[#473677]" 
+              !isTouchDevice
+                ? "hover:bg-[#5e4b9c] dark:hover:bg-[#473677]"
                 : "active:bg-[#5e4b9c] dark:active:bg-[#473677]"
             } dark:bg-[#5c4a99] text-white py-2 px-4 rounded-xl transition-colors`}
           >

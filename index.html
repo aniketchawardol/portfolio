@@ -3,11 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <meta name="theme-color" content="#7c3aed" />
+    
+    <!-- Performance Optimizations -->
+    <link rel="dns-prefetch" href="//api.github.com" />
+    <link rel="dns-prefetch" href="//avatars.githubusercontent.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
     <!-- Preload critical fonts to prevent layout shifts -->
     <link
       rel="preload"
@@ -46,7 +54,102 @@
       data-site-id="2041"
       defer
     ></script>
-    <title>Hey there! I'm</title>
+    <title>Hey There! I'm</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Aniket Chawardol is a passionate Full-Stack Developer specializing in React.js, Node.js, MongoDB, and modern web technologies. View my portfolio featuring projects like Doctors.com, Code Sathi, and more." />
+    <meta name="keywords" content="Aniket Chawardol, Full Stack Developer, React Developer, Node.js Developer, Web Developer, JavaScript, MongoDB, Express.js, Portfolio, Frontend Developer, Backend Developer, DSA, Problem Solver" />
+    <meta name="author" content="Aniket Chawardol" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://chawardolaniket.vercel.app/" />
+    <meta property="og:title" content="Aniket Chawardol - Full Stack Developer | React.js, Node.js, MongoDB Expert" />
+    <meta property="og:description" content="Passionate Full-Stack Developer with expertise in React, Node.js, MongoDB, and modern web technologies. Explore my projects and skills in web development." />
+    <meta property="og:image" content="https://chawardolaniket.vercel.app/favicon.svg" />
+    <meta property="og:site_name" content="Aniket Chawardol Portfolio" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://chawardolaniket.vercel.app/" />
+    <meta property="twitter:title" content="Aniket Chawardol - Full Stack Developer | React.js, Node.js, MongoDB Expert" />
+    <meta property="twitter:description" content="Passionate Full-Stack Developer with expertise in React, Node.js, MongoDB, and modern web technologies. Explore my projects and skills in web development." />
+    <meta property="twitter:image" content="https://chawardolaniket.vercel.app/favicon.svg" />
+    <meta property="twitter:creator" content="@aniketchawardol" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://chawardolaniket.vercel.app/" />
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Aniket Chawardol",
+      "jobTitle": "Full Stack Developer",
+      "description": "Passionate Full-Stack Developer with hands-on experience in building scalable web applications using React, Node.js, MongoDB, and real-time technologies like Socket.IO.",
+      "url": "https://chawardolaniket.vercel.app/",
+      "sameAs": [
+        "https://github.com/aniketchawardol",
+        "https://linkedin.com/in/aniketchawardol"
+      ],
+      "knowsAbout": [
+        "React.js",
+        "Node.js",
+        "MongoDB",
+        "Express.js",
+        "JavaScript",
+        "Full Stack Development",
+        "Web Development",
+        "Data Structures and Algorithms",
+        "Socket.IO",
+        "TailwindCSS",
+        "Next.js",
+        "PostgreSQL"
+      ],
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Full Stack Web Development",
+          "description": "Expertise in modern web technologies including React, Node.js, and MongoDB"
+        }
+      ],
+      "workExample": [
+        {
+          "@type": "WebSite",
+          "name": "Doctors.com",
+          "description": "Comprehensive healthcare platform enabling secure patient report uploads, hospital searches, and efficient report management",
+          "url": "https://doctors-com-frontend.vercel.app/",
+          "programmingLanguage": ["React", "Node.js", "MongoDB", "Express.js", "TailwindCSS"]
+        },
+        {
+          "@type": "WebSite",
+          "name": "Code Sathi",
+          "description": "Real-time collaborative code editor with live editing, multi-user cursor tracking, chat, and AI coding assistant",
+          "programmingLanguage": ["React", "Node.js", "Socket.IO", "Express.js"]
+        }
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "professional",
+        "url": "https://chawardolaniket.vercel.app/#contact"
+      }
+    }
+    </script>
+    
+    <!-- Additional SEO optimizations -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="msapplication-TileColor" content="#7c3aed" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    <meta property="og:image" content="https://chawardolaniket.vercel.app/og-image.jpg" /> 
+    <meta property="twitter:image" content="https://chawardolaniket.vercel.app/og-image.jpg" />
   </head>
   <body>
     <div id="root"></div>

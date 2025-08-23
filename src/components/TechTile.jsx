@@ -31,25 +31,18 @@ const TechTile = ({ tech, isHovered, isAnyHovered, onHover, onLeave }) => {
 
   const tileRef = useRef(null);
 
-  // Direct DOM manipulation for smoother transitions (disabled on touch devices)
-  useEffect(() => {
-    const el = tileRef.current;
-    if (!el || isTouchDevice) return;
+  // Use CSS classes for better performance and to avoid jitter
+  const getTransformClasses = () => {
+    if (isTouchDevice) return "";
 
     if (isHovered) {
-      el.style.transform = "scale(1.1)";
-      el.style.zIndex = "10";
-      el.style.filter = "blur(0px)";
+      return "scale-105 z-10 blur-none tile-hovered";
     } else if (isAnyHovered) {
-      el.style.transform = "scale(1)";
-      el.style.zIndex = "1";
-      el.style.filter = "blur(2px)";
+      return "scale-100 z-[1] blur-[5px]";
     } else {
-      el.style.transform = "scale(1)";
-      el.style.zIndex = "1";
-      el.style.filter = "blur(0px)";
+      return "scale-100 z-[1] blur-none";
     }
-  }, [isHovered, isAnyHovered, isTouchDevice]);
+  };
 
   return (
     <div
@@ -58,12 +51,9 @@ const TechTile = ({ tech, isHovered, isAnyHovered, onHover, onLeave }) => {
           bg-white/20 border border-white/20
           rounded-xl p-6 flex flex-col shadow-lg ${
             !isTouchDevice ? "cursor-pointer" : ""
-          } dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30`}
-      style={{
-        transition: isTouchDevice
-          ? "none"
-          : "transform 0.3s ease-in-out, filter 0.2s",
-      }}
+          } dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30
+          ${!isTouchDevice ? `transition-tile ${getTransformClasses()}` : ""}
+          will-change-transform`}
       onMouseEnter={!isTouchDevice ? onHover : undefined}
       onMouseLeave={!isTouchDevice ? onLeave : undefined}
       onClick={isTouchDevice ? onHover : undefined}

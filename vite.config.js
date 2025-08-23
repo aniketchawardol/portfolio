@@ -27,5 +27,9 @@ export default defineConfig({
     "**/*.woff",
     "**/*.woff2",
     "**/*.eot",
+    "**/*.xml",
+    "**/*.txt",
   ],
+  // Ensure SEO files are copied to build
+  publicDir: "public",
 });

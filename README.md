@@ -1,9 +1,12 @@
 # Portfolio Website
 
-A personal portfolio website built with modern web technologies, featuring a responsive design with dark and light mode support, animated UI elements, and integration with external APIs to showcase projects, skills, and development activity.
+A personal portfolio website built with modern web technologies, featuring a responsive design with dark and light mode support, animated UI elements, and comprehensive SEO optimization for maximum visibility and performance.
+
+🌐 **Live Site**: [https://chawardolaniket.vercel.app](https://chawardolaniket.vercel.app)
 
 ## Features
 
+- **SEO Optimized**: Complete meta tags, structured data, sitemap, and social media optimization
 - **Responsive Design**: Optimized for all device sizes
 - **Light/Dark Mode**: Automatic theme detection with manual override
 - **Animated UI**: Smooth animations and transitions using Framer Motion

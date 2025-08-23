@@ -1,0 +1,26 @@
+{
+  "name": "Aniket Chawardol - Full Stack Developer Portfolio",
+  "short_name": "Aniket Portfolio",
+  "description": "Passionate Full-Stack Developer specializing in React.js, Node.js, MongoDB, and modern web technologies",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0a29",
+  "theme_color": "#7c3aed",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "business",
+    "developer",
+    "portfolio"
+  ],
+  "lang": "en-US",
+  "scope": "/",
+  "id": "aniket-chawardol-portfolio"
+}
