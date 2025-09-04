@@ -1,7 +1,2 @@
-export const NAV_ITEMS = [
-  { label: "Home", id: "home" },
-  { label: "About", id: "about" },
-  { label: "Skills", id: "skills" },
-  { label: "Projects", id: "projects" },
-  { label: "Contact", id: "contact" },
-];
+// This file is deprecated. Import NAV_ITEMS from './index.js' instead
+export { NAV_ITEMS } from './index.js';

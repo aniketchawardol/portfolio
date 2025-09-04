@@ -11,6 +11,8 @@ import { ThemeProvider } from "./utils/ThemeProvider";
 import { useLenis } from "./hooks/useLenis";
 import Lottie from "react-lottie";
 import animationData from "./assets/Animations/loading/loading.json";
+import { getAnimationSize } from "./utils/helpers";
+import { ANIMATION_SETTINGS } from "./constants";
 
 function AppContent() {
   // Add states for loading and animations
@@ -33,34 +35,19 @@ function AppContent() {
 
   // Set up loading effect
   useEffect(() => {
-    // Simulate loading time or wait for resources
     const timer = setTimeout(() => {
-      // Start fade-out animation
       setIsFadingOut(true);
-
-      // Set loading to false AND make content visible after animation completes
       const animationTimer = setTimeout(() => {
-        setContentVisible(true); // Set content visible first
+        setContentVisible(true);
         requestAnimationFrame(() => {
-          setLoading(false); // Then remove loading screen on next frame
+          setLoading(false);
         });
-      }, 200); // Slightly shorter than animation duration
-
+      }, ANIMATION_SETTINGS.loading.fadeOutDuration);
       return () => clearTimeout(animationTimer);
-    }, 2500); // Show loading animation for 2.5 seconds
+    }, ANIMATION_SETTINGS.loading.duration);
 
     return () => clearTimeout(timer);
   }, []);
-
-  // Get dynamic animation size based on viewport
-  const getAnimationSize = () => {
-    if (typeof window === "undefined") return { width: 400, height: 400 };
-
-    // These breakpoints align with Tailwind's defaults
-    if (window.innerWidth < 640) return { width: 280, height: 280 }; // Small screens
-    if (window.innerWidth < 1024) return { width: 350, height: 350 }; // Medium screens
-    return { width: 400, height: 400 }; // Large screens
-  };
 
   const [animationSize, setAnimationSize] = useState(getAnimationSize());
 
@@ -76,12 +63,8 @@ function AppContent() {
 
   // Lottie animation options
   const defaultOptions = {
-    loop: true,
-    autoplay: true,
+    ...ANIMATION_SETTINGS.lottie.defaultOptions,
     animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
   };
 
   // Conditionally render loading animation or main content

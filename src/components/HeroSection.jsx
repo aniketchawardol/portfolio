@@ -5,6 +5,7 @@ import Spline from "@splinetool/react-spline";
 import { useIsDarkMode } from "../hooks/useIsDarkMode";
 import { GradualSpacing } from "./GradualSpacing";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
+import { ROTATING_TEXTS, ANIMATION_SETTINGS } from "../constants";
 
 const HeroSection = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -42,7 +43,7 @@ const HeroSection = () => {
       if (isDarkMode) {
         setMeteorActive(true);
       }
-    }, 500);
+    }, ANIMATION_SETTINGS.meteors.activationDelay);
 
     return () => clearTimeout(timer);
   }, [isDarkMode]);
@@ -73,8 +74,8 @@ const HeroSection = () => {
       <div className="relative w-screen z-10 lg:ml-[20%] mt-[40%] md:mt-[20%] lg:mt-[13%] flex lg:items-end overflow-hidden">
         <GradualSpacing
           text="ANIKET"
-          duration={0.6}
-          delayMultiple={0.08}
+          duration={ANIMATION_SETTINGS.gradualSpacing.duration}
+          delayMultiple={ANIMATION_SETTINGS.gradualSpacing.delayMultiple}
           className="text-[100px] lg:text-[150px] font-moonwalk text-slate-700 dark:text-slate-200 w-full"
           framerProps={{
             hidden: { opacity: 0, y: 50, scale: 0.8 },
@@ -94,12 +95,7 @@ const HeroSection = () => {
             and I'm a
           </p>
           <RotatingText
-            texts={[
-              "Web Developer",
-              "Problem Solver",
-              "DSA Enthusiast",
-              "UI/UX Designer",
-            ]}
+            texts={ROTATING_TEXTS}
             mainClassName="
             dark:text-purple-300 text-purple-500
            overflow-hidden  font-halfomania absolute top-[120px] md:top-4"
@@ -107,10 +103,10 @@ const HeroSection = () => {
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "-120%" }}
-            staggerDuration={0.025}
+            staggerDuration={ANIMATION_SETTINGS.rotatingText.staggerDuration}
             splitLevelClassName="overflow-hidden text-[20px] md:text-[30px] lg:text-[60px]"
             transition={{ type: "spring", damping: 30, stiffness: 400 }}
-            rotationInterval={2000}
+            rotationInterval={ANIMATION_SETTINGS.rotatingText.interval}
           />
         </div>
       </div>

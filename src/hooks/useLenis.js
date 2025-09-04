@@ -1,24 +1,13 @@
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
+import { isTouchDevice, isMobileDevice } from "../utils/helpers";
 
 export const useLenis = () => {
   const lenisRef = useRef(null);
 
   useEffect(() => {
-    // Detect mobile/touch devices
-    const isTouchDevice =
-      "ontouchstart" in window ||
-      navigator.maxTouchPoints > 0 ||
-      navigator.msMaxTouchPoints > 0;
-
-    const isMobile =
-      window.innerWidth <= 768 ||
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      );
-
     // Don't initialize Lenis on mobile/touch devices for better native scrolling
-    if (isMobile || isTouchDevice) {
+    if (isMobileDevice() || isTouchDevice()) {
       return;
     }
 

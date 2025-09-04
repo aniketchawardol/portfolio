@@ -5,8 +5,9 @@ import GitHubHeatmap from "./GitHubHeatmap";
 import { useIsDarkMode } from "../hooks/useIsDarkMode";
 import GlowCard from "./GlowCard";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
+import { GITHUB_CONFIG } from "../constants";
 
-const GitHubStats = ({ username = "aniketchawardol" }) => {
+const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
   const [githubData, setGithubData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -54,10 +55,8 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
   useEffect(() => {
     const fetchGitHubData = async () => {
       try {
-        const token = import.meta.env.VITE_APP_GITHUB_TOKEN;
-
         const headers = {
-          Authorization: `token ${token}`,
+          Authorization: `token ${GITHUB_CONFIG.token}`,
         };
 
         const userResponse = await axios.get(
@@ -95,7 +94,7 @@ const GitHubStats = ({ username = "aniketchawardol" }) => {
           graphqlQuery,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${GITHUB_CONFIG.token}`,
               "Content-Type": "application/json",
             },
           }

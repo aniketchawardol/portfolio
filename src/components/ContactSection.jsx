@@ -4,6 +4,8 @@ import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
 import { useTheme } from "../utils/ThemeProvider";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
+import { SOCIAL_LINKS } from "../constants";
+import { getIndianDateTime } from "../utils/helpers";
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
@@ -37,20 +39,8 @@ const ContactSection = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const indianTime = currentTime.toLocaleTimeString("en-IN", {
-    timeZone: "Asia/Kolkata",
-    hour12: true,
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  });
-
-  const indianDate = currentTime.toLocaleDateString("en-IN", {
-    timeZone: "Asia/Kolkata",
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
+  // Use the helper function with live updates
+  const { indianTime, indianDate } = getIndianDateTime();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -110,23 +100,12 @@ const ContactSection = () => {
     }
   };
 
-  const socialLinks = [
-    {
-      name: "GitHub",
-      icon: <FaGithub size={24} />,
-      url: "https://github.com/aniketchawardol",
-    },
-    {
-      name: "LinkedIn",
-      icon: <FaLinkedin size={24} />,
-      url: "https://www.linkedin.com/in/aniket-chawardol/",
-    },
-    {
-      name: "Email",
-      icon: <FaEnvelope size={24} />,
-      url: "mailto:aniketchawardol@gmail.com",
-    },
-  ];
+  const socialLinksWithIcons = SOCIAL_LINKS.map(link => ({
+    ...link,
+    icon: link.name === "GitHub" ? <FaGithub size={24} /> :
+          link.name === "LinkedIn" ? <FaLinkedin size={24} /> :
+          <FaEnvelope size={24} />
+  }));
 
   return (
     <div
@@ -281,7 +260,7 @@ const ContactSection = () => {
                 </h3>
 
                 <div className="flex flex-col gap-4">
-                  {socialLinks.map((link, index) => (
+                  {socialLinksWithIcons.map((link, index) => (
                     <a
                       key={index}
                       href={link.url}

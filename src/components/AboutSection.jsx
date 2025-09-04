@@ -3,6 +3,7 @@ import SimpleRevealText from "./SimpleRevealText";
 import MetaBalls from "../assets/Animations/MetaBalls/MetaBalls";
 import { useIsDarkMode } from "../hooks/useIsDarkMode";
 import ThemedCard from "./ui/ThemedCard";
+import { COLORS } from "../constants";
 
 const AboutSection = () => {
   const isDarkMode = useIsDarkMode();
@@ -15,8 +16,8 @@ const AboutSection = () => {
     >
       <div className="absolute inset-0 flex items-center justify-center z-0 ">
         <MetaBalls
-          color={isDarkMode ? "#7e22ce" : "#d4bdf4"}
-          cursorBallColor={isDarkMode ? "#7e22ce" : "#d4bdf4"}
+          color={isDarkMode ? COLORS.metaBalls.dark : COLORS.metaBalls.light}
+          cursorBallColor={isDarkMode ? COLORS.metaBalls.dark : COLORS.metaBalls.light}
           cursorBallSize={2}
           ballCount={15}
           animationSize={30}

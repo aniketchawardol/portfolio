@@ -2,6 +2,7 @@ import React from "react";
 import ThemedCard from "./ui/ThemedCard";
 import PropTypes from "prop-types";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
+import { getInteractionClasses } from "../utils/helpers";
 
 const ProjectTile = ({
   title,
