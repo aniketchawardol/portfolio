@@ -18,13 +18,17 @@ const SimpleRevealText = ({ text, className }) => {
   }, []);
 
   const getRevealClip = () => {
-    if (!textRef.current) return {};
+    if (!textRef.current)
+      return {
+        clearClip: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+        blurredClip: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
+      };
 
     const rect = textRef.current.getBoundingClientRect();
     const windowHeight = window.innerHeight;
 
-    // The reveal line is at 1/3rd from bottom (2/3rd from top)
-    const revealLineY = windowHeight * (4/5);
+    // The reveal line is at 4/5th from top (80% down from top)
+    const revealLineY = windowHeight * (4 / 5);
 
     // Calculate how much of the text should be revealed
     const textTop = rect.top;
@@ -39,10 +43,13 @@ const SimpleRevealText = ({ text, className }) => {
       Math.min(100, (revealDistance / textHeight) * 100)
     );
 
-    return revealPercentage;
+    return {
+      clearClip: `polygon(0 0, 100% 0, 100% ${revealPercentage}%, 0 ${revealPercentage}%)`,
+      blurredClip: `polygon(0 ${revealPercentage}%, 100% ${revealPercentage}%, 100% 100%, 0 100%)`,
+    };
   };
 
-  const revealPercentage = getRevealClip();
+  const { clearClip, blurredClip } = getRevealClip();
 
   return (
     <div
@@ -60,7 +67,7 @@ const SimpleRevealText = ({ text, className }) => {
           top: 0,
           left: 0,
           right: 0,
-          clipPath: `polygon(0 0, 100% 0, 100% ${revealPercentage}%, 0 ${revealPercentage}%)`,
+          clipPath: clearClip,
           zIndex: 2,
         }}
       >
@@ -76,7 +83,7 @@ const SimpleRevealText = ({ text, className }) => {
           right: 0,
           filter: "blur(4px)",
           opacity: 0.6,
-          clipPath: `polygon(0 ${revealPercentage}%, 100% ${revealPercentage}%, 100% 100%, 0 100%)`,
+          clipPath: blurredClip,
           zIndex: 1,
         }}
       >

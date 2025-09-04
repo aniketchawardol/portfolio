@@ -57,6 +57,15 @@ body {
   backface-visibility: hidden;
 }
 
+/* Performance optimizations for animations */
+.gradual-char,
+.reveal-text-clear,
+.reveal-text-blurred,
+.hero-heading {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
 /* Optimized scale transforms to prevent jitter */
 .scale-100 {
   transform: scale(1) translateZ(0);
@@ -82,6 +91,44 @@ body {
 .dark .tile-hovered {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25),
     0 10px 10px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* GitHub Stats Grid Hover Effects */
+.github-stats-tile {
+  transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* On desktop: blur all tiles when grid is hovered */
+@media (hover: hover) and (pointer: fine) {
+  .github-stats-grid:hover .github-stats-tile {
+    filter: blur(3px);
+  }
+
+  /* Unblur and scale up the specific tile being hovered */
+  .github-stats-grid:hover .github-stats-tile:hover {
+    filter: blur(0px);
+    transform: scale(1.05);
+  }
+}
+
+/* Tech Skills Grid Hover Effects */
+.tech-skills-tile {
+  transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* On desktop: blur all tiles when grid is hovered */
+@media (hover: hover) and (pointer: fine) {
+  .tech-skills-grid:hover .tech-skills-tile {
+    filter: blur(3px);
+  }
+
+  /* Unblur and scale up the specific tile being hovered */
+  .tech-skills-grid:hover .tech-skills-tile:hover {
+    filter: blur(0px);
+    transform: scale(1.05);
+  }
 }
 
 /* Dark mode settings */
@@ -350,5 +397,45 @@ body {
 
   .reveal-text.visible {
     @apply opacity-100 blur-none translate-y-0;
+  }
+
+  /* Hero heading scroll effects */
+  .hero-heading {
+    animation: hero-heading-scroll linear;
+    animation-timeline: scroll(root);
+    animation-range: 0% 60%;
+  }
+
+  @keyframes hero-heading-scroll {
+    from {
+      letter-spacing: 0rem;
+      opacity: 1;
+    }
+    to {
+      letter-spacing: 20rem;
+      opacity: 0;
+    }
+  }
+
+  /* Fallback for browsers without scroll-timeline support */
+  @supports not (animation-timeline: scroll()) {
+    .hero-heading {
+      animation: none;
+    }
+  }
+
+  /* Gradual spacing character animation */
+  .gradual-spacing .gradual-char {
+    opacity: var(--initial-opacity, 0);
+    transform: translateY(var(--initial-y, -20px))
+      scale(var(--initial-scale, 1));
+    animation: char-reveal ease-out forwards;
+  }
+
+  @keyframes char-reveal {
+    to {
+      opacity: var(--final-opacity, 1);
+      transform: translateY(var(--final-y, 0px)) scale(var(--final-scale, 1));
+    }
   }
 }

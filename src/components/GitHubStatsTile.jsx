@@ -147,9 +147,7 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
   if (category === "languages" && Array.isArray(value)) {
     return (
       <div
-        className={`${getGridSpan()} bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 h-full flex flex-col transition-all ${
-          !isTouchDevice ? "hover:shadow-lg" : ""
-        }`}
+        className={`${getGridSpan()} bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 h-full flex flex-col`}
       >
         <div className="flex items-center mb-2 md:mb-3">
           <div className="flex-shrink-0 mr-2 md:mr-3">
@@ -189,9 +187,7 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
         className={`${getGridSpan()} 
             dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md
             bg-white/20 border border-white/20
-       shadow-lg rounded-xl p-6 flex flex-col transition-all ${
-         !isTouchDevice ? "hover:shadow-lg" : ""
-       }`}
+       shadow-lg rounded-xl p-6 flex flex-col`}
       >
         <div className="flex items-center mb-2 md:mb-3">
           <div className="flex-shrink-0 mr-2 md:mr-3">
@@ -215,9 +211,7 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
               }
               target="_blank"
               rel="noopener noreferrer"
-              className={`text-xs md:text-sm ${
-                !isTouchDevice ? "hover:underline" : ""
-              } 
+              className={`text-xs md:text-sm 
               dark:text-slate-300 text-slate-700
             flex items-center py-0.5 md:py-1 border-b 
                dark:border-slate-700 border-slate-200`}
@@ -262,9 +256,7 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
 
   return (
     <div
-      className={`${getGridSpan()} bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 flex flex-col transition-all ${
-        !isTouchDevice ? "hover:shadow-lg" : ""
-      } h-full ${!isTouchDevice ? "cursor-pointer" : ""}`}
+      className={`${getGridSpan()} bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 flex flex-col h-full`}
     >
       <div className="flex items-center h-full">
         <div className="flex-shrink-0 mr-2 md:mr-3">{icon || getIcon()}</div>

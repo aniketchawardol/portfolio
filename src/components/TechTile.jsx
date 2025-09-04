@@ -1,10 +1,8 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import TechIcon from "./TechIcon";
 import PropTypes from "prop-types";
-import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
-const TechTile = ({ tech, isHovered, isAnyHovered, onHover, onLeave }) => {
-  const { isTouchDevice } = useDeviceDetection();
+const TechTile = ({ tech }) => {
   // Determine tile size based on technology category
   const isLarge = [
     "MongoDB",
@@ -29,46 +27,21 @@ const TechTile = ({ tech, isHovered, isAnyHovered, onHover, onLeave }) => {
     ? "col-span-2 row-span-1" // Medium wide tiles
     : "col-span-1 row-span-1"; // Small square tiles
 
-  const tileRef = useRef(null);
-
-  // Use CSS classes for better performance and to avoid jitter
-  const getTransformClasses = () => {
-    if (isTouchDevice) return "";
-
-    if (isHovered) {
-      return "scale-105 z-10 blur-none tile-hovered";
-    } else if (isAnyHovered) {
-      return "scale-100 z-[1] blur-[5px]";
-    } else {
-      return "scale-100 z-[1] blur-none";
-    }
-  };
-
   return (
-    <div
-      ref={tileRef}
-      className={`${gridSpan} font-exo
-          bg-white/20 border border-white/20
-          rounded-xl p-6 flex flex-col shadow-lg ${
-            !isTouchDevice ? "cursor-pointer" : ""
-          } dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30
-          ${!isTouchDevice ? `transition-tile ${getTransformClasses()}` : ""}
-          will-change-transform`}
-      onMouseEnter={!isTouchDevice ? onHover : undefined}
-      onMouseLeave={!isTouchDevice ? onLeave : undefined}
-      onClick={isTouchDevice ? onHover : undefined}
-    >
-      <div className="flex items-center justify-center md:justify-start h-full">
-        <div className="flex-shrink-0 md:mr-3">
-          <TechIcon tech={tech} />
+    <div className={`${gridSpan} tech-skills-tile`}>
+      <div className="font-exo bg-white/20 border border-white/20 rounded-xl p-6 flex flex-col shadow-lg dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 h-full w-full">
+        <div className="flex items-center justify-center md:justify-start h-full">
+          <div className="flex-shrink-0 md:mr-3">
+            <TechIcon tech={tech} />
+          </div>
+          <span
+            className={`dark:text-slate-200 text-slate-700 font-medium hidden md:inline overflow-hidden text-ellipsis ${
+              isLarge ? "text-2xl" : isMedium ? "text-xl" : "text-md"
+            }`}
+          >
+            {tech}
+          </span>
         </div>
-        <span
-          className={`dark:text-slate-200 text-slate-700 font-medium hidden md:inline overflow-hidden text-ellipsis ${
-            isLarge ? "text-2xl" : isMedium ? "text-xl" : "text-md"
-          }`}
-        >
-          {tech}
-        </span>
       </div>
     </div>
   );
@@ -77,10 +50,6 @@ const TechTile = ({ tech, isHovered, isAnyHovered, onHover, onLeave }) => {
 TechTile.propTypes = {
   tech: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
-  isHovered: PropTypes.bool,
-  isAnyHovered: PropTypes.bool,
-  onHover: PropTypes.func,
-  onLeave: PropTypes.func,
 };
 
 export default TechTile;

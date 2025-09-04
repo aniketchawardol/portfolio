@@ -13,12 +13,12 @@ export const useLenis = () => {
 
     // Initialize Lenis only for desktop
     lenisRef.current = new Lenis({
-      duration: 2.0,
+      duration: 3.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: "vertical",
       gestureDirection: "vertical",
       smooth: true,
-      mouseMultiplier: 0.6,
+      mouseMultiplier: 0.4,
       smoothTouch: false,
       touchMultiplier: 2,
       infinite: false,
@@ -43,7 +43,7 @@ export const useLenis = () => {
     if (lenisRef.current) {
       lenisRef.current.scrollTo(target, {
         offset: 0,
-        duration: 2,
+        duration: 3,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         ...options,
       });

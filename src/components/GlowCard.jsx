@@ -31,28 +31,48 @@ const GlowCard = ({
   const { isTouchDevice } = useDeviceDetection();
 
   useEffect(() => {
-    // Don't add pointer tracking on touch devices to avoid performance issues
+    // Only add pointer tracking on desktop non-touch devices for performance
     if (isTouchDevice) return;
 
     const syncPointer = (e) => {
       const { clientX: x, clientY: y } = e;
 
       if (cardRef.current) {
-        cardRef.current.style.setProperty("--x", x.toFixed(2));
-        cardRef.current.style.setProperty(
-          "--xp",
-          (x / window.innerWidth).toFixed(2)
-        );
-        cardRef.current.style.setProperty("--y", y.toFixed(2));
-        cardRef.current.style.setProperty(
-          "--yp",
-          (y / window.innerHeight).toFixed(2)
-        );
+        // Use requestAnimationFrame to throttle updates
+        requestAnimationFrame(() => {
+          if (cardRef.current) {
+            cardRef.current.style.setProperty("--x", x.toFixed(2));
+            cardRef.current.style.setProperty(
+              "--xp",
+              (x / window.innerWidth).toFixed(2)
+            );
+            cardRef.current.style.setProperty("--y", y.toFixed(2));
+            cardRef.current.style.setProperty(
+              "--yp",
+              (y / window.innerHeight).toFixed(2)
+            );
+          }
+        });
       }
     };
 
-    document.addEventListener("pointermove", syncPointer);
-    return () => document.removeEventListener("pointermove", syncPointer);
+    // Use throttled event listener
+    let ticking = false;
+    const throttledSyncPointer = (e) => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          syncPointer(e);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    document.addEventListener("pointermove", throttledSyncPointer, {
+      passive: true,
+    });
+    return () =>
+      document.removeEventListener("pointermove", throttledSyncPointer);
   }, [isTouchDevice]);
 
   // Update theme-dependent CSS custom properties when isDarkMode changes
@@ -221,7 +241,7 @@ const GlowCard = ({
       "--before-saturation": currentIsDarkMode ? "70" : "50",
       "--before-lightness": currentIsDarkMode ? "55" : "40",
       "--after-lightness": currentIsDarkMode ? "80" : "90",
-      backgroundImage: isTouchDevice 
+      backgroundImage: isTouchDevice
         ? "none" // Disable resource-intensive background effects on touch devices
         : `radial-gradient(
         var(--spotlight-size) var(--spotlight-size) at
@@ -269,26 +289,30 @@ const GlowCard = ({
     }
     
     [data-glow]::before {
-      background-image: ${isTouchDevice 
-        ? "none" 
-        : `radial-gradient(
+      background-image: ${
+        isTouchDevice
+          ? "none"
+          : `radial-gradient(
         calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
         calc(var(--x, 0) * 1px)
         calc(var(--y, 0) * 1px),
         hsl(280 calc(var(--before-saturation) * 1%) calc(var(--before-lightness) * 1%) / var(--border-spot-opacity)), transparent 100%
-      )`};
+      )`
+      };
       filter: ${isTouchDevice ? "none" : "brightness(1.5)"};
     }
     
     [data-glow]::after {
-      background-image: ${isTouchDevice 
-        ? "none" 
-        : `radial-gradient(
+      background-image: ${
+        isTouchDevice
+          ? "none"
+          : `radial-gradient(
         calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
         calc(var(--x, 0) * 1px)
         calc(var(--y, 0) * 1px),
         hsl(280 20% calc(var(--after-lightness) * 1%) / var(--border-light-opacity)), transparent 100%
-      )`};
+      )`
+      };
     }
     
     [data-glow] [data-glow] {

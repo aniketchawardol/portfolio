@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import TechTile from "./TechTile";
 import SectionContainer from "./layout/SectionContainer";
 import SectionHeading from "./ui/SectionHeading";
 import { TECHNOLOGIES, COLORS } from "../constants";
 
 const SkillsSection = () => {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-
   return (
     <SectionContainer
       id="skills"
@@ -15,17 +13,9 @@ const SkillsSection = () => {
     >
       <SectionHeading title="Skills & Technologies" />
       {/* Windows 10 start menu style grid */}
-      <div className="grid grid-cols-6 auto-rows-auto gap-6 grid-auto-flow-dense">
+      <div className="grid grid-cols-6 auto-rows-auto gap-6 grid-auto-flow-dense tech-skills-grid">
         {TECHNOLOGIES.map((tech, index) => (
-          <TechTile
-            key={index}
-            tech={tech}
-            index={index}
-            isHovered={hoveredIndex === index}
-            isAnyHovered={hoveredIndex !== null}
-            onHover={() => setHoveredIndex(index)}
-            onLeave={() => setHoveredIndex(null)}
-          />
+          <TechTile key={index} tech={tech} index={index} />
         ))}
       </div>
     </SectionContainer>

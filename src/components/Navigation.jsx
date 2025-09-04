@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import NavigationButton from "./NavigationButton";
-import { NAV_ITEMS } from "../constants/navigation";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
+
+const NAV_ITEMS = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
+];
 
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState("home");

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
 import RotatingText from "../assets/TextAnimations/RotatingText/RotatingText";
 import Spline from "@splinetool/react-spline";
 import { useIsDarkMode } from "../hooks/useIsDarkMode";
@@ -13,18 +12,6 @@ const HeroSection = () => {
   const sectionRef = useRef(null);
   const isDarkMode = useIsDarkMode();
   const { isTouchDevice } = useDeviceDetection();
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  const letterSpacing = useTransform(
-    scrollYProgress,
-    [0, 0.6],
-    ["0rem", "6rem"]
-  );
-  const headingOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,19 +63,7 @@ const HeroSection = () => {
           text="ANIKET"
           duration={ANIMATION_SETTINGS.gradualSpacing.duration}
           delayMultiple={ANIMATION_SETTINGS.gradualSpacing.delayMultiple}
-          className="text-[100px] lg:text-[150px] font-moonwalk text-slate-700 dark:text-slate-200 w-full"
-          framerProps={{
-            hidden: { opacity: 0, y: 50, scale: 0.8 },
-            visible: { opacity: 1, y: 0, scale: 1 },
-          }}
-          scrollStyle={
-            hasScrolled
-              ? {
-                  letterSpacing,
-                  opacity: headingOpacity,
-                }
-              : {}
-          }
+          className="text-[100px] lg:text-[150px] font-moonwalk text-slate-700 dark:text-slate-200 w-full hero-heading"
         />
         <div className="absolute md:relative md:mt-13 lg:mt-0 lg:mb-[62px] ml-[20%] md:ml-0 z-0">
           <p className="font-exo hidden lg:inline text-slate-700 dark:text-slate-200 text-3xl ml-4">
@@ -112,13 +87,13 @@ const HeroSection = () => {
       </div>
       <div className="lg:hidden h-30"></div>
       <a
-        href={import.meta.env.VITE_RESUME_LINK} target="_blank" rel="noopener noreferrer"
+        href={import.meta.env.VITE_RESUME_LINK}
+        target="_blank"
+        rel="noopener noreferrer"
         className={`ml-[40%] font-exo text-xl relative z-10 inline-block px-6 py-3 rounded-full 
         bg-gradient-to-r from-violet-400 to-fuchsia-500 text-white shadow-md dark:from-indigo-900 dark:to-purple-900 dark:border dark:border-purple-500 dark:shadow-[0_0_15px_rgba(168,85,247,0.5)]
         overflow-hidden transform ${
-          !isTouchDevice 
-            ? "hover:scale-105" 
-            : "active:scale-105"
+          !isTouchDevice ? "hover:scale-105" : "active:scale-105"
         } transition-all duration-300 ease-out`}
       >
         <span className="relative z-10">My Resume</span>

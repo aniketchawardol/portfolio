@@ -13,8 +13,6 @@ const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
   const [error, setError] = useState(null);
   const isDarkMode = useIsDarkMode();
   const { isTouchDevice } = useDeviceDetection();
-  const [hoveredTileId, setHoveredTileId] = useState(null);
-  const tileRefs = useRef({});
 
   const prepareGitHubStats = () => {
     if (!githubData) return [];
@@ -175,19 +173,6 @@ const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
     fetchGitHubData();
   }, [username]);
 
-  // Get transform classes for tiles
-  const getTileTransformClasses = (index) => {
-    if (isTouchDevice) return "";
-
-    if (hoveredTileId === index) {
-      return "scale-105 z-10 blur-none tile-hovered";
-    } else if (hoveredTileId !== null) {
-      return "scale-100 z-[1] blur-[5px]";
-    } else {
-      return "scale-100 z-[1] blur-none";
-    }
-  };
-
   if (error || !githubData) {
     return null;
   }
@@ -240,7 +225,7 @@ const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
           My open-source contributions and project portfolio
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 github-stats-grid">
           {gitHubStats.map((stat, index) => {
             // Determine the grid placement based on category
             let gridClass = "";
@@ -251,24 +236,7 @@ const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
             }
 
             return (
-              <div
-                key={index}
-                ref={(el) => (tileRefs.current[index] = el)}
-                className={`${gridClass} ${
-                  !isTouchDevice
-                    ? `transition-tile ${getTileTransformClasses(index)}`
-                    : ""
-                } will-change-transform`}
-                onMouseEnter={
-                  !isTouchDevice ? () => setHoveredTileId(index) : undefined
-                }
-                onMouseLeave={
-                  !isTouchDevice ? () => setHoveredTileId(null) : undefined
-                }
-                onClick={
-                  isTouchDevice ? () => setHoveredTileId(index) : undefined
-                }
-              >
+              <div key={index} className={`${gridClass} github-stats-tile`}>
                 <GitHubStatsTile
                   title={stat.title}
                   value={stat.value}
