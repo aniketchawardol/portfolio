@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import  { useState, useEffect, useRef } from "react";
 import RotatingText from "../assets/TextAnimations/RotatingText/RotatingText";
 import Spline from "@splinetool/react-spline";
 import { useIsDarkMode } from "../hooks/useIsDarkMode";

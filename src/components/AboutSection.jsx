@@ -1,4 +1,4 @@
-import React from "react";
+
 import SimpleRevealText from "./SimpleRevealText";
 import MetaBalls from "../assets/Animations/MetaBalls/MetaBalls";
 import { useIsDarkMode } from "../hooks/useIsDarkMode";

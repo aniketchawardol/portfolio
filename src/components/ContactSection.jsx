@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import GlowCard from "./GlowCard";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import emailjs from "@emailjs/browser";

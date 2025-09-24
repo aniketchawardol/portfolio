@@ -1,4 +1,3 @@
-import React from "react";
 // Import all Font Awesome icons individually
 import {
   FaHtml5,
@@ -9,14 +8,9 @@ import {
   FaGit,
   FaGithub,
   FaFigma,
+  FaAws,
 } from "react-icons/fa";
-import {
-  FaLock,
-  FaDatabase,
-  FaChartBar,
-  FaTerminal,
-  FaFile,
-} from "react-icons/fa";
+import { FaDatabase, FaTerminal } from "react-icons/fa";
 // Import additional technology icons
 import {
   SiTailwindcss,
@@ -27,15 +21,15 @@ import {
   SiPostman,
   SiMongodb,
   SiPostgresql,
-  SiRender,
-  SiVercel,
+  SiLinux,
   SiCanva,
-  SiAdobephotoshop,
   SiCplusplus,
   SiPython,
   SiAppwrite,
   SiCloudinary,
   SiNextdotjs,
+  SiDocker,
+  SiKubernetes,
 } from "react-icons/si";
 
 const TechIcon = ({ tech }) => {
@@ -50,7 +44,16 @@ const TechIcon = ({ tech }) => {
       "PostgreSQL",
       "SQL",
     ];
-    const mediumIconTechs = ["HTML", "CSS", "JavaScript", "TailwindCSS"];
+    const mediumIconTechs = [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "TailwindCSS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "AWS",
+    ];
 
     // Determine icon size based on category
     const getIconSize = (techName) => {
@@ -63,6 +66,10 @@ const TechIcon = ({ tech }) => {
     const iconSize = getIconSize(tech);
 
     switch (tech) {
+      case "AWS":
+        return <FaAws size={iconSize} color="#FF9900" />;
+      case "Linux":
+        return <SiLinux size={iconSize} color="#FCC624" />;
       case "HTML":
         return <FaHtml5 size={iconSize} color="#E34F26" />;
       case "CSS":
@@ -107,12 +114,8 @@ const TechIcon = ({ tech }) => {
         return <SiJsonwebtokens size={iconSize} color="#000000" />;
       case "Auth0":
         return <SiAuth0 size={iconSize} color="#EB5424" />;
-      case "bcrypt":
-        return <FaLock size={iconSize} color="#023047" />;
       case "websockets":
         return <SiSocketdotio size={iconSize} color="#010101" />;
-      case "multer":
-        return <FaFile size={iconSize} color="#FF5252" />;
       case "Appwrite":
         return <SiAppwrite size={iconSize} color="#F02E65" />;
       case "Cloudinary":
@@ -138,20 +141,12 @@ const TechIcon = ({ tech }) => {
         return <FaGit size={iconSize} color="#F05032" />;
       case "Github":
         return <FaGithub size={iconSize} color="#181717" />;
-      case "Render":
-        return <SiRender size={iconSize} color="#46E3B7" />;
-      case "Vercel":
-        return <SiVercel size={iconSize} color="#000000" />;
       case "Postman":
         return <SiPostman size={iconSize} color="#FF6C37" />;
       case "Figma":
         return <FaFigma size={iconSize} color="#F24E1E" />;
       case "Canva":
         return <SiCanva size={iconSize} color="#00C4CC" />;
-      case "Photoshop":
-        return <SiAdobephotoshop size={iconSize} color="#31A8FF" />;
-      case "Lucid Chart":
-        return <FaChartBar size={iconSize} color="#f1c40f" />;
       case "C":
         return (
           <img
@@ -169,6 +164,10 @@ const TechIcon = ({ tech }) => {
         return <SiPython size={iconSize} color="#3776AB" />;
       case "OCaml":
         return <FaTerminal size={iconSize} color="#EC6813" />;
+      case "Docker":
+        return <SiDocker size={iconSize} color="#2496ED" />;
+      case "Kubernetes":
+        return <SiKubernetes size={iconSize} color="#326CE5" />;
       default:
         return (
           <div

@@ -1,4 +1,3 @@
-import React from "react";
 import TechIcon from "./TechIcon";
 import PropTypes from "prop-types";
 
@@ -18,6 +17,10 @@ const TechTile = ({ tech }) => {
     "TailwindCSS",
     "PostgreSQL",
     "SQL",
+    "Docker",
+    "Kubernetes",
+    "Linux",
+    "AWS",
   ].includes(tech);
 
   // Set grid span classes based on importance

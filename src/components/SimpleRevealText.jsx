@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const SimpleRevealText = ({ text, className }) => {
   const textRef = useRef(null);

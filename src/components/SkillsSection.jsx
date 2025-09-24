@@ -1,4 +1,3 @@
-import React from "react";
 import TechTile from "./TechTile";
 import SectionContainer from "./layout/SectionContainer";
 import SectionHeading from "./ui/SectionHeading";

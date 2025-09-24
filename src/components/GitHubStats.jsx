@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import  { useState, useEffect } from "react";
 import axios from "axios";
 import GitHubStatsTile from "./GitHubStatsTile";
 import GitHubHeatmap from "./GitHubHeatmap";

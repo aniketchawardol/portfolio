@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import NavigationButton from "./NavigationButton";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";

@@ -1,4 +1,4 @@
-import React from "react";
+
 import ProjectTile from "./ProjectTile";
 import SectionContainer from "./layout/SectionContainer";
 import SectionHeading from "./ui/SectionHeading";
