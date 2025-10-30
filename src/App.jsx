@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import Navigation from "./components/Navigation";
 import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
 import SkillsSection from "./components/SkillsSection";
-import GitHubStats from "./components/GitHubStats";
-import ProjectsSection from "./components/ProjectsSection";
 import ContactSection from "./components/ContactSection";
 import { useScrollSnap, setGlobalScrollTo } from "./utils/scrollSnap";
 import { ThemeProvider } from "./utils/ThemeProvider";
@@ -13,6 +11,10 @@ import Lottie from "react-lottie";
 import animationData from "./assets/Animations/loading/loading.json";
 import { getAnimationSize } from "./utils/helpers";
 import { ANIMATION_SETTINGS } from "./constants";
+
+// Lazy load heavy components for better initial performance
+const GitHubStats = lazy(() => import("./components/GitHubStats"));
+const ProjectsSection = lazy(() => import("./components/ProjectsSection"));
 
 function AppContent() {
   // Add states for loading and animations
@@ -104,12 +106,32 @@ function AppContent() {
       <div id="skills" className="snap-section">
         <SkillsSection />
       </div>
-      <div id="github" className="snap-section">
-        <GitHubStats />
-      </div>
-      <div id="projects" className="snap-section">
-        <ProjectsSection />
-      </div>
+      <Suspense
+        fallback={
+          <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b dark:from-[#150d37] dark:via-[#0c0825] dark:to-[#0f0a29] from-[#cbb4f0] via-[#b6a6e3] to-[#cbb4f0]">
+            <div className="text-2xl dark:text-slate-300 text-slate-600 font-mono">
+              Loading...
+            </div>
+          </div>
+        }
+      >
+        <div id="github" className="snap-section">
+          <GitHubStats />
+        </div>
+      </Suspense>
+      <Suspense
+        fallback={
+          <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b dark:from-[#0f0a29] dark:via-[#16073a] dark:to-[#1e0438] from-[#cbb4f0] via-[#b6a6e3] to-[#a28cd1]">
+            <div className="text-2xl dark:text-slate-300 text-slate-600 font-mono">
+              Loading...
+            </div>
+          </div>
+        }
+      >
+        <div id="projects" className="snap-section">
+          <ProjectsSection />
+        </div>
+      </Suspense>
       <div id="contact" className="snap-section">
         <ContactSection />
       </div>

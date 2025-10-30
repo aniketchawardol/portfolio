@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import NavigationButton from "./NavigationButton";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
@@ -17,18 +17,26 @@ const Navigation = () => {
   const { isTouchDevice } = useDeviceDetection();
 
   useEffect(() => {
+    // Throttle scroll handler for better performance
+    let ticking = false;
+
     // Function to determine which section is currently in view
     const handleScroll = () => {
-      const sections = NAV_ITEMS.map((item) => item.id);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const sections = NAV_ITEMS.map((item) => item.id);
+          const scrollPosition = window.scrollY + 100; // Add offset for navbar height
 
-      const scrollPosition = window.scrollY + 100; // Add offset for navbar height
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i]);
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
-        }
+          for (let i = sections.length - 1; i >= 0; i--) {
+            const section = document.getElementById(sections[i]);
+            if (section && section.offsetTop <= scrollPosition) {
+              setActiveSection(sections[i]);
+              break;
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
@@ -40,7 +48,7 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId) => {
+  const scrollToSection = useCallback((sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -58,7 +66,7 @@ const Navigation = () => {
         window.onwheel = scrollHandler;
       }, 1000);
     }
-  };
+  }, []);
 
   const getContainerClasses = () => {
     return `mx-auto my-4 flex justify-evenly items-center bg-white/20 border-white/20 text-slate-600 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 dark:text-slate-300 backdrop-blur-md border shadow-lg p-2 rounded-xl`;
@@ -113,8 +121,8 @@ const Navigation = () => {
                 ? "bg-[#4c1d95]/50 dark:text-purple-300 text-purple-600"
                 : ""
             } ${
-              !isTouchDevice 
-                ? "hover:bg-opacity-20 hover:bg-purple-100 dark:hover:bg-purple-800" 
+              !isTouchDevice
+                ? "hover:bg-opacity-20 hover:bg-purple-100 dark:hover:bg-purple-800"
                 : "active:bg-opacity-20 active:bg-purple-100 dark:active:bg-purple-800"
             }`}
           >

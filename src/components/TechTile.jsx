@@ -1,7 +1,8 @@
+import React from "react";
 import TechIcon from "./TechIcon";
 import PropTypes from "prop-types";
 
-const TechTile = ({ tech }) => {
+const TechTile = React.memo(({ tech }) => {
   // Determine tile size based on technology category
   const isLarge = [
     "MongoDB",
@@ -48,7 +49,9 @@ const TechTile = ({ tech }) => {
       </div>
     </div>
   );
-};
+});
+
+TechTile.displayName = "TechTile";
 
 TechTile.propTypes = {
   tech: PropTypes.string.isRequired,

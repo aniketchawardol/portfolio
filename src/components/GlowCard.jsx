@@ -1,4 +1,4 @@
-import  { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
 const glowColorMap = {
@@ -29,6 +29,7 @@ const GlowCard = ({
   const cardRef = useRef(null);
   const innerRef = useRef(null);
   const { isTouchDevice } = useDeviceDetection();
+  const rafIdRef = useRef(null);
 
   useEffect(() => {
     // Only add pointer tracking on desktop non-touch devices for performance
@@ -38,29 +39,24 @@ const GlowCard = ({
       const { clientX: x, clientY: y } = e;
 
       if (cardRef.current) {
-        // Use requestAnimationFrame to throttle updates
-        requestAnimationFrame(() => {
-          if (cardRef.current) {
-            cardRef.current.style.setProperty("--x", x.toFixed(2));
-            cardRef.current.style.setProperty(
-              "--xp",
-              (x / window.innerWidth).toFixed(2)
-            );
-            cardRef.current.style.setProperty("--y", y.toFixed(2));
-            cardRef.current.style.setProperty(
-              "--yp",
-              (y / window.innerHeight).toFixed(2)
-            );
-          }
-        });
+        cardRef.current.style.setProperty("--x", x.toFixed(2));
+        cardRef.current.style.setProperty(
+          "--xp",
+          (x / window.innerWidth).toFixed(2)
+        );
+        cardRef.current.style.setProperty("--y", y.toFixed(2));
+        cardRef.current.style.setProperty(
+          "--yp",
+          (y / window.innerHeight).toFixed(2)
+        );
       }
     };
 
-    // Use throttled event listener
+    // Optimized throttling using requestAnimationFrame
     let ticking = false;
     const throttledSyncPointer = (e) => {
       if (!ticking) {
-        requestAnimationFrame(() => {
+        rafIdRef.current = requestAnimationFrame(() => {
           syncPointer(e);
           ticking = false;
         });
@@ -71,116 +67,80 @@ const GlowCard = ({
     document.addEventListener("pointermove", throttledSyncPointer, {
       passive: true,
     });
-    return () =>
+
+    return () => {
       document.removeEventListener("pointermove", throttledSyncPointer);
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+    };
   }, [isTouchDevice]);
+
+  // Consolidated theme update function to avoid duplication
+  const updateThemeProperties = (currentIsDarkMode) => {
+    if (!cardRef.current) return;
+
+    cardRef.current.style.setProperty(
+      "--backdrop",
+      currentIsDarkMode ? "rgba(46, 16, 101, 0.3)" : "rgba(255, 255, 255, 0.2)"
+    );
+    cardRef.current.style.setProperty(
+      "--backup-border",
+      currentIsDarkMode ? "rgba(76, 29, 149, 0.3)" : "rgba(255, 255, 255, 0.2)"
+    );
+    cardRef.current.style.setProperty(
+      "--saturation",
+      currentIsDarkMode ? "70" : "50"
+    );
+    cardRef.current.style.setProperty(
+      "--lightness",
+      currentIsDarkMode ? "65" : "45"
+    );
+    cardRef.current.style.setProperty(
+      "--bg-spot-opacity",
+      currentIsDarkMode ? "0.2" : "0.15"
+    );
+    cardRef.current.style.setProperty(
+      "--border-spot-opacity",
+      currentIsDarkMode ? "0.9" : "0.7"
+    );
+    cardRef.current.style.setProperty(
+      "--border-light-opacity",
+      currentIsDarkMode ? "0.5" : "0.4"
+    );
+    cardRef.current.style.setProperty(
+      "--before-saturation",
+      currentIsDarkMode ? "70" : "50"
+    );
+    cardRef.current.style.setProperty(
+      "--before-lightness",
+      currentIsDarkMode ? "55" : "40"
+    );
+    cardRef.current.style.setProperty(
+      "--after-lightness",
+      currentIsDarkMode ? "80" : "90"
+    );
+  };
 
   // Update theme-dependent CSS custom properties when isDarkMode changes
   useEffect(() => {
-    if (cardRef.current) {
-      const currentIsDarkMode =
-        isDarkMode || document.documentElement.classList.contains("dark");
-
-      // Update theme-dependent CSS custom properties
-      cardRef.current.style.setProperty(
-        "--backdrop",
-        currentIsDarkMode
-          ? "rgba(46, 16, 101, 0.3)"
-          : "rgba(255, 255, 255, 0.2)"
-      );
-      cardRef.current.style.setProperty(
-        "--backup-border",
-        currentIsDarkMode
-          ? "rgba(76, 29, 149, 0.3)"
-          : "rgba(255, 255, 255, 0.2)"
-      );
-      cardRef.current.style.setProperty(
-        "--saturation",
-        currentIsDarkMode ? "70" : "50"
-      );
-      cardRef.current.style.setProperty(
-        "--lightness",
-        currentIsDarkMode ? "65" : "45"
-      );
-      cardRef.current.style.setProperty(
-        "--bg-spot-opacity",
-        currentIsDarkMode ? "0.2" : "0.15"
-      );
-      cardRef.current.style.setProperty(
-        "--border-spot-opacity",
-        currentIsDarkMode ? "0.9" : "0.7"
-      );
-      cardRef.current.style.setProperty(
-        "--border-light-opacity",
-        currentIsDarkMode ? "0.5" : "0.4"
-      );
-      cardRef.current.style.setProperty(
-        "--before-saturation",
-        currentIsDarkMode ? "70" : "50"
-      );
-      cardRef.current.style.setProperty(
-        "--before-lightness",
-        currentIsDarkMode ? "55" : "40"
-      );
-      cardRef.current.style.setProperty(
-        "--after-lightness",
-        currentIsDarkMode ? "80" : "90"
-      );
-    }
+    const currentIsDarkMode =
+      isDarkMode || document.documentElement.classList.contains("dark");
+    updateThemeProperties(currentIsDarkMode);
   }, [isDarkMode]);
 
-  // Listen for theme changes from the document
+  // Listen for theme changes from the document with optimized observer
   useEffect(() => {
-    const observer = new MutationObserver(() => {
-      if (cardRef.current) {
+    const observer = new MutationObserver((mutations) => {
+      // Only process if class attribute changed
+      const classChanged = mutations.some(
+        (mutation) => mutation.attributeName === "class"
+      );
+
+      if (classChanged) {
         const currentIsDarkMode =
           document.documentElement.classList.contains("dark");
-
-        // Update theme-dependent CSS custom properties
-        cardRef.current.style.setProperty(
-          "--backdrop",
-          currentIsDarkMode
-            ? "rgba(46, 16, 101, 0.3)"
-            : "rgba(255, 255, 255, 0.2)"
-        );
-        cardRef.current.style.setProperty(
-          "--backup-border",
-          currentIsDarkMode
-            ? "rgba(76, 29, 149, 0.3)"
-            : "rgba(255, 255, 255, 0.2)"
-        );
-        cardRef.current.style.setProperty(
-          "--saturation",
-          currentIsDarkMode ? "70" : "50"
-        );
-        cardRef.current.style.setProperty(
-          "--lightness",
-          currentIsDarkMode ? "65" : "45"
-        );
-        cardRef.current.style.setProperty(
-          "--bg-spot-opacity",
-          currentIsDarkMode ? "0.2" : "0.15"
-        );
-        cardRef.current.style.setProperty(
-          "--border-spot-opacity",
-          currentIsDarkMode ? "0.9" : "0.7"
-        );
-        cardRef.current.style.setProperty(
-          "--border-light-opacity",
-          currentIsDarkMode ? "0.5" : "0.4"
-        );
-        cardRef.current.style.setProperty(
-          "--before-saturation",
-          currentIsDarkMode ? "70" : "50"
-        );
-        cardRef.current.style.setProperty(
-          "--before-lightness",
-          currentIsDarkMode ? "55" : "40"
-        );
-        cardRef.current.style.setProperty(
-          "--after-lightness",
-          currentIsDarkMode ? "80" : "90"
-        );
+        updateThemeProperties(currentIsDarkMode);
       }
     });
 

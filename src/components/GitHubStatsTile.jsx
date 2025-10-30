@@ -1,4 +1,4 @@
-
+import React from "react";
 import {
   FaGithub,
   FaCodeBranch,
@@ -10,7 +10,7 @@ import { SiGithubactions } from "react-icons/si";
 import { BiGitRepoForked } from "react-icons/bi";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
-const GitHubStatsTile = ({ title, value, category, icon }) => {
+const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
   const { isTouchDevice } = useDeviceDetection();
   // Determine tile size based on stat category
   const isLarge = [
@@ -274,7 +274,9 @@ const GitHubStatsTile = ({ title, value, category, icon }) => {
       </div>
     </div>
   );
-};
+});
+
+GitHubStatsTile.displayName = "GitHubStatsTile";
 
 // Helper function to determine language color
 const getLanguageColor = (language) => {

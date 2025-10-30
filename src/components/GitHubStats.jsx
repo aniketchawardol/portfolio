@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import GitHubStatsTile from "./GitHubStatsTile";
 import GitHubHeatmap from "./GitHubHeatmap";
@@ -14,7 +14,8 @@ const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
   const isDarkMode = useIsDarkMode();
   const { isTouchDevice } = useDeviceDetection();
 
-  const prepareGitHubStats = () => {
+  // Memoize the stats preparation to avoid recalculation on every render
+  const gitHubStats = useMemo(() => {
     if (!githubData) return [];
 
     const { stats, languages, repositories } = githubData;
@@ -46,9 +47,7 @@ const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
         category: "totalContributions",
       },
     ];
-  };
-
-  const gitHubStats = githubData ? prepareGitHubStats() : [];
+  }, [githubData]);
 
   useEffect(() => {
     const fetchGitHubData = async () => {
