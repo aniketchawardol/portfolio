@@ -50,7 +50,7 @@ const GitHubHeatmap = ({ contributionDays, isDarkMode }) => {
   };
 
   return (
-    <div className="w-full max-w-full dark:text-slate-300 text-slate-700">
+    <div className="w-full max-w-full text-slate-300">
       <h3 className="text-lg font-bold mb-2">Contribution Activity</h3>
       <div className="overflow-x-auto pb-2">
         <div className="w-full max-w-full min-w-[600px]">

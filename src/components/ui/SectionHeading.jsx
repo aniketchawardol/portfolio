@@ -15,7 +15,7 @@ const SectionHeading = ({
     <>
       <h2
         className="text-4xl font-halfomania 
-         dark:text-slate-200 text-slate-700
+         text-slate-200
        text-center mb-6 ${titleClassName}"
       >
         {title}
@@ -23,7 +23,7 @@ const SectionHeading = ({
       {subtitle && (
         <p
           className={`text-center 
-            dark:text-slate-300 text-slate-600
+            text-slate-300
           mb-16 font-mono ${subtitleClassName}`}
         >
           {subtitle}

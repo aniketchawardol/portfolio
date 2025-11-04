@@ -147,13 +147,13 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
   if (category === "languages" && Array.isArray(value)) {
     return (
       <div
-        className={`${getGridSpan()} bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 h-full flex flex-col`}
+        className={`${getGridSpan()} bg-[#2e1065]/30 border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 h-full flex flex-col`}
       >
         <div className="flex items-center mb-2 md:mb-3">
           <div className="flex-shrink-0 mr-2 md:mr-3">
             <FaCode size={24} className="md:text-3xl" color={getIconColor()} />
           </div>
-          <span className="text-slate-700 dark:text-slate-200 font-medium text-sm md:text-base">
+          <span className="text-slate-200 font-medium text-sm md:text-base">
             {title}
           </span>
         </div>
@@ -167,10 +167,10 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
                   backgroundColor: lang.color || getLanguageColor(lang.name),
                 }}
               ></div>
-              <span className="text-xs md:text-sm font-medium text-slate-600 dark:text-slate-300 flex-1 truncate">
+              <span className="text-xs md:text-sm font-medium text-slate-300 flex-1 truncate">
                 {lang.name}
               </span>
-              <span className="text-xs text-slate-500 dark:text-slate-400">
+              <span className="text-xs text-slate-400">
                 {lang.percentage}%
               </span>
             </div>
@@ -185,8 +185,7 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
     return (
       <div
         className={`${getGridSpan()} 
-            dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md
-            bg-white/20 border border-white/20
+            bg-[#2e1065]/30 border-[#4c1d95]/30 backdrop-blur-md
        shadow-lg rounded-xl p-6 flex flex-col`}
       >
         <div className="flex items-center mb-2 md:mb-3">
@@ -194,7 +193,7 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
             <FaGithub size={24} className="md:text-3xl" color="#2563eb" />
           </div>
           <span
-            className="dark:text-slate-200 text-slate-700
+            className="text-slate-200
            font-medium text-sm md:text-base"
           >
             {title}
@@ -212,15 +211,15 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
               target="_blank"
               rel="noopener noreferrer"
               className={`text-xs md:text-sm 
-              dark:text-slate-300 text-slate-700
+              text-slate-300
             flex items-center py-0.5 md:py-1 border-b 
-               dark:border-slate-700 border-slate-200`}
+               border-slate-700`}
             >
               <span className="mr-auto truncate max-w-[70%]">{repo.name}</span>
               <div className="flex items-center space-x-1 md:space-x-2 flex-shrink-0">
                 {repo.language && (
                   <span
-                    className="text-xs dark:bg-slate-700 bg-slate-200
+                    className="text-xs bg-slate-700
                     px-1 py-0.5 rounded hidden md:inline"
                   >
                     {repo.language}
@@ -232,7 +231,7 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
                       size={12}
                       className="text-emerald-500 mr-0.5"
                     />
-                    <span className="text-xs dark:text-slate-400 text-slate-500">
+                    <span className="text-xs text-slate-400">
                       {repo.forks_count}
                     </span>
                   </div>
@@ -243,7 +242,7 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
           {value.length > 6 && (
             <span
               className="text-xs text-center 
-                dark:text-slate-400 text-slate-500
+                text-slate-400
               italic pt-1"
             >
               And {value.length - 6} more repositories...
@@ -256,12 +255,12 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
 
   return (
     <div
-      className={`${getGridSpan()} bg-white/20 border-white/20 dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 flex flex-col h-full`}
+      className={`${getGridSpan()} bg-[#2e1065]/30 border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 flex flex-col h-full`}
     >
       <div className="flex items-center h-full">
         <div className="flex-shrink-0 mr-2 md:mr-3">{icon || getIcon()}</div>
         <div className="flex flex-col">
-          <span className="text-slate-700 dark:text-slate-200 font-medium text-sm md:text-base">
+          <span className="text-slate-200 font-medium text-sm md:text-base">
             {title}
           </span>
           <span

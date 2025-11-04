@@ -16,23 +16,16 @@ export const GITHUB_CONFIG = {
 // Color schemes
 export const COLORS = {
   gradients: {
-    lightDefault: "from-[#cbb4f0] via-[#b6a6e3] to-[#a28cd1]",
-    darkDefault: "dark:from-[#0f0a29] dark:via-[#191036] dark:to-[#1e0438]",
-    heroLight: "from-[#cbb4f0] via-[#b6a6e3] to-[#6c5ca7]",
-    heroDark: "dark:from-[#0f0a29] dark:via-[#191036] dark:to-[#1e0438]",
-    aboutLight: "from-[#6c5ca7] via-[#8771b8] to-[#a28cd1]",
-    aboutDark: "dark:from-[#1e0438] dark:via-[#1d0c3a] dark:to-[#1a103c]",
-    skillsLight: "from-[#a28cd1] via-[#b6a6e3] to-[#cbb4f0]",
-    skillsDark: "dark:from-[#1a103c] dark:via-[#18103a] dark:to-[#150d37]",
-    githubLight: "from-[#cbb4f0] via-[#b6a6e3] to-[#cbb4f0]",
-    githubDark: "dark:from-[#150d37] dark:via-[#0c0825] dark:to-[#0f0a29]",
-    projectsLight: "from-[#cbb4f0] via-[#b6a6e3] to-[#a28cd1]",
-    projectsDark: "dark:from-[#0f0a29] dark:via-[#16073a] dark:to-[#1e0438]",
+    darkDefault: "from-[#0f0a29] via-[#191036] to-[#1e0438]",
+    heroDark: "from-[#0f0a29] via-[#191036] to-[#1e0438]",
+    aboutDark: "from-[#1e0438] via-[#1d0c3a] to-[#1a103c]",
+    skillsDark: "from-[#1a103c] via-[#18103a] to-[#150d37]",
+    githubDark: "from-[#150d37] via-[#0c0825] to-[#0f0a29]",
+    projectsDark: "from-[#0f0a29] via-[#16073a] to-[#1e0438]",
     contactLight: "from-[#a28cd1] via-[#b6a6e3] to-[#cbb4f0]",
-    contactDark: "dark:from-[#1e0438] dark:via-[#170732] dark:to-[#0f0a29]",
+    contactDark: "from-[#1e0438] via-[#170732] to-[#0f0a29]",
   },
   metaBalls: {
-    light: "#d4bdf4",
     dark: "#7e22ce",
   },
 };

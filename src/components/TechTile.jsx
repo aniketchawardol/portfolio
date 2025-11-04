@@ -33,13 +33,13 @@ const TechTile = React.memo(({ tech }) => {
 
   return (
     <div className={`${gridSpan} tech-skills-tile`}>
-      <div className="font-exo bg-white/20 border border-white/20 rounded-xl p-6 flex flex-col shadow-lg dark:bg-[#2e1065]/30 dark:border-[#4c1d95]/30 h-full w-full">
+      <div className="font-exo bg-[#2e1065]/30 border border-[#4c1d95]/30 rounded-xl p-6 flex flex-col shadow-lg h-full w-full">
         <div className="flex items-center justify-center md:justify-start h-full">
           <div className="flex-shrink-0 md:mr-3">
             <TechIcon tech={tech} />
           </div>
           <span
-            className={`dark:text-slate-200 text-slate-700 font-medium hidden md:inline overflow-hidden text-ellipsis ${
+            className={`text-slate-200 font-medium hidden md:inline overflow-hidden text-ellipsis ${
               isLarge ? "text-2xl" : isMedium ? "text-xl" : "text-md"
             }`}
           >

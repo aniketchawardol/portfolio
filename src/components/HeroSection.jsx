@@ -1,7 +1,5 @@
 import  { useState, useEffect, useRef } from "react";
 import RotatingText from "../assets/TextAnimations/RotatingText/RotatingText";
-import Spline from "@splinetool/react-spline";
-import { useIsDarkMode } from "../hooks/useIsDarkMode";
 import { GradualSpacing } from "./GradualSpacing";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
 import { ROTATING_TEXTS, ANIMATION_SETTINGS } from "../constants";
@@ -10,7 +8,6 @@ const HeroSection = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [meteorActive, setMeteorActive] = useState(false);
   const sectionRef = useRef(null);
-  const isDarkMode = useIsDarkMode();
   const { isTouchDevice } = useDeviceDetection();
 
   useEffect(() => {
@@ -27,26 +24,21 @@ const HeroSection = () => {
   useEffect(() => {
     // Delay meteor shower activation to prevent seeing initial positions
     const timer = setTimeout(() => {
-      if (isDarkMode) {
-        setMeteorActive(true);
-      }
+      setMeteorActive(true);
     }, ANIMATION_SETTINGS.meteors.activationDelay);
 
     return () => clearTimeout(timer);
-  }, [isDarkMode]);
+  }, []);
 
   return (
     <div
       ref={sectionRef}
-      className="bg-gray-100 dark:bg-slate-900 
-      bg-gradient-to-b dark:from-[#0f0a29] dark:via-[#191036] dark:to-[#1e0438] northern-lights
-          from-[#cbb4f0] via-[#b6a6e3] to-[#6c5ca7]
-    relative h-screen pt-[80px]"
+      className="bg-gradient-to-b from-[#0f0a29] via-[#191036] to-[#1e0438] northern-lights relative h-screen pt-20"
     >
-      <div className="absolute mt-[20%] md:mt-[10%] ml-[20%] lg:ml-[40%] h-[300px] w-[300px] rounded-full z-10 bg-gradient-to-bl from-purple-400 dark:from-purple-900  shadow-[0_0_100px_40px_#c6a4f2] dark:shadow-[0_0_100px_40px_#4c1d95]"></div>
+      <div className="absolute mt-[20%] md:mt-[10%] ml-[20%] lg:ml-[40%] h-[300px] w-[300px] rounded-full z-10 bg-gradient-to-bl from-purple-900 shadow-[0_0_100px_40px_#4c1d95]"></div>
 
-      {/* Meteor shower (dark mode only) */}
-      {isDarkMode && meteorActive && (
+      {/* Meteor shower */}
+      {meteorActive && (
         <div className="meteor-shower">
           <div className="meteor"></div>
           <div className="meteor"></div>
@@ -63,16 +55,16 @@ const HeroSection = () => {
           text="ANIKET"
           duration={ANIMATION_SETTINGS.gradualSpacing.duration}
           delayMultiple={ANIMATION_SETTINGS.gradualSpacing.delayMultiple}
-          className="text-[100px] lg:text-[150px] font-moonwalk text-slate-700 dark:text-slate-200 w-full hero-heading"
+          className="text-[100px] lg:text-[150px] font-moonwalk text-slate-200 w-full hero-heading"
         />
         <div className="absolute md:relative md:mt-13 lg:mt-0 lg:mb-[62px] ml-[20%] md:ml-0 z-0">
-          <p className="font-exo hidden lg:inline text-slate-700 dark:text-slate-200 text-3xl ml-4">
+          <p className="font-exo hidden lg:inline text-slate-200 text-3xl ml-4">
             and I'm a
           </p>
           <RotatingText
             texts={ROTATING_TEXTS}
             mainClassName="
-            dark:text-purple-300 text-purple-500
+            text-purple-300
            overflow-hidden  font-halfomania absolute top-[120px] md:top-4"
             staggerFrom={"last"}
             initial={{ y: "100%" }}
@@ -91,22 +83,15 @@ const HeroSection = () => {
         target="_blank"
         rel="noopener noreferrer"
         className={`ml-[40%] font-exo text-xl relative z-10 inline-block px-6 py-3 rounded-full 
-        bg-gradient-to-r from-violet-400 to-fuchsia-500 text-white shadow-md dark:from-indigo-900 dark:to-purple-900 dark:border dark:border-purple-500 dark:shadow-[0_0_15px_rgba(168,85,247,0.5)]
+        bg-gradient-to-r from-indigo-900 to-purple-900 border border-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.5)] text-white
         overflow-hidden transform ${
           !isTouchDevice ? "hover:scale-105" : "active:scale-105"
         } transition-all duration-300 ease-out`}
       >
         <span className="relative z-10">My Resume</span>
-        <span className="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-violet-500/20 dark:from-purple-600/20 dark:to-indigo-800/20"></span>
-        <span className="absolute inset-0 animate-shimmer bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.5),transparent)] bg-[length:200%_100%]"></span>
+        <span className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-indigo-800/20"></span>
+        <span className="absolute inset-0 animate-shimmer bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.5),transparent)] bg-size-[200%_100%]"></span>
       </a>
-
-      {!isDarkMode && (
-        <Spline
-          className="absolute bottom-0 right-0 w-full h-full z-0 pointer-events-none"
-          scene="https://prod.spline.design/TA6v0WtbHxdYhxoR/scene.splinecode"
-        />
-      )}
     </div>
   );
 };

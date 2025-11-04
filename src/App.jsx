@@ -5,7 +5,6 @@ import AboutSection from "./components/AboutSection";
 import SkillsSection from "./components/SkillsSection";
 import ContactSection from "./components/ContactSection";
 import { useScrollSnap, setGlobalScrollTo } from "./utils/scrollSnap";
-import { ThemeProvider } from "./utils/ThemeProvider";
 import { useLenis } from "./hooks/useLenis";
 import Lottie from "react-lottie";
 import animationData from "./assets/Animations/loading/loading.json";
@@ -74,7 +73,7 @@ function AppContent() {
     return (
       <div
         className={`fixed top-0 left-0 right-0 bottom-0 w-screen h-screen flex items-center justify-center overflow-hidden z-50 
-        bg-gradient-to-b from-[#cbb4f0] via-[#b6a6e3] to-[#a28cd1] dark:from-[#0f0a29] dark:via-[#191036] dark:to-[#1e0438] dark:northern-lights 
+        bg-gradient-to-b from-[#0f0a29] via-[#191036] to-[#1e0438] northern-lights 
         ${isFadingOut ? "fade-out" : ""}`}
         style={{
           minHeight: "100%",
@@ -108,8 +107,8 @@ function AppContent() {
       </div>
       <Suspense
         fallback={
-          <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b dark:from-[#150d37] dark:via-[#0c0825] dark:to-[#0f0a29] from-[#cbb4f0] via-[#b6a6e3] to-[#cbb4f0]">
-            <div className="text-2xl dark:text-slate-300 text-slate-600 font-mono">
+          <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-[#150d37] via-[#0c0825] to-[#0f0a29]">
+            <div className="text-2xl text-slate-300 font-mono">
               Loading...
             </div>
           </div>
@@ -121,8 +120,8 @@ function AppContent() {
       </Suspense>
       <Suspense
         fallback={
-          <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b dark:from-[#0f0a29] dark:via-[#16073a] dark:to-[#1e0438] from-[#cbb4f0] via-[#b6a6e3] to-[#a28cd1]">
-            <div className="text-2xl dark:text-slate-300 text-slate-600 font-mono">
+          <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-[#0f0a29] via-[#16073a] to-[#1e0438]">
+            <div className="text-2xl text-slate-300 font-mono">
               Loading...
             </div>
           </div>
@@ -140,11 +139,7 @@ function AppContent() {
 }
 
 function App() {
-  return (
-    <ThemeProvider>
-      <AppContent />
-    </ThemeProvider>
-  );
+  return <AppContent />;
 }
 
 export default App;

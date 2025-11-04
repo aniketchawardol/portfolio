@@ -25,11 +25,11 @@ const ProjectTile = ({
         </div>
       )}
 
-      <h3 className="text-xl font-exo text-slate-700 dark:text-slate-200 mb-2 z-10">
+      <h3 className="text-xl font-exo text-slate-200 mb-2 z-10">
         {title}
       </h3>
 
-      <p className="text-slate-600 dark:text-slate-300 font-mono mb-6 flex-grow z-10">
+      <p className="text-slate-300 font-mono mb-6 grow z-10">
         {description}
       </p>
 
@@ -39,7 +39,7 @@ const ProjectTile = ({
             {technologies.map((tech, index) => (
               <span
                 key={index}
-                className="text-xs bg-white/30 text-slate-700 dark:bg-[#3b0764]/50 dark:text-slate-300 px-2 py-1 rounded-full"
+                className="text-xs bg-[#3b0764]/50 text-slate-300 px-2 py-1 rounded-full"
               >
                 {tech}
               </span>
@@ -54,7 +54,7 @@ const ProjectTile = ({
             href={livelink}
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex-grow text-center bg-[#5c4a99] text-white py-2 px-4 rounded-md ${
+            className={`grow text-center bg-[#5c4a99] text-white py-2 px-4 rounded-md ${
               !isTouchDevice 
                 ? "hover:bg-[#473677]" 
                 : "active:bg-[#473677]"
@@ -78,7 +78,7 @@ const ProjectTile = ({
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex-grow text-center bg-[#2d2545] text-white py-2 px-4 rounded-md ${
+                    className={`grow text-center bg-[#2d2545] text-white py-2 px-4 rounded-md ${
                       !isTouchDevice 
                         ? "hover:bg-[#221c34]" 
                         : "active:bg-[#221c34]"
@@ -93,7 +93,7 @@ const ProjectTile = ({
                 href={projectUrl[0]}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex-grow text-center bg-[#2d2545] text-white py-2 px-4 rounded-md ${
+                className={`grow text-center bg-[#2d2545] text-white py-2 px-4 rounded-md ${
                   !isTouchDevice 
                     ? "hover:bg-[#221c34]" 
                     : "active:bg-[#221c34]"
@@ -106,7 +106,7 @@ const ProjectTile = ({
                 href={projectUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex-grow text-center bg-[#2d2545] text-white py-2 px-4 rounded-md ${
+                className={`grow text-center bg-[#2d2545] text-white py-2 px-4 rounded-md ${
                   !isTouchDevice 
                     ? "hover:bg-[#221c34]" 
                     : "active:bg-[#221c34]"

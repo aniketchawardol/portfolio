@@ -2,7 +2,6 @@ import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import GitHubStatsTile from "./GitHubStatsTile";
 import GitHubHeatmap from "./GitHubHeatmap";
-import { useIsDarkMode } from "../hooks/useIsDarkMode";
 import GlowCard from "./GlowCard";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
 import { GITHUB_CONFIG } from "../constants";
@@ -11,7 +10,6 @@ const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
   const [githubData, setGithubData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const isDarkMode = useIsDarkMode();
   const { isTouchDevice } = useDeviceDetection();
 
   // Memoize the stats preparation to avoid recalculation on every render
@@ -180,12 +178,12 @@ const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
     return (
       <div
         className="w-full flex items-center justify-center py-16
-          dark:bg-slate-900
+          bg-slate-900
         "
       >
         <div
           className="text-2xl 
-            dark:text-slate-300 text-slate-600
+            text-slate-300
         font-mono"
         >
           Loading GitHub stats...
@@ -197,8 +195,7 @@ const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
   return (
     <div
       className="w-full min-h-screen flex items-center justify-center 
-          bg-gradient-to-b dark:from-[#150d37] dark:via-[#0c0825] dark:to-[#0f0a29]
-          from-[#cbb4f0] via-[#b6a6e3] to-[#cbb4f0]
+          bg-gradient-to-b from-[#150d37] via-[#0c0825] to-[#0f0a29]
       py-8 md:py-16 font-exo"
     >
       <div className="container mx-auto px-4">
@@ -210,17 +207,17 @@ const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
                 alt={`${username}'s GitHub avatar`}
                 className="w-16 h-16 md:w-24 md:h-24 rounded-full border-4 border-slate-300 shadow-lg mb-3 md:mb-0 md:inline"
               />
-              <h3 className="text-lg md:text-xl font-bold font-mono md:m-2 md:mt-4 text-slate-700 dark:text-slate-200">
+              <h3 className="text-lg md:text-xl font-bold font-mono md:m-2 md:mt-4 text-slate-200">
                 {githubData.profile.name || username}
               </h3>
             </div>
           )}
 
-          <h2 className="text-3xl md:text-4xl font-halfomania text-slate-700 dark:text-slate-200 mt-2 md:mt-0">
+          <h2 className="text-3xl md:text-4xl font-halfomania text-slate-200 mt-2 md:mt-0">
             GitHub Activity
           </h2>
         </div>
-        <p className="text-center text-slate-600 dark:text-slate-300 font-mono mb-6">
+        <p className="text-center text-slate-300 font-mono mb-6">
           My open-source contributions and project portfolio
         </p>
 
@@ -240,7 +237,7 @@ const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
                   title={stat.title}
                   value={stat.value}
                   category={stat.category}
-                  isDarkMode={isDarkMode}
+                  isDarkMode={true}
                 />
               </div>
             );
@@ -251,16 +248,15 @@ const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
         <div className="mt-6">
           <GlowCard
             className="p-6 rounded-xl mx-auto max-w-full
-             dark:bg-[#2e1065]/10 dark:border-[#4c1d95]/10
-             bg-white/10 border-white/10
+             bg-[#2e1065]/10 border-[#4c1d95]/10
             border"
-            isDarkMode={isDarkMode}
+            isDarkMode={true}
             customSize={true}
           >
             {githubData?.contributionData?.contributionDays && (
               <GitHubHeatmap
                 contributionDays={githubData.contributionData.contributionDays}
-                isDarkMode={isDarkMode}
+                isDarkMode={true}
               />
             )}
           </GlowCard>
@@ -275,9 +271,9 @@ const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
             rel="noopener noreferrer"
             className={`inline-block bg-[#7263b3] ${
               !isTouchDevice
-                ? "hover:bg-[#5e4b9c] dark:hover:bg-[#473677]"
-                : "active:bg-[#5e4b9c] dark:active:bg-[#473677]"
-            } dark:bg-[#5c4a99] text-white py-2 px-4 rounded-xl transition-colors`}
+                ? "hover:bg-[#473677]"
+                : "active:bg-[#473677]"
+            } bg-[#5c4a99] text-white py-2 px-4 rounded-xl transition-colors`}
           >
             View GitHub Profile
           </a>
