@@ -1,6 +1,6 @@
 import { cn } from "../utils/helpers";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 function GradualSpacing({
   text,
@@ -14,21 +14,16 @@ function GradualSpacing({
   scrollStyle = {},
 }) {
   const containerRef = useRef(null);
+  const rafIdRef = useRef(null);
+  const entranceTimerRef = useRef(null);
+  const animationCompleteRef = useRef(false);
 
-  useEffect(() => {
-    if (containerRef.current) {
-      const element = containerRef.current;
-      let animationComplete = false;
+  const handleScroll = useCallback(() => {
+    if (!animationCompleteRef.current || !containerRef.current) return;
 
-      // Wait for the entrance animation to complete
-      const entranceTimer = setTimeout(() => {
-        animationComplete = true;
-      }, text.length * delayMultiple * 1000 + duration * 1000 + 500);
-
-      const handleScroll = () => {
-        // Only apply scroll effects after entrance animation is complete
-        if (!animationComplete) return;
-
+    if (!rafIdRef.current) {
+      rafIdRef.current = requestAnimationFrame(() => {
+        const element = containerRef.current;
         const scrollProgress = Math.min(
           window.scrollY / (window.innerHeight * 0.6),
           1
@@ -38,16 +33,28 @@ function GradualSpacing({
 
         element.style.letterSpacing = `${letterSpacing}rem`;
         element.style.opacity = opacity;
-      };
-
-      window.addEventListener("scroll", handleScroll, { passive: true });
-
-      return () => {
-        clearTimeout(entranceTimer);
-        window.removeEventListener("scroll", handleScroll);
-      };
+        rafIdRef.current = null;
+      });
     }
-  }, [text.length, delayMultiple, duration]);
+  }, []);
+
+  useEffect(() => {
+    const entranceTime = text.length * delayMultiple * 1000 + duration * 1000 + 500;
+    
+    entranceTimerRef.current = setTimeout(() => {
+      animationCompleteRef.current = true;
+    }, entranceTime);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      clearTimeout(entranceTimerRef.current);
+      window.removeEventListener("scroll", handleScroll);
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+    };
+  }, [text.length, delayMultiple, duration, handleScroll]);
 
   const container = {
     hidden: { opacity: 0 },

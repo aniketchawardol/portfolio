@@ -1,4 +1,5 @@
 // Import all Font Awesome icons individually
+import { memo } from "react";
 import {
   FaHtml5,
   FaCss3Alt,
@@ -32,36 +33,35 @@ import {
   SiKubernetes,
 } from "react-icons/si";
 
-const TechIcon = ({ tech }) => {
+const LARGE_ICON_TECHS = [
+  "MongoDB",
+  "Express.js",
+  "React JS",
+  "Next.js",
+  "Node.js",
+  "PostgreSQL",
+  "SQL",
+];
+
+const MEDIUM_ICON_TECHS = [
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "TailwindCSS",
+  "Docker",
+  "Kubernetes",
+  "Linux",
+  "AWS",
+];
+
+const getIconSize = (techName) => {
+  if (LARGE_ICON_TECHS.includes(techName)) return 80; // Much larger for large containers
+  if (MEDIUM_ICON_TECHS.includes(techName)) return 48; // Larger for medium containers
+  return 28; // Default size for small containers
+};
+
+const TechIcon = memo(({ tech }) => {
   try {
-    // Define size categories
-    const largeIconTechs = [
-      "MongoDB",
-      "Express.js",
-      "React JS",
-      "Next.js",
-      "Node.js",
-      "PostgreSQL",
-      "SQL",
-    ];
-    const mediumIconTechs = [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "TailwindCSS",
-      "Docker",
-      "Kubernetes",
-      "Linux",
-      "AWS",
-    ];
-
-    // Determine icon size based on category
-    const getIconSize = (techName) => {
-      if (largeIconTechs.includes(techName)) return 80; // Much larger for large containers
-      if (mediumIconTechs.includes(techName)) return 48; // Larger for medium containers
-      return 28; // Default size for small containers
-    };
-
     // Get appropriate size for this technology
     const iconSize = getIconSize(tech);
 
@@ -85,19 +85,6 @@ const TechIcon = ({ tech }) => {
           <img
             src="https://cdn.worldvectorlogo.com/logos/redux.svg"
             alt="Redux"
-            className={`w-${
-              largeIconTechs.includes(tech)
-                ? 24
-                : mediumIconTechs.includes(tech)
-                ? 12
-                : 7
-            } h-${
-              largeIconTechs.includes(tech)
-                ? 24
-                : mediumIconTechs.includes(tech)
-                ? 12
-                : 7
-            }`}
             style={{
               width: `${iconSize * 0.8}px`,
               height: `${iconSize * 0.8}px`,
@@ -193,6 +180,8 @@ const TechIcon = ({ tech }) => {
       </div>
     );
   }
-};
+});
+
+TechIcon.displayName = "TechIcon";
 
 export default TechIcon;

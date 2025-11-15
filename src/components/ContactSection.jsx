@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo, memo } from "react";
 import GlowCard from "./GlowCard";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
@@ -10,7 +10,7 @@ const EMAILJS_SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
 
-const ContactSection = () => {
+const ContactSection = memo(() => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,33 +18,24 @@ const ContactSection = () => {
     message: "",
   });
   const [formStatus, setFormStatus] = useState(null);
-  const [currentTime, setCurrentTime] = useState(new Date());
   const { isTouchDevice } = useDeviceDetection();
 
   useEffect(() => {
     emailjs.init(EMAILJS_PUBLIC_KEY);
   }, []);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  // Use the helper function with live updates
+  // Use the helper function with live updates - no need for separate state
   const { indianTime, indianDate } = getIndianDateTime();
 
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-  };
+  }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     setFormStatus("submitting");
 
@@ -56,7 +47,7 @@ const ContactSection = () => {
         message: formData.message,
       };
 
-      const response = await emailjs.send(
+      await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         templateParams
@@ -75,9 +66,9 @@ const ContactSection = () => {
 
       setTimeout(() => setFormStatus(null), 5000);
     }
-  };
+  }, [formData]);
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = useCallback((e) => {
     // Submit form when Enter is pressed without Shift key
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault(); // Prevent newline insertion
@@ -92,14 +83,16 @@ const ContactSection = () => {
         handleSubmit(e);
       }
     }
-  };
+  }, [formData, handleSubmit]);
 
-  const socialLinksWithIcons = SOCIAL_LINKS.map(link => ({
-    ...link,
-    icon: link.name === "GitHub" ? <FaGithub size={24} /> :
-          link.name === "LinkedIn" ? <FaLinkedin size={24} /> :
+  const socialLinksWithIcons = useMemo(() => 
+    SOCIAL_LINKS.map(link => ({
+      ...link,
+      icon: link.name === "GitHub" ? <FaGithub size={24} /> :
+            link.name === "LinkedIn" ? <FaLinkedin size={24} /> :
           <FaEnvelope size={24} />
-  }));
+    }))
+  , []);
 
   return (
     <div
@@ -299,6 +292,8 @@ const ContactSection = () => {
       </div>
     </div>
   );
-};
+});
+
+ContactSection.displayName = "ContactSection";
 
 export default ContactSection;

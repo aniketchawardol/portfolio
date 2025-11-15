@@ -1,6 +1,6 @@
+import { memo } from "react";
 
-
-const NavigationButton = ({ label, id, isActive, onClick }) => {
+const NavigationButton = memo(({ label, id, isActive, onClick }) => {
   return (
     <button
       className={`navbutton ${
@@ -13,6 +13,8 @@ const NavigationButton = ({ label, id, isActive, onClick }) => {
       {label}
     </button>
   );
-};
+});
+
+NavigationButton.displayName = "NavigationButton";
 
 export default NavigationButton;

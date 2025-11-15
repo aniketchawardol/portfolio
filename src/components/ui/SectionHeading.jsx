@@ -1,13 +1,14 @@
 
+
 import PropTypes from "prop-types";
+import { memo } from "react";
 
 /**
  * Standardized section heading with subtitle support and dark mode compatibility
  */
-const SectionHeading = ({
+const SectionHeading = memo(({
   title,
   subtitle,
-
   subtitleClassName = "",
 }) => {
 
@@ -16,7 +17,7 @@ const SectionHeading = ({
       <h2
         className="text-4xl font-halfomania 
          text-slate-200
-       text-center mb-6 ${titleClassName}"
+       text-center mb-6"
       >
         {title}
       </h2>
@@ -31,12 +32,13 @@ const SectionHeading = ({
       )}
     </>
   );
-};
+});
+
+SectionHeading.displayName = "SectionHeading";
 
 SectionHeading.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
-  titleClassName: PropTypes.string,
   subtitleClassName: PropTypes.string,
 };
 

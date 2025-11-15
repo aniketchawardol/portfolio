@@ -1,10 +1,12 @@
 
+
+import { memo } from "react";
 import ProjectTile from "./ProjectTile";
 import SectionContainer from "./layout/SectionContainer";
 import SectionHeading from "./ui/SectionHeading";
 import { PROJECTS, COLORS } from "../constants";
 
-const ProjectsSection = () => {
+const ProjectsSection = memo(() => {
   return (
     <SectionContainer
       id="projects"
@@ -23,6 +25,8 @@ const ProjectsSection = () => {
       </div>
     </SectionContainer>
   );
-};
+});
+
+ProjectsSection.displayName = "ProjectsSection";
 
 export default ProjectsSection;

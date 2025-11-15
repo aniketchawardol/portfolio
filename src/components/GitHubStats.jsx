@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, memo } from "react";
 import axios from "axios";
 import GitHubStatsTile from "./GitHubStatsTile";
 import GitHubHeatmap from "./GitHubHeatmap";
@@ -6,7 +6,7 @@ import GlowCard from "./GlowCard";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
 import { GITHUB_CONFIG } from "../constants";
 
-const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
+const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
   const [githubData, setGithubData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -281,6 +281,8 @@ const GitHubStats = ({ username = GITHUB_CONFIG.username }) => {
       </div>
     </div>
   );
-};
+});
+
+GitHubStats.displayName = "GitHubStats";
 
 export default GitHubStats;

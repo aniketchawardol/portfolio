@@ -186,7 +186,7 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
       <div
         className={`${getGridSpan()} 
             bg-[#2e1065]/30 border-[#4c1d95]/30 backdrop-blur-md
-       shadow-lg rounded-xl p-6 flex flex-col`}
+       shadow-lg rounded-xl p-6 h-full flex flex-col`}
       >
         <div className="flex items-center mb-2 md:mb-3">
           <div className="flex-shrink-0 mr-2 md:mr-3">
@@ -200,7 +200,7 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
           </span>
         </div>
 
-        <div className="flex flex-col space-y-0.5 md:space-y-1 overflow-y-auto max-h-36 md:max-h-48 pr-1 md:pr-2">
+        <div className="flex flex-col space-y-0.5 md:space-y-1 overflow-y-auto flex-1 pr-1 md:pr-2">
           {value.slice(0, 6).map((repo, index) => (
             <a
               key={index}

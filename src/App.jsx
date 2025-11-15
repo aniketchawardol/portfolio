@@ -1,4 +1,4 @@
-import React, { useEffect, useState, lazy, Suspense } from "react";
+import React, { useEffect, useState, lazy, Suspense, useMemo } from "react";
 import Navigation from "./components/Navigation";
 import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
@@ -20,6 +20,7 @@ function AppContent() {
   const [loading, setLoading] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
+  const [animationSize, setAnimationSize] = useState(getAnimationSize());
 
   // Initialize Lenis smooth scroll
   const { scrollTo } = useLenis();
@@ -50,23 +51,40 @@ function AppContent() {
     return () => clearTimeout(timer);
   }, []);
 
-  const [animationSize, setAnimationSize] = useState(getAnimationSize());
-
-  // Update animation size on window resize
+  // Update animation size on window resize with debounce
   useEffect(() => {
+    let resizeTimeout;
     const handleResize = () => {
-      setAnimationSize(getAnimationSize());
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        setAnimationSize(getAnimationSize());
+      }, 150);
     };
 
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      clearTimeout(resizeTimeout);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
-  // Lottie animation options
-  const defaultOptions = {
-    ...ANIMATION_SETTINGS.lottie.defaultOptions,
-    animationData: animationData,
-  };
+  // Memoize Lottie animation options
+  const defaultOptions = useMemo(
+    () => ({
+      ...ANIMATION_SETTINGS.lottie.defaultOptions,
+      animationData: animationData,
+    }),
+    []
+  );
+
+  // Memoize loading screen inline styles
+  const loadingScreenStyle = useMemo(
+    () => ({
+      minHeight: "100%",
+      minWidth: "100%",
+    }),
+    []
+  );
 
   // Conditionally render loading animation or main content
   if (loading) {
@@ -75,10 +93,7 @@ function AppContent() {
         className={`fixed top-0 left-0 right-0 bottom-0 w-screen h-screen flex items-center justify-center overflow-hidden z-50 
         bg-gradient-to-b from-[#0f0a29] via-[#191036] to-[#1e0438] northern-lights 
         ${isFadingOut ? "fade-out" : ""}`}
-        style={{
-          minHeight: "100%",
-          minWidth: "100%",
-        }}
+        style={loadingScreenStyle}
       >
         <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-full p-4">
           <Lottie

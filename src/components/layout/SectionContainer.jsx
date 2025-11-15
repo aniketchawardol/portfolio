@@ -1,10 +1,12 @@
 
+
 import PropTypes from "prop-types";
+import { memo } from "react";
 
 /**
  * A standardized container for page sections with consistent styling
  */
-const SectionContainer = ({
+const SectionContainer = memo(({
   id,
   children,
   className = "",
@@ -20,7 +22,9 @@ const SectionContainer = ({
       <div className="container mx-auto px-4 relative z-10">{children}</div>
     </div>
   );
-};
+});
+
+SectionContainer.displayName = "SectionContainer";
 
 SectionContainer.propTypes = {
   id: PropTypes.string,

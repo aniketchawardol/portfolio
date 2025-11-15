@@ -1,20 +1,16 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, memo, useMemo } from "react";
 import NavigationButton from "./NavigationButton";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
-
-const NAV_ITEMS = [
-  { id: "home", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "skills", label: "Skills" },
-  { id: "projects", label: "Projects" },
-  { id: "contact", label: "Contact" },
-];
+import { NAV_ITEMS } from "../constants";
 
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isTouchDevice } = useDeviceDetection();
+
+  // Memoize sections array to prevent recalculation
+  const sections = useMemo(() => NAV_ITEMS.map((item) => item.id), []);
 
   useEffect(() => {
     // Throttle scroll handler for better performance
@@ -24,7 +20,6 @@ const Navigation = () => {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const sections = NAV_ITEMS.map((item) => item.id);
           const scrollPosition = window.scrollY + 100; // Add offset for navbar height
 
           for (let i = sections.length - 1; i >= 0; i--) {
@@ -46,25 +41,14 @@ const Navigation = () => {
 
     // Clean up
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [sections]);
 
   const scrollToSection = useCallback((sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
-
-      // Set active section immediately for better UX
       setActiveSection(sectionId);
-
-      // Close mobile menu after navigation
       setMobileMenuOpen(false);
-
-      // Disable scroll handling briefly to avoid conflicts
-      const scrollHandler = window.onwheel;
-      window.onwheel = null;
-      setTimeout(() => {
-        window.onwheel = scrollHandler;
-      }, 1000);
     }
   }, []);
 
@@ -134,4 +118,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default memo(Navigation);

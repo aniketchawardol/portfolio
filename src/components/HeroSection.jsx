@@ -1,25 +1,34 @@
-import  { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, memo } from "react";
 import RotatingText from "../assets/TextAnimations/RotatingText/RotatingText";
 import { GradualSpacing } from "./GradualSpacing";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
 import { ROTATING_TEXTS, ANIMATION_SETTINGS } from "../constants";
 
-const HeroSection = () => {
+const HeroSection = memo(() => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [meteorActive, setMeteorActive] = useState(false);
   const sectionRef = useRef(null);
+  const rafIdRef = useRef(null);
   const { isTouchDevice } = useDeviceDetection();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10 && !hasScrolled) {
+  const handleScroll = useCallback(() => {
+    if (!rafIdRef.current && window.scrollY > 10 && !hasScrolled) {
+      rafIdRef.current = requestAnimationFrame(() => {
         setHasScrolled(true);
+        rafIdRef.current = null;
+      });
+    }
+  }, [hasScrolled]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
       }
     };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [hasScrolled]);
+  }, [handleScroll]);
 
   useEffect(() => {
     // Delay meteor shower activation to prevent seeing initial positions
@@ -94,6 +103,8 @@ const HeroSection = () => {
       </a>
     </div>
   );
-};
+});
+
+HeroSection.displayName = "HeroSection";
 
 export default HeroSection;

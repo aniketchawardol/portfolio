@@ -1,9 +1,10 @@
+import { memo } from "react";
 import SimpleRevealText from "./SimpleRevealText";
 import MetaBalls from "../assets/Animations/MetaBalls/MetaBalls";
 import ThemedCard from "./ui/ThemedCard";
 import { COLORS } from "../constants";
 
-const AboutSection = () => {
+const AboutSection = memo(() => {
   return (
     <div
       className="flex h-screen items-center justify-center w-full 
@@ -36,6 +37,8 @@ const AboutSection = () => {
       </ThemedCard>
     </div>
   );
-};
+});
+
+AboutSection.displayName = "AboutSection";
 
 export default AboutSection;

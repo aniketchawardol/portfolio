@@ -1,10 +1,11 @@
 
+import React, { memo } from "react";
 import ThemedCard from "./ui/ThemedCard";
 import PropTypes from "prop-types";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
 
-const ProjectTile = ({
+const ProjectTile = memo(({
   title,
   description,
   technologies,
@@ -120,7 +121,7 @@ const ProjectTile = ({
       </div>
     </ThemedCard>
   );
-};
+});
 
 ProjectTile.propTypes = {
   title: PropTypes.string.isRequired,
@@ -135,5 +136,7 @@ ProjectTile.propTypes = {
   ]),
   livelink: PropTypes.string,
 };
+
+ProjectTile.displayName = "ProjectTile";
 
 export default ProjectTile;

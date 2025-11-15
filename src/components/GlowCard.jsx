@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
 const glowColorMap = {
@@ -15,7 +15,7 @@ const sizeMap = {
   lg: "w-80 h-96",
 };
 
-const GlowCard = ({
+const GlowCard = memo(({
   children,
   className = "",
   glowColor = "purple",
@@ -30,6 +30,7 @@ const GlowCard = ({
   const innerRef = useRef(null);
   const { isTouchDevice } = useDeviceDetection();
   const rafIdRef = useRef(null);
+  const tickingRef = useRef(false);
 
   useEffect(() => {
     // Only add pointer tracking on desktop non-touch devices for performance
@@ -53,14 +54,13 @@ const GlowCard = ({
     };
 
     // Optimized throttling using requestAnimationFrame
-    let ticking = false;
     const throttledSyncPointer = (e) => {
-      if (!ticking) {
+      if (!tickingRef.current) {
         rafIdRef.current = requestAnimationFrame(() => {
           syncPointer(e);
-          ticking = false;
+          tickingRef.current = false;
         });
-        ticking = true;
+        tickingRef.current = true;
       }
     };
 
@@ -316,6 +316,8 @@ const GlowCard = ({
       </div>
     </>
   );
-};
+});
+
+GlowCard.displayName = "GlowCard";
 
 export default GlowCard;

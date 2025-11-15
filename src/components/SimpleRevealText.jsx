@@ -1,28 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 
 const SimpleRevealText = ({ text, className }) => {
   const textRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
+  const rafIdRef = useRef(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial call
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const getRevealClip = () => {
-    if (!textRef.current)
-      return {
-        clearClip: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-        blurredClip: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
-      };
+  const updateRevealClip = useCallback(() => {
+    if (!textRef.current) return null;
 
     const rect = textRef.current.getBoundingClientRect();
     const windowHeight = window.innerHeight;
@@ -47,9 +31,34 @@ const SimpleRevealText = ({ text, className }) => {
       clearClip: `polygon(0 0, 100% 0, 100% ${revealPercentage}%, 0 ${revealPercentage}%)`,
       blurredClip: `polygon(0 ${revealPercentage}%, 100% ${revealPercentage}%, 100% 100%, 0 100%)`,
     };
-  };
+  }, []);
 
-  const { clearClip, blurredClip } = getRevealClip();
+  // Memoize clips so they recalculate when scrollY changes
+  const clips = useMemo(() => updateRevealClip() || {
+    clearClip: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+    blurredClip: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
+  }, [scrollY, updateRevealClip]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!rafIdRef.current) {
+        rafIdRef.current = requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          rafIdRef.current = null;
+        });
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial call
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div
@@ -67,7 +76,7 @@ const SimpleRevealText = ({ text, className }) => {
           top: 0,
           left: 0,
           right: 0,
-          clipPath: clearClip,
+          clipPath: clips.clearClip,
           zIndex: 2,
         }}
       >
@@ -83,7 +92,7 @@ const SimpleRevealText = ({ text, className }) => {
           right: 0,
           filter: "blur(4px)",
           opacity: 0.6,
-          clipPath: blurredClip,
+          clipPath: clips.blurredClip,
           zIndex: 1,
         }}
       >

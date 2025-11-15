@@ -1,11 +1,11 @@
-import React from "react";
+import React, { memo } from "react";
 import GlowCard from "../GlowCard";
 import PropTypes from "prop-types";
 
 /**
  * A themed card component with spotlight effect and dark mode support
  */
-const ThemedCard = ({
+const ThemedCard = memo(({
   children,
   className = "",
   padding = "p-6",
@@ -32,7 +32,9 @@ const ThemedCard = ({
       {children}
     </GlowCard>
   );
-};
+});
+
+ThemedCard.displayName = "ThemedCard";
 
 ThemedCard.propTypes = {
   children: PropTypes.node.isRequired,
