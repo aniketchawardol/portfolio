@@ -66,7 +66,7 @@ const HeroSection = memo(() => {
           delayMultiple={ANIMATION_SETTINGS.gradualSpacing.delayMultiple}
           className="text-[100px] lg:text-[150px] font-moonwalk text-slate-200 w-full hero-heading"
         />
-        <div className="absolute md:relative md:mt-13 lg:mt-0 lg:mb-[62px] ml-[20%] md:ml-0 z-0">
+        <div className="absolute md:relative md:mt-13 lg:mt-0 lg:mb-[80px] ml-[20%] md:ml-0 z-0">
           <p className="font-exo hidden lg:inline text-slate-200 text-3xl ml-4">
             and I'm a
           </p>
@@ -74,13 +74,13 @@ const HeroSection = memo(() => {
             texts={ROTATING_TEXTS}
             mainClassName="
             text-purple-300
-           overflow-hidden  font-halfomania absolute top-[120px] md:top-4"
+           overflow-hidden  font-halfomania absolute top-[120px] md:top-[30px]"
             staggerFrom={"last"}
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
-            exit={{ y: "-120%" }}
+            exit={{ y: "-100%" }}
             staggerDuration={ANIMATION_SETTINGS.rotatingText.staggerDuration}
-            splitLevelClassName="overflow-hidden text-[20px] md:text-[30px] lg:text-[60px]"
+            splitLevelClassName="overflow-hidden text-[10px] md:text-[15px] lg:text-[45px]"
             transition={{ type: "spring", damping: 30, stiffness: 400 }}
             rotationInterval={ANIMATION_SETTINGS.rotatingText.interval}
           />
