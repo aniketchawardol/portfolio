@@ -123,10 +123,10 @@ export const SOCIAL_LINKS = [
 
 // Hero rotating texts
 export const ROTATING_TEXTS = [
-  "Web Developer",
-  "Problem Solver",
-  "DSA Enthusiast",
-  "UI/UX Designer",
+  "Full-Stack Developer",     
+  "Competitive Programmer",   
+  "Open Source Contributor",  
+  "Software Engineer",        
 ];
 
 // Animation settings
