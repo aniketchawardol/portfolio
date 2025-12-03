@@ -1,17 +1,14 @@
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
-import { isTouchDevice, isMobileDevice } from "../utils/helpers";
+import { useDeviceDetection } from "./useDeviceDetection";
 
 export const useLenis = () => {
   const lenisRef = useRef(null);
+  const { isMobile } = useDeviceDetection();
 
   useEffect(() => {
-    // Don't initialize Lenis on mobile/touch devices for better native scrolling
-    if (isMobileDevice() || isTouchDevice()) {
-      return;
-    }
+    if (isMobile) return;
 
-    // Initialize Lenis only for desktop
     lenisRef.current = new Lenis({
       duration: 3.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -24,7 +21,6 @@ export const useLenis = () => {
       infinite: false,
     });
 
-    // Animation loop
     function raf(time) {
       lenisRef.current?.raf(time);
       requestAnimationFrame(raf);
@@ -32,13 +28,11 @@ export const useLenis = () => {
 
     requestAnimationFrame(raf);
 
-    // Cleanup
     return () => {
       lenisRef.current?.destroy();
     };
-  }, []);
+  }, [isMobile]);
 
-  // Method to scroll to a specific element
   const scrollTo = (target, options = {}) => {
     if (lenisRef.current) {
       lenisRef.current.scrollTo(target, {

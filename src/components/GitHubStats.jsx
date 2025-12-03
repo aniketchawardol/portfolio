@@ -237,7 +237,6 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
                   title={stat.title}
                   value={stat.value}
                   category={stat.category}
-                  isDarkMode={true}
                 />
               </div>
             );
@@ -250,13 +249,11 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
             className="p-6 rounded-xl mx-auto max-w-full
              bg-[#2e1065]/10 border-[#4c1d95]/10
             border"
-            isDarkMode={true}
             customSize={true}
           >
             {githubData?.contributionData?.contributionDays && (
               <GitHubHeatmap
                 contributionDays={githubData.contributionData.contributionDays}
-                isDarkMode={true}
               />
             )}
           </GlowCard>
@@ -270,9 +267,7 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
             target="_blank"
             rel="noopener noreferrer"
             className={`inline-block bg-[#7263b3] ${
-              !isTouchDevice
-                ? "hover:bg-[#473677]"
-                : "active:bg-[#473677]"
+              !isTouchDevice ? "hover:bg-[#473677]" : "active:bg-[#473677]"
             } bg-[#5c4a99] text-white py-2 px-4 rounded-xl transition-colors`}
           >
             View GitHub Profile

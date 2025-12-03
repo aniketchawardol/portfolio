@@ -1,5 +1,3 @@
-
-
 import { memo } from "react";
 import ProjectTile from "./ProjectTile";
 import SectionContainer from "./layout/SectionContainer";
@@ -8,11 +6,7 @@ import { PROJECTS, COLORS } from "../constants";
 
 const ProjectsSection = memo(() => {
   return (
-    <SectionContainer
-      id="projects"
-      gradientDark={COLORS.gradients.projectsDark}
-      gradientLight={COLORS.gradients.projectsLight}
-    >
+    <SectionContainer id="projects" gradient={COLORS.gradients.projects}>
       <SectionHeading
         title="Featured Projects"
         subtitle="A showcase of my recent development work and personal projects"

@@ -10,11 +10,9 @@ export function cn(...classes) {
  */
 export function getAnimationSize() {
   if (typeof window === "undefined") return { width: 400, height: 400 };
-
-  // These breakpoints align with Tailwind's defaults
-  if (window.innerWidth < 640) return { width: 280, height: 280 }; // Small screens
-  if (window.innerWidth < 1024) return { width: 350, height: 350 }; // Medium screens
-  return { width: 400, height: 400 }; // Large screens
+  if (window.innerWidth < 640) return { width: 280, height: 280 };
+  if (window.innerWidth < 1024) return { width: 350, height: 350 };
+  return { width: 400, height: 400 };
 }
 
 /**
@@ -26,30 +24,6 @@ export function parseHexColor(hex) {
   const g = parseInt(c.substring(2, 4), 16) / 255;
   const b = parseInt(c.substring(4, 6), 16) / 255;
   return [r, g, b];
-}
-
-/**
- * Get interaction classes based on device type
- */
-export function getInteractionClasses(baseClasses, hoverClasses, activeClasses, isTouchDevice) {
-  return `${baseClasses} ${
-    !isTouchDevice ? hoverClasses : activeClasses
-  }`;
-}
-
-/**
- * Debounce function for performance optimization
- */
-export function debounce(func, wait) {
-  let timeout;
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
 }
 
 /**
@@ -71,27 +45,4 @@ export function getIndianDateTime() {
     day: "numeric",
   });
   return { indianTime, indianDate };
-}
-
-/**
- * Check if device is touch-enabled
- */
-export function isTouchDevice() {
-  return (
-    "ontouchstart" in window ||
-    navigator.maxTouchPoints > 0 ||
-    navigator.msMaxTouchPoints > 0
-  );
-}
-
-/**
- * Check if device is mobile
- */
-export function isMobileDevice() {
-  return (
-    window.innerWidth <= 768 ||
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    )
-  );
 }

@@ -1,9 +1,8 @@
-
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import { format, subYears } from "date-fns";
 
-const GitHubHeatmap = ({ contributionDays, isDarkMode }) => {
+const GitHubHeatmap = ({ contributionDays }) => {
   // Get date range (1 year ago from today)
   const today = new Date();
   const startDate = subYears(today, 1);
@@ -26,8 +25,7 @@ const GitHubHeatmap = ({ contributionDays, isDarkMode }) => {
 
   // Get color class based on contribution intensity
   const getContributionClass = (value) => {
-    if (!value || value.count === 0)
-      return isDarkMode ? "color-empty-dark" : "color-empty";
+    if (!value || value.count === 0) return "color-empty-dark";
 
     const intensity = Math.min(value.count / maxCount, 1);
 
@@ -97,7 +95,7 @@ const GitHubHeatmap = ({ contributionDays, isDarkMode }) => {
         }
         .react-calendar-heatmap text {
           font-size: 8px;
-          fill: ${isDarkMode ? "#8b949e" : "#7a828e"};
+          fill: #8b949e;
         }
       `}</style>
     </div>

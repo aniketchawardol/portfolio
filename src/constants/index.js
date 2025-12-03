@@ -13,21 +13,17 @@ export const GITHUB_CONFIG = {
   token: import.meta.env.VITE_APP_GITHUB_TOKEN,
 };
 
-// Color schemes
+// Color schemes - Dark theme only
 export const COLORS = {
   gradients: {
-    darkDefault: "from-[#0f0a29] via-[#191036] to-[#1e0438]",
-    heroDark: "from-[#0f0a29] via-[#191036] to-[#1e0438]",
-    aboutDark: "from-[#1e0438] via-[#1d0c3a] to-[#1a103c]",
-    skillsDark: "from-[#1a103c] via-[#18103a] to-[#150d37]",
-    githubDark: "from-[#150d37] via-[#0c0825] to-[#0f0a29]",
-    projectsDark: "from-[#0f0a29] via-[#16073a] to-[#1e0438]",
-    contactLight: "from-[#a28cd1] via-[#b6a6e3] to-[#cbb4f0]",
-    contactDark: "from-[#1e0438] via-[#170732] to-[#0f0a29]",
+    hero: "from-[#0f0a29] via-[#191036] to-[#1e0438]",
+    about: "from-[#1e0438] via-[#1d0c3a] to-[#1a103c]",
+    skills: "from-[#1a103c] via-[#18103a] to-[#150d37]",
+    github: "from-[#150d37] via-[#0c0825] to-[#0f0a29]",
+    projects: "from-[#0f0a29] via-[#16073a] to-[#1e0438]",
+    contact: "from-[#1e0438] via-[#170732] to-[#0f0a29]",
   },
-  metaBalls: {
-    dark: "#7e22ce",
-  },
+  primary: "#7e22ce", // Purple
 };
 
 // Technologies list

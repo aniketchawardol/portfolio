@@ -12,8 +12,8 @@ const AboutSection = memo(() => {
     >
       <div className="absolute inset-0 flex items-center justify-center z-0 ">
         <MetaBalls
-          color={COLORS.metaBalls.dark}
-          cursorBallColor={COLORS.metaBalls.dark}
+          color={COLORS.primary}
+          cursorBallColor={COLORS.primary}
           cursorBallSize={2}
           ballCount={15}
           animationSize={30}
@@ -26,11 +26,9 @@ const AboutSection = memo(() => {
       </div>
 
       <ThemedCard className="w-[80%] relative z-10" withSpotlight={false}>
-        <div
-          className="text-slate-200 md:text-2xl items-center"
-        >
+        <div className="text-slate-200 md:text-2xl items-center">
           <SimpleRevealText
-            text="Hello! I'm Aniket, a passionate Full-Stack Developer with hands-on experience in building scalable web applications using React, Node.js, MongoDB, and real-time technologies like Socket.IO. Along with this I have a strong foundation in Data Structures and Algorithms, with a problem-solving mindset and a focus on writing efficient, clean code."
+            text="I view software through the lens of efficiency and constraints. Whether it’s debouncing socket events to reduce server load or implementing singleton patterns to prevent connection exhaustion, I focus on the invisible metrics that define user experience. I write code that respects resources and optimizes for the milliseconds that actually matter."
             className="leading-relaxed text-justify font-mono"
           />
         </div>

@@ -35,64 +35,77 @@ const ContactSection = memo(() => {
     }));
   }, []);
 
-  const handleSubmit = useCallback(async (e) => {
-    e.preventDefault();
-    setFormStatus("submitting");
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setFormStatus("submitting");
 
-    try {
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
-      };
+      try {
+        const templateParams = {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        };
 
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        templateParams
-      );
+        await emailjs.send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          templateParams
+        );
 
-      setFormStatus("success");
-      setFormData({ name: "", email: "", subject: "", message: "" });
+        setFormStatus("success");
+        setFormData({ name: "", email: "", subject: "", message: "" });
 
-      setTimeout(() => setFormStatus(null), 5000);
-    } catch (error) {
-      console.error(
-        "Failed to send email:",
-        error.text || error.message || error
-      );
-      setFormStatus("error");
+        setTimeout(() => setFormStatus(null), 5000);
+      } catch (error) {
+        console.error(
+          "Failed to send email:",
+          error.text || error.message || error
+        );
+        setFormStatus("error");
 
-      setTimeout(() => setFormStatus(null), 5000);
-    }
-  }, [formData]);
-
-  const handleKeyDown = useCallback((e) => {
-    // Submit form when Enter is pressed without Shift key
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault(); // Prevent newline insertion
-
-      // Check if all required fields are filled
-      if (
-        formData.name &&
-        formData.email &&
-        formData.subject &&
-        formData.message
-      ) {
-        handleSubmit(e);
+        setTimeout(() => setFormStatus(null), 5000);
       }
-    }
-  }, [formData, handleSubmit]);
+    },
+    [formData]
+  );
 
-  const socialLinksWithIcons = useMemo(() => 
-    SOCIAL_LINKS.map(link => ({
-      ...link,
-      icon: link.name === "GitHub" ? <FaGithub size={24} /> :
-            link.name === "LinkedIn" ? <FaLinkedin size={24} /> :
-          <FaEnvelope size={24} />
-    }))
-  , []);
+  const handleKeyDown = useCallback(
+    (e) => {
+      // Submit form when Enter is pressed without Shift key
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault(); // Prevent newline insertion
+
+        // Check if all required fields are filled
+        if (
+          formData.name &&
+          formData.email &&
+          formData.subject &&
+          formData.message
+        ) {
+          handleSubmit(e);
+        }
+      }
+    },
+    [formData, handleSubmit]
+  );
+
+  const socialLinksWithIcons = useMemo(
+    () =>
+      SOCIAL_LINKS.map((link) => ({
+        ...link,
+        icon:
+          link.name === "GitHub" ? (
+            <FaGithub size={24} />
+          ) : link.name === "LinkedIn" ? (
+            <FaLinkedin size={24} />
+          ) : (
+            <FaEnvelope size={24} />
+          ),
+      })),
+    []
+  );
 
   return (
     <div
@@ -124,7 +137,6 @@ const ContactSection = memo(() => {
           <div className="md:w-2/3">
             <GlowCard
               className="bg-[#2e1065]/30 border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 h-full relative"
-              isDarkMode={true}
               customSize={true}
             >
               <div className="relative z-10">
@@ -237,7 +249,6 @@ const ContactSection = memo(() => {
           <div className="md:w-1/3 space-y-6">
             <GlowCard
               className="bg-[#2e1065]/30 border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-8 relative"
-              isDarkMode={true}
               customSize={true}
             >
               <div className="relative z-10">
@@ -268,7 +279,6 @@ const ContactSection = memo(() => {
 
             <GlowCard
               className="bg-[#2e1065]/30 border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-8 relative mt-6"
-              isDarkMode={true}
               customSize={true}
             >
               <div className="relative z-10">

@@ -55,7 +55,6 @@ TechTile.displayName = "TechTile";
 
 TechTile.propTypes = {
   tech: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
 };
 
 export default TechTile;
