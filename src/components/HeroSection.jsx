@@ -80,7 +80,7 @@ const HeroSection = memo(() => {
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}
             staggerDuration={ANIMATION_SETTINGS.rotatingText.staggerDuration}
-            splitLevelClassName="overflow-hidden text-[10px] md:text-[15px] lg:text-[45px]"
+            splitLevelClassName="overflow-hidden text-[20px] md:text-[25px] lg:text-[45px]"
             transition={{ type: "spring", damping: 30, stiffness: 400 }}
             rotationInterval={ANIMATION_SETTINGS.rotatingText.interval}
           />
