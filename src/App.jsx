@@ -83,12 +83,16 @@ function AppContent() {
   }
 
   return (
-    <div>
+    <div className="">
       <Navigation />
-      <div id="home" className="snap-section">
+      <div id="home" className="snap-section relative -mb-[200px] ">
         <HeroSection />
       </div>
-      <div id="about" className="snap-section">
+      <img
+        src="./gradient.png"
+        className="w-full h-[300px] object-fit blur-[35px] relative z-5 opacity-100 transition-all duration-300 transform-fill"
+      />
+      <div id="about" className="snap-section relative -mt-[140px] overflow-visible">
         <AboutSection />
       </div>
       <div id="skills" className="snap-section">

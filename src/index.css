@@ -364,7 +364,7 @@ body {
   /* Only add hover effects on non-touch devices */
   @media (hover: hover) and (pointer: fine) {
     .navbutton:hover {
-      @apply after:w-full;
+      @apply after:w-full after:bg-white;
     }
   }
 

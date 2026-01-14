@@ -270,7 +270,7 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
               !isTouchDevice ? "hover:bg-[#473677]" : "active:bg-[#473677]"
             } bg-[#5c4a99] text-white py-2 px-4 rounded-xl transition-colors`}
           >
-            View GitHub Profile
+            <p className="mx-4 my-1">View GitHub Profile</p>
           </a>
         </div>
       </div>

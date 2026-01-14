@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, memo } from "react";
 import NavigationButton from "./NavigationButton";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
+import { useLenis } from "../hooks/useLenis";
 import { NAV_ITEMS } from "../constants";
 
 const CONTAINER_CLASSES =
@@ -11,6 +12,7 @@ const Navigation = memo(() => {
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isTouchDevice } = useDeviceDetection();
+  const { scrollTo } = useLenis();
 
   const sections = NAV_ITEMS.map((item) => item.id);
 
@@ -41,14 +43,21 @@ const Navigation = memo(() => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [sections]);
 
-  const scrollToSection = useCallback((sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setActiveSection(sectionId);
-      setMobileMenuOpen(false);
-    }
-  }, []);
+  const scrollToSection = useCallback(
+    (sectionId) => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        scrollTo(`#${sectionId}`, {
+          offset: 0,
+          duration: 3,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+        setActiveSection(sectionId);
+        setMobileMenuOpen(false);
+      }
+    },
+    [scrollTo]
+  );
 
   return (
     <div className="fixed top-0 font-mono w-full flex items-center justify-center z-50 px-4">
