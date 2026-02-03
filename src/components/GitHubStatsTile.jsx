@@ -71,9 +71,9 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
       case "commitActivity":
         return "#ef4444"; // Red
       case "pullRequests":
-        return "#7c3aed"; // Purple
+        return "#FF5C00"; // Orange
       case "issues":
-        return "#f97316"; // Orange
+        return "#FF8533"; // Light Orange
       default:
         return "#6b7280"; // Gray
     }
@@ -147,13 +147,13 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
   if (category === "languages" && Array.isArray(value)) {
     return (
       <div
-        className={`${getGridSpan()} bg-[#2e1065]/30 border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 h-full flex flex-col`}
+        className={`${getGridSpan()} bg-[#1a1a1a]/80 border-[#FF5C00] border-2 backdrop-blur-md rounded-xl p-6 h-full flex flex-col`}
       >
         <div className="flex items-center mb-2 md:mb-3">
           <div className="flex-shrink-0 mr-2 md:mr-3">
             <FaCode size={24} className="md:text-3xl" color={getIconColor()} />
           </div>
-          <span className="text-slate-200 font-medium text-sm md:text-base">
+          <span className="text-white font-medium text-sm md:text-base">
             {title}
           </span>
         </div>
@@ -167,12 +167,10 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
                   backgroundColor: lang.color || getLanguageColor(lang.name),
                 }}
               ></div>
-              <span className="text-xs md:text-sm font-medium text-slate-300 flex-1 truncate">
+              <span className="text-xs md:text-sm font-medium text-white flex-1 truncate">
                 {lang.name}
               </span>
-              <span className="text-xs text-slate-400">
-                {lang.percentage}%
-              </span>
+              <span className="text-xs text-white/70">{lang.percentage}%</span>
             </div>
           ))}
         </div>
@@ -185,15 +183,15 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
     return (
       <div
         className={`${getGridSpan()} 
-            bg-[#2e1065]/30 border-[#4c1d95]/30 backdrop-blur-md
-       shadow-lg rounded-xl p-6 h-full flex flex-col`}
+            bg-[#1a1a1a]/80 border-[#FF5C00] border-2 backdrop-blur-md
+       rounded-xl p-6 h-full flex flex-col`}
       >
         <div className="flex items-center mb-2 md:mb-3">
           <div className="flex-shrink-0 mr-2 md:mr-3">
-            <FaGithub size={24} className="md:text-3xl" color="#2563eb" />
+            <FaGithub size={24} className="md:text-3xl" color="#FF5C00" />
           </div>
           <span
-            className="text-slate-200
+            className="text-white
            font-medium text-sm md:text-base"
           >
             {title}
@@ -211,16 +209,16 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
               target="_blank"
               rel="noopener noreferrer"
               className={`text-xs md:text-sm 
-              text-slate-300
+              text-white
             flex items-center py-0.5 md:py-1 border-b 
-               border-slate-700`}
+               border-[#FF5C00]`}
             >
               <span className="mr-auto truncate max-w-[70%]">{repo.name}</span>
               <div className="flex items-center space-x-1 md:space-x-2 flex-shrink-0">
                 {repo.language && (
                   <span
-                    className="text-xs bg-slate-700
-                    px-1 py-0.5 rounded hidden md:inline"
+                    className="text-xs bg-[#FF5C00]/20 text-white
+                    px-1 py-0.5 rounded hidden md:inline border border-[#FF5C00]"
                   >
                     {repo.language}
                   </span>
@@ -229,9 +227,9 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
                   <div className="flex items-center">
                     <BiGitRepoForked
                       size={12}
-                      className="text-emerald-500 mr-0.5"
+                      className="text-[#FF5C00] mr-0.5"
                     />
-                    <span className="text-xs text-slate-400">
+                    <span className="text-xs text-white/70">
                       {repo.forks_count}
                     </span>
                   </div>
@@ -242,7 +240,7 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
           {value.length > 6 && (
             <span
               className="text-xs text-center 
-                text-slate-400
+                text-white/70
               italic pt-1"
             >
               And {value.length - 6} more repositories...
@@ -255,12 +253,12 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
 
   return (
     <div
-      className={`${getGridSpan()} bg-[#2e1065]/30 border-[#4c1d95]/30 backdrop-blur-md shadow-lg rounded-xl p-6 flex flex-col h-full`}
+      className={`${getGridSpan()} bg-[#1a1a1a]/80 border-[#FF5C00] border-2 backdrop-blur-md rounded-xl p-6 flex flex-col h-full`}
     >
       <div className="flex items-center h-full">
         <div className="flex-shrink-0 mr-2 md:mr-3">{icon || getIcon()}</div>
         <div className="flex flex-col">
-          <span className="text-slate-200 font-medium text-sm md:text-base">
+          <span className="text-white font-medium text-sm md:text-base">
             {title}
           </span>
           <span
@@ -280,7 +278,7 @@ GitHubStatsTile.displayName = "GitHubStatsTile";
 // Helper function to determine language color
 const getLanguageColor = (language) => {
   const colors = {
-    JavaScript: "#f7df1e",
+    JavaScript: "#FF5C00",
     TypeScript: "#3178c6",
     HTML: "#e34c26",
     CSS: "#563d7c",

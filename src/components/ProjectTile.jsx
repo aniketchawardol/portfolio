@@ -5,13 +5,13 @@ import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
 const ButtonClassName = ({ isTouchDevice, secondary = false }) => {
   const baseClass = `grow text-center text-white py-2 px-4 rounded-md transition-colors ease-in-out duration-150`;
-  const primaryClass = `bg-[#5c4a99] ${
-    !isTouchDevice ? "hover:bg-[#473677]" : "active:bg-[#473677]"
+  const primaryClass = `bg-[#FF5C00] ${
+    !isTouchDevice ? "hover:bg-[#FF8533]" : "active:bg-[#FF8533]"
   }`;
-  const secondaryClass = `bg-[#2d2545] ${
-    !isTouchDevice ? "hover:bg-[#221c34]" : "active:bg-[#221c34]"
+  const secondaryClass = `bg-[#1a1a1a] ${
+    !isTouchDevice ? "hover:bg-[#2a2a2a]" : "active:bg-[#2a2a2a]"
   }`;
-  return `${baseClass} ${secondary ? secondaryClass : primaryClass}`;
+  return `${baseClass} ${secondary ? secondaryClass : primaryClass} border-2 border-[#FF5C00] rounded-xl`;
 };
 
 const normalizeProjectUrl = (projectUrl) => {
@@ -40,14 +40,14 @@ const ProjectTile = memo(
             <img
               src={imageUrl}
               alt={title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover border-2 border-[#FF5C00] rounded-xl"
             />
           </div>
         )}
 
-        <h3 className="text-xl font-exo text-slate-200 mb-2 z-10">{title}</h3>
+        <h3 className="text-xl font-exo text-white mb-2 z-10">{title}</h3>
 
-        <p className="text-slate-300 font-mono mb-6 grow z-10">{description}</p>
+        <p className="text-white font-mono mb-6 grow z-10">{description}</p>
 
         {technologies && technologies.length > 0 && (
           <div className="mb-6 z-10">
@@ -55,7 +55,7 @@ const ProjectTile = memo(
               {technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="text-xs bg-[#3b0764]/50 text-slate-300 px-2 py-1 rounded-full"
+                  className="text-xs bg-[#FF5C00] border-2 text-white px-2 py-1 rounded-full border-[#FF5C00]"
                 >
                   {tech}
                 </span>
@@ -89,7 +89,7 @@ const ProjectTile = memo(
         </div>
       </ThemedCard>
     );
-  }
+  },
 );
 
 ProjectTile.propTypes = {
@@ -100,7 +100,7 @@ ProjectTile.propTypes = {
   projectUrl: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+      PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     ),
   ]),
   livelink: PropTypes.string,

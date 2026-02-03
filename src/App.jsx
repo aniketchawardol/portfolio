@@ -59,14 +59,14 @@ function AppContent() {
       ...ANIMATION_SETTINGS.lottie.defaultOptions,
       animationData: animationData,
     }),
-    []
+    [],
   );
 
   if (loading) {
     return (
       <div
         className={`fixed inset-0 w-screen h-screen flex items-center justify-center overflow-hidden z-50 
-        bg-gradient-to-b from-[#0f0a29] via-[#191036] to-[#1e0438] northern-lights 
+        bg-[#000000] northern-lights 
         ${isFadingOut ? "fade-out" : ""}`}
       >
         <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-full p-4">
@@ -90,9 +90,12 @@ function AppContent() {
       </div>
       <img
         src="./gradient.png"
-        className="w-full h-[300px] object-fit blur-[35px] relative z-5 opacity-100 transition-all duration-300 transform-fill"
+        className="w-full h-[400px] object-fit blur-[40px] relative z-5 opacity-100 transition-all duration-300 transform-fill"
       />
-      <div id="about" className="snap-section relative -mt-[140px] overflow-visible">
+      <div
+        id="about"
+        className="snap-section relative -mt-[160px] overflow-visible"
+      >
         <AboutSection />
       </div>
       <div id="skills" className="snap-section">
@@ -100,8 +103,8 @@ function AppContent() {
       </div>
       <Suspense
         fallback={
-          <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-[#150d37] via-[#0c0825] to-[#0f0a29]">
-            <div className="text-2xl text-slate-300 font-mono">Loading...</div>
+          <div className="w-full min-h-screen flex items-center justify-center bg-[#000000]">
+            <div className="text-2xl text-white font-mono">Loading...</div>
           </div>
         }
       >
@@ -111,8 +114,8 @@ function AppContent() {
       </Suspense>
       <Suspense
         fallback={
-          <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-[#0f0a29] via-[#16073a] to-[#1e0438]">
-            <div className="text-2xl text-slate-300 font-mono">Loading...</div>
+          <div className="w-full min-h-screen flex items-center justify-center bg-[#000000]">
+            <div className="text-2xl text-white font-mono">Loading...</div>
           </div>
         }
       >

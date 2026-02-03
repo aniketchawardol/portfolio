@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://chawardolaniket.vercel.app/sitemap.xml
+Sitemap: https://chawardolaniket.is-a.dev/sitemap.xml
 
 # Crawl-delay for better server performance
 Crawl-delay: 1

@@ -1,9 +1,7 @@
 import { useState, useEffect, useRef, useCallback, memo } from "react";
 import RotatingText from "../assets/TextAnimations/RotatingText/RotatingText";
-import { GradualSpacing } from "./GradualSpacing";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
 import { ROTATING_TEXTS, ANIMATION_SETTINGS } from "../constants";
-
 const HeroSection = memo(() => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [meteorActive, setMeteorActive] = useState(false);
@@ -42,10 +40,8 @@ const HeroSection = memo(() => {
   return (
     <div
       ref={sectionRef}
-      className="bg-gradient-to-b from-[#0f0a29] via-[#191036] to-[#1e0438] northern-lights relative h-screen pt-20"
+      className="bg-[#000000] northern-lights relative h-screen pt-20"
     >
-      <div className="absolute mt-[20%] md:mt-[10%] ml-[20%] lg:ml-[40%] h-[300px] w-[300px] rounded-full z-10 bg-gradient-to-bl from-purple-900 shadow-[0_0_100px_40px_#4c1d95]"></div>
-
       {/* Meteor shower */}
       {meteorActive && (
         <div className="meteor-shower">
@@ -59,48 +55,52 @@ const HeroSection = memo(() => {
         </div>
       )}
 
-      <div className="relative w-screen z-10 lg:ml-[20%] mt-[40%] md:mt-[20%] lg:mt-[13%] flex lg:items-end overflow-hidden">
-        <GradualSpacing
-          text="ANIKET"
-          duration={ANIMATION_SETTINGS.gradualSpacing.duration}
-          delayMultiple={ANIMATION_SETTINGS.gradualSpacing.delayMultiple}
-          className="text-[100px] lg:text-[150px] font-moonwalk text-slate-200 w-full hero-heading"
-        />
-        <div className="absolute md:relative md:mt-13 lg:mt-0 lg:mb-[80px] ml-[20%] md:ml-0 z-0">
-          <p className="font-exo hidden lg:inline text-slate-200 text-3xl ml-4">
-            and I'm a
-          </p>
-          <RotatingText
-            texts={ROTATING_TEXTS}
-            mainClassName="
-            text-purple-300
-           overflow-hidden  font-halfomania absolute top-[120px] md:top-[30px]"
-            staggerFrom={"last"}
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "-100%" }}
-            staggerDuration={ANIMATION_SETTINGS.rotatingText.staggerDuration}
-            splitLevelClassName="overflow-hidden text-[20px] md:text-[25px] lg:text-[45px]"
-            transition={{ type: "spring", damping: 30, stiffness: 400 }}
-            rotationInterval={ANIMATION_SETTINGS.rotatingText.interval}
-          />
+      {/* Centered container: keeps ANIKET, rotating text, and resume button centered */}
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4">
+        {/* Heading + rotating text wrapper centered */}
+        <div className="relative w-full max-w-[1200px] z-10 flex flex-col items-center justify-center overflow-hidden">
+          <h1 className="text-[100px] lg:text-[200px] font-moonwalk text-white text-center hero-heading mx-auto fade-in mb-0 pb-0 leading-none">
+            ANIKET
+          </h1>
+
+          <div className="relative z-0 flex flex-col items-center mt-0">
+            <p className="font-exo hidden lg:inline text-white text-3xl mt-0 mb-0 lg:-mt-4">
+              and I'm a
+            </p>
+            <RotatingText
+              texts={ROTATING_TEXTS}
+              mainClassName={
+                "text-[#FFFFFF] overflow-hidden font-halfomania relative mt-1"
+              }
+              staggerFrom={"last"}
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-100%" }}
+              staggerDuration={ANIMATION_SETTINGS.rotatingText.staggerDuration}
+              splitLevelClassName="overflow-hidden text-[20px] md:text-[25px] lg:text-[45px]"
+              transition={{ type: "spring", damping: 30, stiffness: 400 }}
+              rotationInterval={ANIMATION_SETTINGS.rotatingText.interval}
+            />
+          </div>
+        </div>
+
+        <div className="lg:hidden h-30" />
+
+        <div className="w-full flex justify-center ">
+          <a
+            href={import.meta.env.VITE_RESUME_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`font-exo text-xl relative z-10 px-6 py-3 rounded-xl bg-[#FF5C00] border border-[#FF5C00] text-white overflow-hidden transform ${
+              !isTouchDevice ? "hover:scale-105" : "active:scale-105"
+            } transition-all duration-300 ease-out w-max`}
+          >
+            <span className="relative z-10">My Resume</span>
+            <span className="absolute inset-0 bg-[#FF5C00]/20"></span>
+            <span className="absolute inset-0 animate-shimmer bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.5),transparent)] bg-size-[200%_100%]"></span>
+          </a>
         </div>
       </div>
-      <div className="lg:hidden h-30"></div>
-      <a
-        href={import.meta.env.VITE_RESUME_LINK}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`ml-[40%] font-exo text-xl relative z-10 inline-block px-6 py-3 rounded-full 
-        bg-gradient-to-r from-indigo-900 to-purple-900 border border-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.5)] text-white
-        overflow-hidden transform ${
-          !isTouchDevice ? "hover:scale-105" : "active:scale-105"
-        } transition-all duration-300 ease-out`}
-      >
-        <span className="relative z-10">My Resume</span>
-        <span className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-indigo-800/20"></span>
-        <span className="absolute inset-0 animate-shimmer bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.5),transparent)] bg-size-[200%_100%]"></span>
-      </a>
     </div>
   );
 });

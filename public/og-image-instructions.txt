@@ -4,5 +4,5 @@
 <!-- Then update the meta tags below in index.html -->
 
 <!-- Update these lines in index.html: -->
-<!-- <meta property="og:image" content="https://chawardolaniket.vercel.app/og-image.jpg" /> -->
-<!-- <meta property="twitter:image" content="https://chawardolaniket.vercel.app/og-image.jpg" /> -->
+<!-- <meta property="og:image" content="https://chawardolaniket.is-a.dev/og-image.jpg" /> -->
+<!-- <meta property="twitter:image" content="https://chawardolaniket.is-a.dev/og-image.jpg" /> -->

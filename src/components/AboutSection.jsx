@@ -7,8 +7,8 @@ import { COLORS } from "../constants";
 const AboutSection = memo(() => {
   return (
     <div
-      className="flex h-screen items-center justify-center w-full 
-       bg-gradient-to-b from-[#1e0438] via-[#1d0c3a] to-[#1a103c] relative"
+      className="flex min-h-screen items-center justify-center w-full 
+       bg-[#000000] relative"
     >
       <div className="absolute inset-0 flex items-center justify-center z-0 ">
         <MetaBalls
@@ -25,14 +25,19 @@ const AboutSection = memo(() => {
         />
       </div>
 
-      <ThemedCard className="w-[80%] relative z-10" withSpotlight={false}>
-        <div className="text-slate-200 md:text-2xl items-center">
-          <SimpleRevealText
-            text="I view software through the lens of efficiency and constraints. Whether it’s debouncing socket events to reduce server load or implementing singleton patterns to prevent connection exhaustion, I focus on the invisible metrics that define user experience. I write code that respects resources and optimizes for the milliseconds that actually matter."
-            className="leading-relaxed text-justify font-mono"
-          />
-        </div>
-      </ThemedCard>
+      <div className="flex items-center justify-center w-full h-full z-10">
+        <ThemedCard
+          className="w-[80%] mx-auto relative z-20 lg:w-[35%]"
+          withSpotlight={false}
+        >
+          <div className="text-white text-sm md:text-2xl lg:text-[25px] items-center">
+            <SimpleRevealText
+              text="I view software through the lens of efficiency and constraints. Whether it’s debouncing socket events to reduce server load or implementing singleton patterns to prevent connection exhaustion, I focus on the invisible metrics that define user experience. I write code that respects resources and optimizes for the milliseconds that actually matter."
+              className="leading-relaxed text-justify font-mono"
+            />
+          </div>
+        </ThemedCard>
+      </div>
     </div>
   );
 });

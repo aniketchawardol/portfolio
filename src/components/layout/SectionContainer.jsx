@@ -9,7 +9,7 @@ const SectionContainer = memo(
     id,
     children,
     className = "",
-    gradient = "from-[#0f0a29] via-[#191036] to-[#1e0438]",
+    gradient = "from-[#000000] via-[#0a0a0a] to-[#000000]",
     heightClass = "min-h-screen",
   }) => {
     return (
@@ -21,7 +21,7 @@ const SectionContainer = memo(
         <div className="container mx-auto px-4 relative z-10">{children}</div>
       </div>
     );
-  }
+  },
 );
 
 SectionContainer.displayName = "SectionContainer";

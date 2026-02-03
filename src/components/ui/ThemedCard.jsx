@@ -13,7 +13,7 @@ const ThemedCard = memo(
     withSpotlight = true,
     ...props
   }) => {
-    const baseClasses = `bg-[#2e1065]/30 border border-[#4c1d95]/30 shadow-lg rounded-xl backdrop-blur-md ${padding} ${className}`;
+    const baseClasses = `bg-[#1a1a1a]/80 border border-[#FF5C00] border-2 rounded-xl backdrop-blur-md ${padding} ${className}`;
 
     if (!withSpotlight) {
       return (
@@ -28,7 +28,7 @@ const ThemedCard = memo(
         {children}
       </GlowCard>
     );
-  }
+  },
 );
 
 ThemedCard.displayName = "ThemedCard";

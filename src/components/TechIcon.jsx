@@ -55,10 +55,47 @@ const MEDIUM_ICON_TECHS = [
 ];
 
 const getIconSize = (techName) => {
-  if (LARGE_ICON_TECHS.includes(techName)) return 80; // Much larger for large containers
+  if (LARGE_ICON_TECHS.includes(techName)) return 96; // Larger for large containers (was 80)
   if (MEDIUM_ICON_TECHS.includes(techName)) return 48; // Larger for medium containers
   return 28; // Default size for small containers
 };
+
+// Colors for known techs (brand/recognizable colors)
+const ICON_COLORS = {
+  AWS: "#FF9900",
+  Linux: "#FCC624",
+  HTML: "#E34F26",
+  CSS: "#1572B6",
+  JavaScript: "#F7DF1E",
+  "React JS": "#61DAFB",
+  "Next.js": "#000000",
+  "React Redux": "#764ABC",
+  TailwindCSS: "#06B6D4",
+  "Node.js": "#3C873A",
+  "Express.js": "#000000",
+  JWT: "#F7C948",
+  Auth0: "#EB5424",
+  websockets: "#010101",
+  Appwrite: "#FF4F99",
+  Cloudinary: "#2B66FF",
+  MongoDB: "#47A248",
+  mongoose: "#47A248",
+  PostgreSQL: "#336791",
+  SQL: "#336791",
+  Git: "#F34F29",
+  Github: "#FFFFFF",
+  Postman: "#FF6C37",
+  Figma: "#F24E1E",
+  Canva: "#00C4CC",
+  C: "#00599C",
+  "C++": "#00599C",
+  Python: "#3776AB",
+  OCaml: "#EC6813",
+  Docker: "#2496ED",
+  Kubernetes: "#326CE5",
+};
+
+const getColorForTech = (tech) => ICON_COLORS[tech] || "#94A3B8";
 
 const TechIcon = memo(({ tech }) => {
   try {
@@ -67,97 +104,105 @@ const TechIcon = memo(({ tech }) => {
 
     switch (tech) {
       case "AWS":
-        return <FaAws size={iconSize} color="#FF9900" />;
+        return <FaAws size={iconSize} color={getColorForTech("AWS")} title="AWS" />;
       case "Linux":
-        return <SiLinux size={iconSize} color="#FCC624" />;
+        return <SiLinux size={iconSize} color={getColorForTech("Linux")} title="Linux" />;
       case "HTML":
-        return <FaHtml5 size={iconSize} color="#E34F26" />;
+        return <FaHtml5 size={iconSize} color={getColorForTech("HTML")} title="HTML" />;
       case "CSS":
-        return <FaCss3Alt size={iconSize} color="#1572B6" />;
+        return <FaCss3Alt size={iconSize} color={getColorForTech("CSS")} title="CSS" />;
       case "JavaScript":
-        return <FaJs size={iconSize} color="#F7DF1E" />;
+        return <FaJs size={iconSize} color={getColorForTech("JavaScript")} title="JavaScript" />;
       case "React JS":
-        return <FaReact size={iconSize} color="#61DAFB" />;
+        return <FaReact size={iconSize} color={getColorForTech("React JS")} title="React JS" />;
       case "Next.js":
-        return <SiNextdotjs size={iconSize} color="#000000" />;
+        return <SiNextdotjs size={iconSize} color={getColorForTech("Next.js")} title="Next.js" />;
       case "React Redux":
         return (
           <img
             src="https://cdn.worldvectorlogo.com/logos/redux.svg"
             alt="Redux"
+            title="React Redux"
             style={{
               width: `${iconSize * 0.8}px`,
               height: `${iconSize * 0.8}px`,
+              objectFit: "contain",
             }}
           />
         );
       case "TailwindCSS":
-        return <SiTailwindcss size={iconSize} color="#06B6D4" />;
+        return <SiTailwindcss size={iconSize} color={getColorForTech("TailwindCSS")} title="TailwindCSS" />;
       case "Node.js":
-        return <FaNodeJs size={iconSize} color="#339933" />;
+        return <FaNodeJs size={iconSize} color={getColorForTech("Node.js")} title="Node.js" />;
       case "Express.js":
-        return <SiExpress size={iconSize} color="#000000" />;
+        return <SiExpress size={iconSize} color={getColorForTech("Express.js")} title="Express.js" />;
       case "JWT":
-        return <SiJsonwebtokens size={iconSize} color="#000000" />;
+        return <SiJsonwebtokens size={iconSize} color={getColorForTech("JWT")} title="JWT" />;
       case "Auth0":
-        return <SiAuth0 size={iconSize} color="#EB5424" />;
+        return <SiAuth0 size={iconSize} color={getColorForTech("Auth0")} title="Auth0" />;
       case "websockets":
-        return <SiSocketdotio size={iconSize} color="#010101" />;
+        return <SiSocketdotio size={iconSize} color={getColorForTech("websockets")} title="websockets" />;
       case "Appwrite":
-        return <SiAppwrite size={iconSize} color="#F02E65" />;
+        return <SiAppwrite size={iconSize} color={getColorForTech("Appwrite")} title="Appwrite" />;
       case "Cloudinary":
-        return <SiCloudinary size={iconSize} color="#3448C5" />;
+        return <SiCloudinary size={iconSize} color={getColorForTech("Cloudinary")} title="Cloudinary" />;
       case "MongoDB":
-        return <SiMongodb size={iconSize} color="#47A248" />;
+        return <SiMongodb size={iconSize} color={getColorForTech("MongoDB")} title="MongoDB" />;
       case "mongoose":
-        return <FaDatabase size={iconSize} color="#880000" />;
+        return <FaDatabase size={iconSize} color={getColorForTech("mongoose")} title="mongoose" />;
       case "PostgreSQL":
-        return <SiPostgresql size={iconSize} color="#336791" />;
+        return <SiPostgresql size={iconSize} color={getColorForTech("PostgreSQL")} title="PostgreSQL" />;
       case "SQL":
         return (
           <img
             src="https://www.svgrepo.com/show/331760/sql-database-generic.svg"
             alt="SQL"
+            title="SQL"
             style={{
               width: `${iconSize * 0.8}px`,
               height: `${iconSize * 0.8}px`,
+              objectFit: "contain",
             }}
           />
         );
       case "Git":
-        return <FaGit size={iconSize} color="#F05032" />;
+        return <FaGit size={iconSize} color={getColorForTech("Git")} title="Git" />;
       case "Github":
-        return <FaGithub size={iconSize} color="#181717" />;
+        return <FaGithub size={iconSize} color={getColorForTech("Github")} title="Github" />;
       case "Postman":
-        return <SiPostman size={iconSize} color="#FF6C37" />;
+        return <SiPostman size={iconSize} color={getColorForTech("Postman")} title="Postman" />;
       case "Figma":
-        return <FaFigma size={iconSize} color="#F24E1E" />;
+        return <FaFigma size={iconSize} color={getColorForTech("Figma")} title="Figma" />;
       case "Canva":
-        return <SiCanva size={iconSize} color="#00C4CC" />;
+        return <SiCanva size={iconSize} color={getColorForTech("Canva")} title="Canva" />;
       case "C":
         return (
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/1/19/C_Logo.png"
             alt="C"
+            title="C"
             style={{
               width: `${iconSize * 0.8}px`,
               height: `${iconSize * 0.8}px`,
+              objectFit: "contain",
             }}
           />
         );
       case "C++":
-        return <SiCplusplus size={iconSize} color="#00599C" />;
+        return <SiCplusplus size={iconSize} color={getColorForTech("C++")} title="C++" />;
       case "Python":
-        return <SiPython size={iconSize} color="#3776AB" />;
+        return <SiPython size={iconSize} color={getColorForTech("Python")} title="Python" />;
       case "OCaml":
-        return <FaTerminal size={iconSize} color="#EC6813" />;
+        return <FaTerminal size={iconSize} color={getColorForTech("OCaml")} title="OCaml" />;
       case "Docker":
-        return <SiDocker size={iconSize} color="#2496ED" />;
+        return <SiDocker size={iconSize} color={getColorForTech("Docker")} title="Docker" />;
       case "Kubernetes":
-        return <SiKubernetes size={iconSize} color="#326CE5" />;
-      default:
+        return <SiKubernetes size={iconSize} color={getColorForTech("Kubernetes")} title="Kubernetes" />;
+      default: {
+        const bgColor = getColorForTech(tech);
         return (
           <div
+            title={tech}
             style={{
               width: `${iconSize * 0.6}px`,
               height: `${iconSize * 0.6}px`,
@@ -166,16 +211,32 @@ const TechIcon = memo(({ tech }) => {
               alignItems: "center",
               justifyContent: "center",
               borderRadius: "50%",
+              backgroundColor: bgColor,
+              color: "#fff",
+              fontWeight: 600,
             }}
           >
             {tech.charAt(0)}
           </div>
         );
+      }
     }
   } catch (error) {
     console.warn(`Failed to load icon for ${tech}`, error);
     return (
-      <div className="w-8 h-8 bg-blue-200 rounded-full flex items-center justify-center">
+      <div
+        title={tech}
+        style={{
+          width: "2rem",
+          height: "2rem",
+          backgroundColor: getColorForTech(tech),
+          color: "#fff",
+          borderRadius: "50%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         {tech.charAt(0)}
       </div>
     );

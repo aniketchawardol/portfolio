@@ -6,7 +6,7 @@ import { useLenis } from "../hooks/useLenis";
 import { NAV_ITEMS } from "../constants";
 
 const CONTAINER_CLASSES =
-  "mx-auto my-4 flex justify-evenly items-center bg-[#2e1065]/30 border-[#4c1d95]/30 text-slate-300 backdrop-blur-md border shadow-lg p-2 rounded-xl";
+  "mx-auto my-4 flex justify-evenly items-center bg-[#1a1a1a]/90 border-[#FF5C00] text-white backdrop-blur-md border-2 p-2 rounded-xl";
 
 const Navigation = memo(() => {
   const [activeSection, setActiveSection] = useState("home");
@@ -56,7 +56,7 @@ const Navigation = memo(() => {
         setMobileMenuOpen(false);
       }
     },
-    [scrollTo]
+    [scrollTo],
   );
 
   return (
@@ -78,10 +78,10 @@ const Navigation = memo(() => {
 
       {/* Mobile Navigation Toggle */}
       <div className="md:hidden w-full flex justify-end my-4">
-        <div className="flex items-center bg-[#2e1065]/30 border-[#4c1d95]/30 text-slate-300 backdrop-blur-md border shadow-lg p-2 rounded-xl">
+        <div className="flex items-center bg-[#1a1a1a]/90 border-[#FF5C00] border-2 text-white backdrop-blur-md  p-2 rounded-full">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg text-slate-200"
+            className="p-2 rounded-lg text-white"
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <FaTimes /> : <FaBars />}
@@ -91,7 +91,7 @@ const Navigation = memo(() => {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden fixed top-[100px] left-0 right-0 p-4 rounded-lg shadow-lg backdrop-blur-md transition-all ease-in-out duration-300 bg-[#2e1065]/20 border-[#4c1d95]/30 text-slate-300 border grid grid-cols-2 gap-3 z-50 w-[80%] mx-auto ${
+        className={`md:hidden fixed top-[100px] left-0 right-0 p-4 rounded-lg backdrop-blur-md transition-all ease-in-out duration-300 bg-[#1a1a1a]/90 border-[#FF5C00]/30 text-white border grid grid-cols-2 gap-3 z-50 w-[80%] mx-auto ${
           mobileMenuOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -102,10 +102,8 @@ const Navigation = memo(() => {
             key={item.id}
             onClick={() => scrollToSection(item.id)}
             className={`p-2 text-center rounded-md ${
-              activeSection === item.id ? "bg-[#4c1d95]/50 text-purple-300" : ""
-            } ${
-              !isTouchDevice ? "hover:bg-purple-800" : "active:bg-purple-800"
-            }`}
+              activeSection === item.id ? "bg-[#FF5C00]/50 text-white" : ""
+            } ${!isTouchDevice ? "hover:bg-[#FF5C00]" : "active:bg-[#FF5C00]"}`}
           >
             {item.label}
           </button>

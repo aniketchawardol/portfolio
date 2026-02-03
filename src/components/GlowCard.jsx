@@ -1,19 +1,19 @@
 import { useEffect, useRef, memo } from "react";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
-const PURPLE_CONFIG = {
-  base: 280,
+const ORANGE_CONFIG = {
+  base: 20,
   variation: 15,
-  backdrop: "rgba(46, 16, 101, 0.3)",
-  border: "rgba(76, 29, 149, 0.3)",
-  saturation: "70",
-  lightness: "65",
+  backdrop: "rgba(26, 26, 26, 0.8)",
+  border: "#FF5C00",
+  saturation: "100",
+  lightness: "50",
   bgSpotOpacity: "0.2",
   borderSpotOpacity: "0.9",
   borderLightOpacity: "0.5",
-  beforeSaturation: "70",
-  beforeLightness: "55",
-  afterLightness: "80",
+  beforeSaturation: "100",
+  beforeLightness: "45",
+  afterLightness: "65",
 };
 
 const SIZE_MAP = {
@@ -45,12 +45,12 @@ const GlowCard = memo(
           cardRef.current.style.setProperty("--x", x.toFixed(2));
           cardRef.current.style.setProperty(
             "--xp",
-            (x / window.innerWidth).toFixed(2)
+            (x / window.innerWidth).toFixed(2),
           );
           cardRef.current.style.setProperty("--y", y.toFixed(2));
           cardRef.current.style.setProperty(
             "--yp",
-            (y / window.innerHeight).toFixed(2)
+            (y / window.innerHeight).toFixed(2),
           );
         }
       };
@@ -78,28 +78,28 @@ const GlowCard = memo(
 
     const getInlineStyles = () => {
       const baseStyles = {
-        "--base": PURPLE_CONFIG.base,
-        "--spread": PURPLE_CONFIG.variation,
+        "--base": ORANGE_CONFIG.base,
+        "--spread": ORANGE_CONFIG.variation,
         "--radius": "12",
         "--border": "2",
         "--size": "200",
         "--outer": "1",
         "--border-size": "calc(var(--border, 2) * 1px)",
         "--spotlight-size": "calc(var(--size, 150) * 1px)",
-        "--hue": `calc(${PURPLE_CONFIG.base} + (var(--xp, 0) * ${PURPLE_CONFIG.variation}))`,
-        "--backdrop": PURPLE_CONFIG.backdrop,
-        "--backup-border": PURPLE_CONFIG.border,
-        "--saturation": PURPLE_CONFIG.saturation,
-        "--lightness": PURPLE_CONFIG.lightness,
-        "--bg-spot-opacity": PURPLE_CONFIG.bgSpotOpacity,
-        "--border-spot-opacity": PURPLE_CONFIG.borderSpotOpacity,
-        "--border-light-opacity": PURPLE_CONFIG.borderLightOpacity,
-        "--before-saturation": PURPLE_CONFIG.beforeSaturation,
-        "--before-lightness": PURPLE_CONFIG.beforeLightness,
-        "--after-lightness": PURPLE_CONFIG.afterLightness,
+        "--hue": `calc(${ORANGE_CONFIG.base} + (var(--xp, 0) * ${ORANGE_CONFIG.variation}))`,
+        "--backdrop": ORANGE_CONFIG.backdrop,
+        "--backup-border": ORANGE_CONFIG.border,
+        "--saturation": ORANGE_CONFIG.saturation,
+        "--lightness": ORANGE_CONFIG.lightness,
+        "--bg-spot-opacity": ORANGE_CONFIG.bgSpotOpacity,
+        "--border-spot-opacity": ORANGE_CONFIG.borderSpotOpacity,
+        "--border-light-opacity": ORANGE_CONFIG.borderLightOpacity,
+        "--before-saturation": ORANGE_CONFIG.beforeSaturation,
+        "--before-lightness": ORANGE_CONFIG.beforeLightness,
+        "--after-lightness": ORANGE_CONFIG.afterLightness,
         backgroundImage: isTouchDevice
           ? "none"
-          : `radial-gradient(var(--spotlight-size) var(--spotlight-size) at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px), hsl(var(--hue, ${PURPLE_CONFIG.base}) calc(var(--saturation) * 1%) calc(var(--lightness) * 1%) / var(--bg-spot-opacity)), transparent)`,
+          : `radial-gradient(var(--spotlight-size) var(--spotlight-size) at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px), hsl(var(--hue, ${ORANGE_CONFIG.base}) calc(var(--saturation) * 1%) calc(var(--lightness) * 1%) / var(--bg-spot-opacity)), transparent)`,
         backgroundColor: "var(--backdrop, transparent)",
         backgroundSize:
           "calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)))",
@@ -138,7 +138,7 @@ const GlowCard = memo(
       background-image: ${
         isTouchDevice
           ? "none"
-          : `radial-gradient(calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px), hsl(280 calc(var(--before-saturation) * 1%) calc(var(--before-lightness) * 1%) / var(--border-spot-opacity)), transparent 100%)`
+          : `radial-gradient(calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px), hsl(20 calc(var(--before-saturation) * 1%) calc(var(--before-lightness) * 1%) / var(--border-spot-opacity)), transparent 100%)`
       };
       filter: ${isTouchDevice ? "none" : "brightness(1.5)"};
     }
@@ -146,7 +146,7 @@ const GlowCard = memo(
       background-image: ${
         isTouchDevice
           ? "none"
-          : `radial-gradient(calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px), hsl(280 20% calc(var(--after-lightness) * 1%) / var(--border-light-opacity)), transparent 100%)`
+          : `radial-gradient(calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px), hsl(20 20% calc(var(--after-lightness) * 1%) / var(--border-light-opacity)), transparent 100%)`
       };
     }
     [data-glow] [data-glow] {
@@ -178,7 +178,6 @@ const GlowCard = memo(
           ${sizeClasses}
           rounded-xl
           relative 
-          shadow-lg
           backdrop-blur-md
           ${className}
         `}
@@ -188,7 +187,7 @@ const GlowCard = memo(
         </div>
       </>
     );
-  }
+  },
 );
 
 GlowCard.displayName = "GlowCard";

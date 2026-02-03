@@ -56,12 +56,12 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
 
         const userResponse = await axios.get(
           `https://api.github.com/users/${username}`,
-          { headers }
+          { headers },
         );
 
         const reposResponse = await axios.get(
           `https://api.github.com/users/${username}/repos?per_page=100`,
-          { headers }
+          { headers },
         );
 
         const graphqlQuery = {
@@ -92,7 +92,7 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
               Authorization: `Bearer ${GITHUB_CONFIG.token}`,
               "Content-Type": "application/json",
             },
-          }
+          },
         );
 
         const contributionCalendar =
@@ -104,7 +104,7 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
 
         const contributionDays =
           contributionCalendar?.weeks?.flatMap(
-            (week) => week.contributionDays
+            (week) => week.contributionDays,
           ) || [];
 
         const languages = {};
@@ -116,7 +116,7 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
 
         const totalRepos = Object.values(languages).reduce(
           (acc, count) => acc + count,
-          0
+          0,
         );
         const languagesArray = Object.entries(languages)
           .map(([name, count]) => ({
@@ -150,7 +150,7 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
             totalRepos: userResponse.data.public_repos,
             totalForks: reposResponse.data.reduce(
               (acc, repo) => acc + repo.forks_count,
-              0
+              0,
             ),
             totalContributions,
           },
@@ -178,12 +178,12 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
     return (
       <div
         className="w-full flex items-center justify-center py-16
-          bg-slate-900
+          bg-[#000000]
         "
       >
         <div
           className="text-2xl 
-            text-slate-300
+            text-white
         font-mono"
         >
           Loading GitHub stats...
@@ -195,7 +195,7 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
   return (
     <div
       className="w-full min-h-screen flex items-center justify-center 
-          bg-gradient-to-b from-[#150d37] via-[#0c0825] to-[#0f0a29]
+          bg-[#000000]
       py-8 md:py-16 font-exo"
     >
       <div className="container mx-auto px-4">
@@ -205,19 +205,19 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
               <img
                 src={githubData.profile.avatar_url}
                 alt={`${username}'s GitHub avatar`}
-                className="w-16 h-16 md:w-24 md:h-24 rounded-full border-4 border-slate-300 shadow-lg mb-3 md:mb-0 md:inline"
+                className="w-16 h-16 md:w-24 md:h-24 rounded-full border-4 border-[#FF5C00] mb-3 md:mb-0 md:inline"
               />
-              <h3 className="text-lg md:text-xl font-bold font-mono md:m-2 md:mt-4 text-slate-200">
+              <h3 className="text-lg md:text-xl font-bold font-mono md:m-2 md:mt-4 text-white">
                 {githubData.profile.name || username}
               </h3>
             </div>
           )}
 
-          <h2 className="text-3xl md:text-4xl font-halfomania text-slate-200 mt-2 md:mt-0">
+          <h2 className="text-3xl md:text-4xl font-halfomania text-white mt-2 md:mt-0">
             GitHub Activity
           </h2>
         </div>
-        <p className="text-center text-slate-300 font-mono mb-6">
+        <p className="text-center text-white font-mono mb-6">
           My open-source contributions and project portfolio
         </p>
 
@@ -266,9 +266,9 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
             }
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-block bg-[#7263b3] ${
-              !isTouchDevice ? "hover:bg-[#473677]" : "active:bg-[#473677]"
-            } bg-[#5c4a99] text-white py-2 px-4 rounded-xl transition-colors`}
+            className={`inline-block bg-[#FF5C00] ${
+              !isTouchDevice ? "hover:bg-[#ff6a0085]" : "active:bg-[#ff9e54]"
+            } bg-[#FF5C00] text-white py-2 px-4 rounded-xl transition-colors`}
           >
             <p className="mx-4 my-1">View GitHub Profile</p>
           </a>

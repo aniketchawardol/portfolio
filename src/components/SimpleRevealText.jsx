@@ -1,8 +1,14 @@
-import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 const SimpleRevealText = ({ text, className }) => {
   const textRef = useRef(null);
-  const [scrollY, setScrollY] = useState(0);
+  // Store clips in state and drive updates via an animation loop. This
+  // makes the reveal work with custom smooth scrollers (e.g. Lenis)
+  // that don't always emit native scroll events.
+  const [clips, setClips] = useState({
+    clearClip: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+    blurredClip: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
+  });
   const rafIdRef = useRef(null);
 
   const updateRevealClip = useCallback(() => {
@@ -24,7 +30,7 @@ const SimpleRevealText = ({ text, className }) => {
     // Calculate percentage revealed (0 to 100)
     const revealPercentage = Math.max(
       0,
-      Math.min(100, (revealDistance / textHeight) * 100)
+      Math.min(100, (revealDistance / textHeight) * 100),
     );
 
     return {
@@ -33,32 +39,36 @@ const SimpleRevealText = ({ text, className }) => {
     };
   }, []);
 
-  // Memoize clips so they recalculate when scrollY changes
-  const clips = useMemo(() => updateRevealClip() || {
-    clearClip: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-    blurredClip: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
-  }, [scrollY, updateRevealClip]);
+  // Update clips only when they actually change to avoid extra renders
+  const updateClips = useCallback(() => {
+    const newClips = updateRevealClip();
+    if (!newClips) return;
+
+    setClips((prev) => {
+      if (
+        prev.clearClip === newClips.clearClip &&
+        prev.blurredClip === newClips.blurredClip
+      ) {
+        return prev;
+      }
+      return newClips;
+    });
+  }, [updateRevealClip]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!rafIdRef.current) {
-        rafIdRef.current = requestAnimationFrame(() => {
-          setScrollY(window.scrollY);
-          rafIdRef.current = null;
-        });
-      }
-    };
+    // Animation loop that updates clips every frame. This is reliable even
+    // when a custom smooth-scroller (like Lenis) is used.
+    function tick() {
+      updateClips();
+      rafIdRef.current = requestAnimationFrame(tick);
+    }
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial call
+    tick();
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (rafIdRef.current) {
-        cancelAnimationFrame(rafIdRef.current);
-      }
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
     };
-  }, []);
+  }, [updateClips]);
 
   return (
     <div

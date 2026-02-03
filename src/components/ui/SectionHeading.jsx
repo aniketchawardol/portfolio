@@ -1,22 +1,15 @@
-
-
 import PropTypes from "prop-types";
 import { memo } from "react";
 
 /**
  * Standardized section heading with subtitle support and dark mode compatibility
  */
-const SectionHeading = memo(({
-  title,
-  subtitle,
-  subtitleClassName = "",
-}) => {
-
+const SectionHeading = memo(({ title, subtitle, subtitleClassName = "" }) => {
   return (
     <>
       <h2
         className="text-4xl font-halfomania 
-         text-slate-200
+         text-white
        text-center mb-6"
       >
         {title}
@@ -24,7 +17,7 @@ const SectionHeading = memo(({
       {subtitle && (
         <p
           className={`text-center 
-            text-slate-300
+            text-white
           mb-16 font-mono ${subtitleClassName}`}
         >
           {subtitle}

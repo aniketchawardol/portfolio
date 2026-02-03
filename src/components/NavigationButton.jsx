@@ -4,7 +4,7 @@ const NavigationButton = memo(({ label, id, isActive, onClick }) => {
   return (
     <button
       className={`navbutton ${
-        isActive ? "text-purple-300 after:w-full after:bg-purple-300" : ""
+        isActive ? "text-[#FF5C00] after:w-full after:bg-[#FF5C00]" : ""
       }`}
       onClick={() => onClick(id)}
     >

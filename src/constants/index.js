@@ -16,14 +16,14 @@ export const GITHUB_CONFIG = {
 // Color schemes - Dark theme only
 export const COLORS = {
   gradients: {
-    hero: "from-[#0f0a29] via-[#191036] to-[#1e0438]",
-    about: "from-[#1e0438] via-[#1d0c3a] to-[#1a103c]",
-    skills: "from-[#1a103c] via-[#18103a] to-[#150d37]",
-    github: "from-[#150d37] via-[#0c0825] to-[#0f0a29]",
-    projects: "from-[#0f0a29] via-[#16073a] to-[#1e0438]",
-    contact: "from-[#1e0438] via-[#170732] to-[#0f0a29]",
+    hero: "from-[#000000] to-[#000000]",
+    about: "from-[#000000] to-[#000000]",
+    skills: "from-[#000000] to-[#000000]",
+    github: "from-[#000000] to-[#000000]",
+    projects: "from-[#000000] to-[#000000]",
+    contact: "from-[#000000] to-[#000000]",
   },
-  primary: "#7e22ce", // Purple
+  primary: "#FF5C00", // Neon Orange
 };
 
 // Technologies list
@@ -123,10 +123,10 @@ export const SOCIAL_LINKS = [
 
 // Hero rotating texts
 export const ROTATING_TEXTS = [
-  "Full-Stack Developer",     
-  "Competitive Programmer",   
-  "Open Source Contributor",  
-  "Software Engineer",        
+  "Full-Stack Developer",
+  "Competitive Programmer",
+  "Open Source Contributor",
+  "Software Engineer",
 ];
 
 // Animation settings

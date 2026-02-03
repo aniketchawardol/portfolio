@@ -10,14 +10,14 @@ const TechTile = React.memo(({ tech }) => {
     "React JS",
     "Next.js",
     "Node.js",
+    "PostgreSQL",
+    "SQL",
   ].includes(tech);
   const isMedium = [
     "HTML",
     "CSS",
     "JavaScript",
     "TailwindCSS",
-    "PostgreSQL",
-    "SQL",
     "Docker",
     "Kubernetes",
     "Linux",
@@ -28,19 +28,19 @@ const TechTile = React.memo(({ tech }) => {
   const gridSpan = isLarge
     ? "col-span-2 row-span-2" // Large 2x2 tiles
     : isMedium
-    ? "col-span-2 row-span-1" // Medium wide tiles
-    : "col-span-1 row-span-1"; // Small square tiles
+      ? "col-span-2 row-span-1" // Medium wide tiles
+      : "col-span-1 row-span-1"; // Small square tiles
 
   return (
     <div className={`${gridSpan} tech-skills-tile`}>
-      <div className="font-exo bg-[#2e1065]/30 border border-[#4c1d95]/30 rounded-xl p-6 flex flex-col shadow-lg h-full w-full">
-        <div className="flex items-center justify-center md:justify-start h-full">
-          <div className="flex-shrink-0 md:mr-3">
+      <div className="font-exo bg-[#1a1a1a]/80 border-[#FF5C00] border-2 rounded-xl p-6 flex flex-col h-full w-full">
+        <div className="flex items-center justify-center h-full">
+          <div className="flex-shrink-0 md:mr-4">
             <TechIcon tech={tech} />
           </div>
           <span
-            className={`text-slate-200 font-medium hidden md:inline overflow-hidden text-ellipsis ${
-              isLarge ? "text-2xl" : isMedium ? "text-xl" : "text-md"
+            className={`text-white font-medium hidden md:inline overflow-hidden text-ellipsis ${
+              isLarge ? "text-3xl" : isMedium ? "text-xl" : "text-md"
             }`}
           >
             {tech}
