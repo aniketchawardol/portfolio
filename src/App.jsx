@@ -10,6 +10,7 @@ import Lottie from "react-lottie";
 import animationData from "./assets/Animations/loading/loading.json";
 import { getAnimationSize } from "./utils/helpers";
 import { ANIMATION_SETTINGS } from "./constants";
+import CustomCursor from "./components/ui/CustomCursor";
 
 const GitHubStats = lazy(() => import("./components/GitHubStats"));
 const ProjectsSection = lazy(() => import("./components/ProjectsSection"));
@@ -84,6 +85,7 @@ function AppContent() {
 
   return (
     <div className="">
+      <CustomCursor />
       <Navigation />
       <div id="home" className="snap-section relative -mb-[200px] ">
         <HeroSection />
