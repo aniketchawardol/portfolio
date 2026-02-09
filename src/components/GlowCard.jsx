@@ -30,49 +30,84 @@ const GlowCard = memo(
     width,
     height,
     customSize = false,
+    followSpeed = 0.16, // 0..1, smaller = slower follow
   }) => {
     const cardRef = useRef(null);
     const { isTouchDevice } = useDeviceDetection();
     const rafIdRef = useRef(null);
-    const tickingRef = useRef(false);
+
+    // pointer positions for smooth follow
+    const currRef = useRef({ x: 0, y: 0 });
+    const targetRef = useRef({ x: 0, y: 0 });
 
     useEffect(() => {
       if (isTouchDevice) return;
 
-      const syncPointer = (e) => {
-        const { clientX: x, clientY: y } = e;
+      // initialize to center to avoid jump on first paint
+      const initX = window.innerWidth / 2;
+      const initY = window.innerHeight / 2;
+      currRef.current.x = initX;
+      currRef.current.y = initY;
+      targetRef.current.x = initX;
+      targetRef.current.y = initY;
+
+      // write initial CSS vars
+      if (cardRef.current) {
+        cardRef.current.style.setProperty("--x", initX.toFixed(2));
+        cardRef.current.style.setProperty(
+          "--xp",
+          (initX / window.innerWidth).toFixed(2),
+        );
+        cardRef.current.style.setProperty("--y", initY.toFixed(2));
+        cardRef.current.style.setProperty(
+          "--yp",
+          (initY / window.innerHeight).toFixed(2),
+        );
+      }
+
+      const clampSpeed = Math.max(0.01, Math.min(1, followSpeed));
+
+      const onPointerMove = (e) => {
+        targetRef.current.x = e.clientX;
+        targetRef.current.y = e.clientY;
+      };
+
+      const tick = () => {
+        const curr = currRef.current;
+        const target = targetRef.current;
+        // lerp towards target
+        curr.x += (target.x - curr.x) * clampSpeed;
+        curr.y += (target.y - curr.y) * clampSpeed;
+
+        // snap when very close to avoid invisible jitter
+        if (Math.abs(target.x - curr.x) < 0.1) curr.x = target.x;
+        if (Math.abs(target.y - curr.y) < 0.1) curr.y = target.y;
+
         if (cardRef.current) {
-          cardRef.current.style.setProperty("--x", x.toFixed(2));
+          cardRef.current.style.setProperty("--x", curr.x.toFixed(2));
           cardRef.current.style.setProperty(
             "--xp",
-            (x / window.innerWidth).toFixed(2),
+            (curr.x / window.innerWidth).toFixed(2),
           );
-          cardRef.current.style.setProperty("--y", y.toFixed(2));
+          cardRef.current.style.setProperty("--y", curr.y.toFixed(2));
           cardRef.current.style.setProperty(
             "--yp",
-            (y / window.innerHeight).toFixed(2),
+            (curr.y / window.innerHeight).toFixed(2),
           );
         }
+
+        rafIdRef.current = requestAnimationFrame(tick);
       };
 
-      const throttledSyncPointer = (e) => {
-        if (!tickingRef.current) {
-          rafIdRef.current = requestAnimationFrame(() => {
-            syncPointer(e);
-            tickingRef.current = false;
-          });
-          tickingRef.current = true;
-        }
-      };
+      document.addEventListener("pointermove", onPointerMove, { passive: true });
 
-      document.addEventListener("pointermove", throttledSyncPointer, {
-        passive: true,
-      });
+      rafIdRef.current = requestAnimationFrame(tick);
+
       return () => {
-        document.removeEventListener("pointermove", throttledSyncPointer);
+        document.removeEventListener("pointermove", onPointerMove);
         if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
       };
-    }, [isTouchDevice]);
+    }, [isTouchDevice, followSpeed]);
 
     const sizeClasses = customSize ? "" : SIZE_MAP[size];
 

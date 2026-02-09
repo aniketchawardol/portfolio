@@ -160,7 +160,7 @@ const ContactSection = memo(() => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 bg-[#0a0a0a]/80 border border-[#FF5C00]/30 text-white focus:ring-[#FF5C00] rounded-xl focus:outline-none focus:ring-2"
+                        className="w-full px-4 py-2 bg-[#0a0a0a]/80 border border-[#FF5C00]/30 text-white focus:ring-[#FF5C00] rounded-[9px] focus:outline-none focus:ring-2"
                       />
                     </div>
 
@@ -178,7 +178,7 @@ const ContactSection = memo(() => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 bg-[#0a0a0a]/80 border border-[#FF5C00]/30 text-white focus:ring-[#FF5C00] rounded-xl focus:outline-none focus:ring-2"
+                        className="w-full px-4 py-2 bg-[#0a0a0a]/80 border border-[#FF5C00]/30 text-white focus:ring-[#FF5C00] rounded-[9px] focus:outline-none focus:ring-2"
                       />
                     </div>
                   </div>
@@ -197,7 +197,7 @@ const ContactSection = memo(() => {
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 bg-[#0a0a0a]/80 border border-[#FF5C00]/30 text-white focus:ring-[#FF5C00] rounded-xl focus:outline-none focus:ring-2"
+                      className="w-full px-4 py-2 bg-[#0a0a0a]/80 border border-[#FF5C00]/30 text-white focus:ring-[#FF5C00] rounded-[9px] focus:outline-none focus:ring-2"
                     />
                   </div>
 
@@ -216,10 +216,14 @@ const ContactSection = memo(() => {
                       required
                       rows={5}
                       onKeyDown={handleKeyDown}
-                      className="w-full px-4 py-2 bg-[#0a0a0a]/80 border border-[#FF5C00]/30 text-white focus:ring-[#FF5C00] rounded-xl focus:outline-none focus:ring-2 resize-none"
+                      className="w-full px-4 py-2 bg-[#0a0a0a]/80 border border-[#FF5C00]/30 text-white focus:ring-[#FF5C00] rounded-[9px] focus:outline-none focus:ring-2 resize-none"
                     />
                   </div>
-
+                  <p className="text-xs text-center mt-2 text-white font-mono">
+                    You can also Press <span className="font-bold">Enter</span>{" "}
+                    to send, <span className="font-bold">use Shift+Enter</span>{" "}
+                    for new line
+                  </p>
                   <div>
                     <button
                       type="submit"
@@ -228,18 +232,12 @@ const ContactSection = memo(() => {
                         !isTouchDevice
                           ? "hover:bg-[#FF8533]"
                           : "active:bg-[#FF8533]"
-                      } text-white rounded-xl transition-colors disabled:opacity-70`}
+                      } text-white rounded-[9px] transition-colors disabled:opacity-70`}
                     >
                       {formStatus === "submitting"
                         ? "Sending..."
                         : "Send Message"}
                     </button>
-                    <p className="text-xs text-center mt-2 text-white font-mono">
-                      You can also Press{" "}
-                      <span className="font-bold">Enter</span> to send,{" "}
-                      <span className="font-bold">use Shift+Enter</span> for new
-                      line
-                    </p>
                   </div>
                 </form>
               </div>

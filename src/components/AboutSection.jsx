@@ -30,7 +30,7 @@ const AboutSection = memo(() => {
           className="w-[80%] mx-auto relative z-20 lg:w-[35%]"
           withSpotlight={false}
         >
-          <div className="text-white text-sm md:text-2xl lg:text-[25px] items-center">
+          <div className="text-white text-sm md:text-2xl lg:text-[25px] items-center m-6">
             <SimpleRevealText
               text="I view software through the lens of efficiency and constraints. Whether it’s debouncing socket events to reduce server load or implementing singleton patterns to prevent connection exhaustion, I focus on the invisible metrics that define user experience. I write code that respects resources and optimizes for the milliseconds that actually matter."
               className="leading-relaxed text-justify font-mono"

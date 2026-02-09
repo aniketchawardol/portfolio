@@ -4,14 +4,14 @@ import PropTypes from "prop-types";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
 
 const ButtonClassName = ({ isTouchDevice, secondary = false }) => {
-  const baseClass = `grow text-center text-white py-2 px-4 rounded-md transition-colors ease-in-out duration-150`;
+  const baseClass = `grow text-center text-white py-2 px-4 transition-colors ease-in-out duration-150`;
   const primaryClass = `bg-[#FF5C00] ${
     !isTouchDevice ? "hover:bg-[#FF8533]" : "active:bg-[#FF8533]"
   }`;
   const secondaryClass = `bg-[#1a1a1a] ${
     !isTouchDevice ? "hover:bg-[#2a2a2a]" : "active:bg-[#2a2a2a]"
   }`;
-  return `${baseClass} ${secondary ? secondaryClass : primaryClass} border-2 border-[#FF5C00] rounded-xl`;
+  return `${baseClass} ${secondary ? secondaryClass : primaryClass} border-2 border-[#FF5C00] rounded-[9px]`;
 };
 
 const normalizeProjectUrl = (projectUrl) => {
@@ -36,21 +36,21 @@ const ProjectTile = memo(
     return (
       <ThemedCard className="flex flex-col h-full">
         {imageUrl && (
-          <div className="w-full h-48 overflow-hidden rounded-xl mb-6">
+          <div className="w-full h-68 overflow-hidden">
             <img
               src={imageUrl}
               alt={title}
-              className="w-full h-full object-cover border-2 border-[#FF5C00] rounded-xl"
+              className="w-full h-full object-cover rounded-t-[10px]"
             />
           </div>
         )}
 
-        <h3 className="text-xl font-exo text-white mb-2 z-10">{title}</h3>
+        <h3 className="text-xl font-exo text-white m-6 z-10">{title}</h3>
 
-        <p className="text-white font-mono mb-6 grow z-10">{description}</p>
+        <p className="text-white font-mono m-6 grow z-10">{description}</p>
 
         {technologies && technologies.length > 0 && (
-          <div className="mb-6 z-10">
+          <div className="m-6 z-10">
             <div className="flex flex-wrap gap-2">
               {technologies.map((tech) => (
                 <span
@@ -64,7 +64,7 @@ const ProjectTile = memo(
           </div>
         )}
 
-        <div className="flex flex-wrap gap-2 mt-auto z-10">
+        <div className="flex flex-wrap gap-6 m-6 z-10">
           {livelink && (
             <a
               href={livelink}

@@ -31,7 +31,9 @@ const CustomCursor = () => {
       targetRef.current.y = e.clientY;
 
       // show an orange vertical line when hovering text inputs so it doesn't obscure caret
-      const isForm = !!e.target.closest("input, textarea, [contenteditable='true']");
+      const isForm = !!e.target.closest(
+        "input, textarea, [contenteditable='true']",
+      );
       if (isForm) {
         cursor.classList.add("input");
         cursor.classList.remove("link");
@@ -42,7 +44,7 @@ const CustomCursor = () => {
 
       // mark link/interactive hover (buttons/anchors)
       const isInteractive = !!e.target.closest(
-        "a[href], button, [role='button'], label[for], [data-cursor='pointer']"
+        "a[href], button, [role='button'], label[for], [data-cursor='pointer']",
       );
 
       if (isInteractive) cursor.classList.add("link");
@@ -70,7 +72,10 @@ const CustomCursor = () => {
 
     const handleMouseOut = (e) => {
       // hide when leaving window
-      if ((e.relatedTarget === null && e.toElement === null) || e.target === document) {
+      if (
+        (e.relatedTarget === null && e.toElement === null) ||
+        e.target === document
+      ) {
         cursor.classList.add("hidden");
       }
     };
@@ -102,7 +107,9 @@ const CustomCursor = () => {
     };
   }, []);
 
-  return <div ref={cursorRef} className="custom-cursor hidden" aria-hidden={true} />;
+  return (
+    <div ref={cursorRef} className="custom-cursor hidden" aria-hidden={true} />
+  );
 };
 
 export default CustomCursor;

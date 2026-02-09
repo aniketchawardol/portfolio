@@ -9,7 +9,7 @@ const ThemedCard = memo(
   ({
     children,
     className = "",
-    padding = "p-6",
+    padding = "",
     withSpotlight = true,
     ...props
   }) => {
