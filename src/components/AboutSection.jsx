@@ -10,7 +10,7 @@ const AboutSection = memo(() => {
       className="flex min-h-screen items-center justify-center w-full 
        bg-[#000000] relative"
     >
-      <div className="absolute inset-0 flex items-center justify-center z-0 ">
+      <div className="absolute inset-0 flex items-center justify-center z-0 " id="metaballs">
         <MetaBalls
           color={COLORS.primary}
           cursorBallColor={COLORS.primary}

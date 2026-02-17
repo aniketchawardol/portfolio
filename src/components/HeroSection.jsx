@@ -63,7 +63,7 @@ const HeroSection = memo(() => {
             ANIKET
           </h1>
 
-          <div className="relative z-0 flex flex-col items-center mt-0">
+          <div className="relative z-0 flex flex-col items-center mt-0" id="rotating-text">
             <p className="font-exo hidden lg:inline text-white text-3xl mt-0 mb-0 lg:-mt-4">
               and I'm a
             </p>
