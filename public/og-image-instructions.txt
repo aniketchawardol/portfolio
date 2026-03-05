@@ -1,8 +1,0 @@
-<!-- This is a placeholder for a social media image -->
-<!-- You should create a 1200x630px image showing your portfolio preview -->
-<!-- Place it as /public/og-image.jpg or /public/og-image.png -->
-<!-- Then update the meta tags below in index.html -->
-
-<!-- Update these lines in index.html: -->
-<!-- <meta property="og:image" content="https://chawardolaniket.is-a.dev/og-image.jpg" /> -->
-<!-- <meta property="twitter:image" content="https://chawardolaniket.is-a.dev/og-image.jpg" /> -->
