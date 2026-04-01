@@ -8,9 +8,14 @@ export const NAV_ITEMS = [
 ];
 
 // GitHub configuration
+const sanitizeEnvValue = (value = "") =>
+  typeof value === "string"
+    ? value.trim().replace(/^["']|["']$/g, "")
+    : "";
+
 export const GITHUB_CONFIG = {
   username: "aniketchawardol",
-  token: import.meta.env.VITE_APP_GITHUB_TOKEN,
+  token: sanitizeEnvValue(import.meta.env.VITE_APP_GITHUB_TOKEN),
 };
 
 // Color schemes - Dark theme only

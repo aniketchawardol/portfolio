@@ -5,6 +5,7 @@ import {
   FaCode,
   FaUsers,
   FaChartLine,
+  FaComments,
 } from "react-icons/fa";
 import { SiGithubactions } from "react-icons/si";
 import { BiGitRepoForked } from "react-icons/bi";
@@ -19,6 +20,7 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
     "allRepos",
     "profile",
     "forks",
+    "reviews",
   ].includes(category);
   const isMedium = [
     "stars",
@@ -60,6 +62,8 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
         return "#f59e0b"; // Amber
       case "forks":
         return "#10b981"; // Emerald
+      case "reviews":
+        return "#06b6d4"; // Cyan
       case "followers":
         return "#6366f1"; // Indigo
       case "languages":
@@ -95,6 +99,14 @@ const GitHubStatsTile = React.memo(({ title, value, category, icon }) => {
       case "forks":
         return (
           <FaCodeBranch
+            size={iconSize}
+            className="md:text-6xl lg:text-7xl"
+            color={getIconColor()}
+          />
+        );
+      case "reviews":
+        return (
+          <FaComments
             size={iconSize}
             className="md:text-6xl lg:text-7xl"
             color={getIconColor()}

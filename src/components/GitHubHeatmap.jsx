@@ -50,8 +50,8 @@ const GitHubHeatmap = ({ contributionDays }) => {
   return (
     <div className="w-full max-w-full text-white">
       <h3 className="text-lg font-bold mb-2">Contribution Activity</h3>
-      <div className="overflow-x-auto pb-2">
-        <div className="w-full max-w-full min-w-[600px]">
+      <div className="overflow-x-auto overflow-y-hidden heatmap-scroll">
+        <div className="w-full max-w-full min-w-[600px] github-heatmap-canvas">
           <CalendarHeatmap
             startDate={startDate}
             endDate={today}
@@ -92,6 +92,21 @@ const GitHubHeatmap = ({ contributionDays }) => {
         }
         .color-scale-5 {
           fill: var(--heatmap-level-5);
+        }
+        .github-heatmap-canvas {
+          padding-bottom: 10px;
+        }
+        .github-heatmap-canvas .react-calendar-heatmap {
+          display: block;
+          padding-bottom: 0 !important;
+          margin-bottom: -40px !important;
+        }
+        .heatmap-scroll {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .heatmap-scroll::-webkit-scrollbar {
+          display: none;
         }
         .react-calendar-heatmap text {
           font-size: 8px;

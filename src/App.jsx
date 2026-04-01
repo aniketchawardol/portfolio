@@ -104,15 +104,9 @@ function AppContent() {
         <SkillsSection />
       </div>
       <Suspense
-        fallback={
-          <div className="w-full min-h-screen flex items-center justify-center bg-[#000000]">
-            <div className="text-2xl text-white font-mono">Loading...</div>
-          </div>
-        }
+        fallback={null}
       >
-        <div id="github" className="snap-section">
-          <GitHubStats />
-        </div>
+        <GitHubStats />
       </Suspense>
       <Suspense
         fallback={

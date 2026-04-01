@@ -35,9 +35,9 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
         category: "totalRepos",
       },
       {
-        title: "Total Forks",
-        value: stats.totalForks,
-        category: "forks",
+        title: "Reviews",
+        value: stats.totalReviews,
+        category: "reviews",
       },
       {
         title: "Total Contributions",
@@ -50,62 +50,270 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
   useEffect(() => {
     const fetchGitHubData = async () => {
       try {
-        const headers = {
-          Authorization: `token ${GITHUB_CONFIG.token}`,
+        setLoading(true);
+        setError(null);
+
+        const token = GITHUB_CONFIG.token?.trim();
+        if (!token) {
+          throw new Error("Missing GitHub token");
+        }
+
+        const restHeaders = {
+          Authorization: `token ${token}`,
         };
 
-        const userResponse = await axios.get(
+        const fetchWithAuth = (url) => axios.get(url, { headers: restHeaders });
+
+        const userResponse = await fetchWithAuth(
           `https://api.github.com/users/${username}`,
-          { headers },
         );
-
-        const reposResponse = await axios.get(
+        const reposResponse = await fetchWithAuth(
           `https://api.github.com/users/${username}/repos?per_page=100`,
-          { headers },
         );
 
-        const graphqlQuery = {
-          query: `
-          {
-            user(login: "${username}") {
-              contributionsCollection {
-                contributionCalendar {
-                  totalContributions
-                  weeks {
-                    contributionDays {
-                      date
-                      contributionCount
-                      color
+        const now = new Date();
+        const oneYearAgo = new Date(now);
+        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+        const nowIso = now.toISOString();
+        const oneYearAgoIso = oneYearAgo.toISOString();
+
+        const fetchGraphQL = async (query, variables = {}) => {
+          const response = await axios.post(
+            "https://api.github.com/graphql",
+            {
+              query,
+              variables,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            },
+          );
+
+          if (response.data?.errors?.length) {
+            throw new Error(
+              response.data.errors.map((entry) => entry.message).join("; "),
+            );
+          }
+
+          return response.data?.data || null;
+        };
+
+        const fetchContributionMetrics = async () => {
+          const contributionSummaryQuery = `
+            query (
+              $username: String!
+              $from: DateTime!
+              $to: DateTime!
+            ) {
+              user(login: $username) {
+                contributionMeta: contributionsCollection {
+                  contributionYears
+                }
+                yearlyCollection: contributionsCollection(
+                  from: $from
+                  to: $to
+                ) {
+                  contributionCalendar {
+                    weeks {
+                      contributionDays {
+                        date
+                        contributionCount
+                        color
+                      }
                     }
                   }
                 }
               }
             }
-          }`,
+          `;
+
+          const summaryData = await fetchGraphQL(contributionSummaryQuery, {
+            username,
+            from: oneYearAgoIso,
+            to: nowIso,
+          });
+          const summary = summaryData?.user;
+          if (
+            !summary?.contributionMeta?.contributionYears ||
+            !summary?.yearlyCollection?.contributionCalendar?.weeks
+          ) {
+            throw new Error("Incomplete contribution data.");
+          }
+
+          const contributionDays =
+            summary.yearlyCollection.contributionCalendar.weeks.flatMap(
+              (week) => week.contributionDays,
+            );
+
+          const contributionYears = summary.contributionMeta.contributionYears;
+          if (!Array.isArray(contributionYears) || contributionYears.length === 0) {
+            throw new Error("No contribution years returned by GitHub.");
+          }
+
+          const yearlyTotalQuery = `
+            query (
+              $username: String!
+              $from: DateTime!
+              $to: DateTime!
+            ) {
+              user(login: $username) {
+                contributionsCollection(
+                  from: $from
+                  to: $to
+                ) {
+                  contributionCalendar {
+                    totalContributions
+                  }
+                }
+              }
+            }
+          `;
+
+          const yearlyTotals = await Promise.all(
+            contributionYears.map(async (year) => {
+              const from = new Date(Date.UTC(year, 0, 1, 0, 0, 0, 0));
+              const endOfYear = new Date(
+                Date.UTC(year, 11, 31, 23, 59, 59, 999),
+              );
+              const to =
+                year === now.getUTCFullYear() && endOfYear > now ? now : endOfYear;
+
+              try {
+                const data = await fetchGraphQL(yearlyTotalQuery, {
+                  username,
+                  from: from.toISOString(),
+                  to: to.toISOString(),
+                });
+                const total =
+                  data?.user?.contributionsCollection?.contributionCalendar
+                    ?.totalContributions;
+                if (typeof total !== "number") {
+                  throw new Error("Missing yearly total contributions.");
+                }
+                return total;
+              } catch (yearlyError) {
+                console.error(
+                  `GitHub GraphQL Yearly Contribution Error (${year}):`,
+                  yearlyError,
+                );
+                throw yearlyError;
+              }
+            }),
+          );
+
+          const totalContributions = yearlyTotals.reduce(
+            (sum, count) => sum + count,
+            0,
+          );
+          const hasAnyContributionDay = contributionDays.some(
+            (day) => day.contributionCount > 0,
+          );
+          if (totalContributions === 0 && !hasAnyContributionDay) {
+            throw new Error("Contribution metrics resolved to zero unexpectedly.");
+          }
+
+          return {
+            totalContributions,
+            contributionDays,
+          };
         };
 
-        const contributionsResponse = await axios.post(
-          "https://api.github.com/graphql",
-          graphqlQuery,
-          {
-            headers: {
-              Authorization: `Bearer ${GITHUB_CONFIG.token}`,
-              "Content-Type": "application/json",
-            },
-          },
-        );
+        const fetchReviewMetrics = async () => {
+          const reviewCommentsQuery = `
+            query ($username: String!) {
+              user(login: $username) {
+                issueComments {
+                  totalCount
+                }
+                contributionsCollection {
+                  contributionYears
+                }
+              }
+            }
+          `;
 
-        const contributionCalendar =
-          contributionsResponse.data?.data?.user?.contributionsCollection
-            ?.contributionCalendar;
+          const data = await fetchGraphQL(reviewCommentsQuery, { username });
+          const issueCommentsCount = data?.user?.issueComments?.totalCount;
+          const contributionYears =
+            data?.user?.contributionsCollection?.contributionYears;
 
-        const totalContributions =
-          contributionCalendar?.totalContributions || 0;
+          if (typeof issueCommentsCount !== "number") {
+            throw new Error("Incomplete review comment data.");
+          }
+          if (!Array.isArray(contributionYears) || contributionYears.length === 0) {
+            throw new Error("No contribution years returned for review metrics.");
+          }
 
-        const contributionDays =
-          contributionCalendar?.weeks?.flatMap(
-            (week) => week.contributionDays,
-          ) || [];
+          const yearlyReviewQuery = `
+            query (
+              $username: String!
+              $from: DateTime!
+              $to: DateTime!
+            ) {
+              user(login: $username) {
+                contributionsCollection(
+                  from: $from
+                  to: $to
+                ) {
+                  totalPullRequestReviewContributions
+                }
+              }
+            }
+          `;
+
+          const yearlyReviewTotals = await Promise.all(
+            contributionYears.map(async (year) => {
+              const from = new Date(Date.UTC(year, 0, 1, 0, 0, 0, 0));
+              const endOfYear = new Date(
+                Date.UTC(year, 11, 31, 23, 59, 59, 999),
+              );
+              const to =
+                year === now.getUTCFullYear() && endOfYear > now ? now : endOfYear;
+
+              const yearData = await fetchGraphQL(yearlyReviewQuery, {
+                username,
+                from: from.toISOString(),
+                to: to.toISOString(),
+              });
+
+              const yearTotal =
+                yearData?.user?.contributionsCollection
+                  ?.totalPullRequestReviewContributions;
+
+              if (typeof yearTotal !== "number") {
+                throw new Error(`Missing review contributions for year ${year}.`);
+              }
+
+              return yearTotal;
+            }),
+          );
+
+          const pullRequestReviewCommentsCount = yearlyReviewTotals.reduce(
+            (sum, count) => sum + count,
+            0,
+          );
+
+          return {
+            totalReviews: issueCommentsCount + pullRequestReviewCommentsCount,
+            issueCommentsCount,
+            pullRequestReviewCommentsCount,
+          };
+        };
+
+        const [contributionMetrics, reviewMetrics] = await Promise.all([
+          fetchContributionMetrics(),
+          fetchReviewMetrics(),
+        ]);
+
+        const totalContributions = contributionMetrics.totalContributions;
+        const contributionDays = contributionMetrics.contributionDays;
+        const totalReviews = reviewMetrics.totalReviews;
+        const issueCommentsCount = reviewMetrics.issueCommentsCount;
+        const pullRequestReviewCommentsCount =
+          reviewMetrics.pullRequestReviewCommentsCount;
 
         const languages = {};
         reposResponse.data.forEach((repo) => {
@@ -152,10 +360,12 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
               (acc, repo) => acc + repo.forks_count,
               0,
             ),
+            totalReviews,
+            issueCommentsCount,
+            pullRequestReviewCommentsCount,
             totalContributions,
           },
         });
-        setLoading(false);
       } catch (err) {
         console.error("GitHub API Error:", err);
         if (err.response && err.response.status === 401) {
@@ -163,6 +373,7 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
         } else {
           setError("Failed to load GitHub data");
         }
+      } finally {
         setLoading(false);
       }
     };
@@ -170,26 +381,12 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
     fetchGitHubData();
   }, [username]);
 
-  if (error || !githubData) {
+  if (loading) {
     return null;
   }
 
-  if (loading) {
-    return (
-      <div
-        className="w-full flex items-center justify-center py-16
-          bg-[#000000]
-        "
-      >
-        <div
-          className="text-2xl 
-            text-white
-        font-mono"
-        >
-          Loading GitHub stats...
-        </div>
-      </div>
-    );
+  if (error || !githubData) {
+    return null;
   }
 
   return (
@@ -246,7 +443,7 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
         {/* GitHub Heatmap */}
         <div className="mt-6">
           <GlowCard
-            className="p-6 rounded-xl mx-auto max-w-full
+            className="pt-6 px-6 pb-2.5 rounded-xl mx-auto max-w-full
              bg-[#2e1065]/10 border-[#4c1d95]/10
             border"
             customSize={true}

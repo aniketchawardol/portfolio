@@ -104,19 +104,57 @@ const TechIcon = memo(({ tech }) => {
 
     switch (tech) {
       case "AWS":
-        return <FaAws size={iconSize} color={getColorForTech("AWS")} title="AWS" />;
+        return (
+          <FaAws size={iconSize} color={getColorForTech("AWS")} title="AWS" />
+        );
       case "Linux":
-        return <SiLinux size={iconSize} color={getColorForTech("Linux")} title="Linux" />;
+        return (
+          <SiLinux
+            size={iconSize}
+            color={getColorForTech("Linux")}
+            title="Linux"
+          />
+        );
       case "HTML":
-        return <FaHtml5 size={iconSize} color={getColorForTech("HTML")} title="HTML" />;
+        return (
+          <FaHtml5
+            size={iconSize}
+            color={getColorForTech("HTML")}
+            title="HTML"
+          />
+        );
       case "CSS":
-        return <FaCss3Alt size={iconSize} color={getColorForTech("CSS")} title="CSS" />;
+        return (
+          <FaCss3Alt
+            size={iconSize}
+            color={getColorForTech("CSS")}
+            title="CSS"
+          />
+        );
       case "JavaScript":
-        return <FaJs size={iconSize} color={getColorForTech("JavaScript")} title="JavaScript" />;
+        return (
+          <FaJs
+            size={iconSize}
+            color={getColorForTech("JavaScript")}
+            title="JavaScript"
+          />
+        );
       case "React JS":
-        return <FaReact size={iconSize} color={getColorForTech("React JS")} title="React JS" />;
+        return (
+          <FaReact
+            size={iconSize}
+            color={getColorForTech("React JS")}
+            title="React JS"
+          />
+        );
       case "Next.js":
-        return <SiNextdotjs size={iconSize} color={getColorForTech("Next.js")} title="Next.js" />;
+        return (
+          <SiNextdotjs
+            size={iconSize}
+            color={getColorForTech("Next.js")}
+            title="Next.js"
+          />
+        );
       case "React Redux":
         return (
           <img
@@ -131,27 +169,93 @@ const TechIcon = memo(({ tech }) => {
           />
         );
       case "TailwindCSS":
-        return <SiTailwindcss size={iconSize} color={getColorForTech("TailwindCSS")} title="TailwindCSS" />;
+        return (
+          <SiTailwindcss
+            size={iconSize}
+            color={getColorForTech("TailwindCSS")}
+            title="TailwindCSS"
+          />
+        );
       case "Node.js":
-        return <FaNodeJs size={iconSize} color={getColorForTech("Node.js")} title="Node.js" />;
+        return (
+          <FaNodeJs
+            size={iconSize}
+            color={getColorForTech("Node.js")}
+            title="Node.js"
+          />
+        );
       case "Express.js":
-        return <SiExpress size={iconSize} color={getColorForTech("Express.js")} title="Express.js" />;
+        return (
+          <SiExpress
+            size={iconSize}
+            color={getColorForTech("Express.js")}
+            title="Express.js"
+          />
+        );
       case "JWT":
-        return <SiJsonwebtokens size={iconSize} color={getColorForTech("JWT")} title="JWT" />;
+        return (
+          <SiJsonwebtokens
+            size={iconSize}
+            color={getColorForTech("JWT")}
+            title="JWT"
+          />
+        );
       case "Auth0":
-        return <SiAuth0 size={iconSize} color={getColorForTech("Auth0")} title="Auth0" />;
+        return (
+          <SiAuth0
+            size={iconSize}
+            color={getColorForTech("Auth0")}
+            title="Auth0"
+          />
+        );
       case "websockets":
-        return <SiSocketdotio size={iconSize} color={getColorForTech("websockets")} title="websockets" />;
+        return (
+          <SiSocketdotio
+            size={iconSize}
+            color={getColorForTech("websockets")}
+            title="websockets"
+          />
+        );
       case "Appwrite":
-        return <SiAppwrite size={iconSize} color={getColorForTech("Appwrite")} title="Appwrite" />;
+        return (
+          <SiAppwrite
+            size={iconSize}
+            color={getColorForTech("Appwrite")}
+            title="Appwrite"
+          />
+        );
       case "Cloudinary":
-        return <SiCloudinary size={iconSize} color={getColorForTech("Cloudinary")} title="Cloudinary" />;
+        return (
+          <SiCloudinary
+            size={iconSize}
+            color={getColorForTech("Cloudinary")}
+            title="Cloudinary"
+          />
+        );
       case "MongoDB":
-        return <SiMongodb size={iconSize} color={getColorForTech("MongoDB")} title="MongoDB" />;
+        return (
+          <SiMongodb
+            size={iconSize}
+            color={getColorForTech("MongoDB")}
+            title="MongoDB"
+          />
+        );
       case "mongoose":
-        return <FaDatabase size={iconSize} color={getColorForTech("mongoose")} title="mongoose" />;
+        return (
+          <FaDatabase
+            size={iconSize}
+            color={getColorForTech("mongoose")}
+            title="mongoose"
+          />
+        );
       case "PostgreSQL":
-        return <SiPostgresql size={iconSize} color={getColorForTech("PostgreSQL")} title="PostgreSQL" />;
+        return (
+          <SiPostgresql
+            size={iconSize}
+            color={getColorForTech("PostgreSQL")}
+            title="PostgreSQL"
+          />
+        );
       case "SQL":
         return (
           <img
@@ -166,15 +270,41 @@ const TechIcon = memo(({ tech }) => {
           />
         );
       case "Git":
-        return <FaGit size={iconSize} color={getColorForTech("Git")} title="Git" />;
+        return (
+          <FaGit size={iconSize} color={getColorForTech("Git")} title="Git" />
+        );
       case "Github":
-        return <FaGithub size={iconSize} color={getColorForTech("Github")} title="Github" />;
+        return (
+          <FaGithub
+            size={iconSize}
+            color={getColorForTech("Github")}
+            title="Github"
+          />
+        );
       case "Postman":
-        return <SiPostman size={iconSize} color={getColorForTech("Postman")} title="Postman" />;
+        return (
+          <SiPostman
+            size={iconSize}
+            color={getColorForTech("Postman")}
+            title="Postman"
+          />
+        );
       case "Figma":
-        return <FaFigma size={iconSize} color={getColorForTech("Figma")} title="Figma" />;
+        return (
+          <FaFigma
+            size={iconSize}
+            color={getColorForTech("Figma")}
+            title="Figma"
+          />
+        );
       case "Canva":
-        return <SiCanva size={iconSize} color={getColorForTech("Canva")} title="Canva" />;
+        return (
+          <SiCanva
+            size={iconSize}
+            color={getColorForTech("Canva")}
+            title="Canva"
+          />
+        );
       case "C":
         return (
           <img
@@ -189,15 +319,45 @@ const TechIcon = memo(({ tech }) => {
           />
         );
       case "C++":
-        return <SiCplusplus size={iconSize} color={getColorForTech("C++")} title="C++" />;
+        return (
+          <SiCplusplus
+            size={iconSize}
+            color={getColorForTech("C++")}
+            title="C++"
+          />
+        );
       case "Python":
-        return <SiPython size={iconSize} color={getColorForTech("Python")} title="Python" />;
+        return (
+          <SiPython
+            size={iconSize}
+            color={getColorForTech("Python")}
+            title="Python"
+          />
+        );
       case "OCaml":
-        return <FaTerminal size={iconSize} color={getColorForTech("OCaml")} title="OCaml" />;
+        return (
+          <FaTerminal
+            size={iconSize}
+            color={getColorForTech("OCaml")}
+            title="OCaml"
+          />
+        );
       case "Docker":
-        return <SiDocker size={iconSize} color={getColorForTech("Docker")} title="Docker" />;
+        return (
+          <SiDocker
+            size={iconSize}
+            color={getColorForTech("Docker")}
+            title="Docker"
+          />
+        );
       case "Kubernetes":
-        return <SiKubernetes size={iconSize} color={getColorForTech("Kubernetes")} title="Kubernetes" />;
+        return (
+          <SiKubernetes
+            size={iconSize}
+            color={getColorForTech("Kubernetes")}
+            title="Kubernetes"
+          />
+        );
       default: {
         const bgColor = getColorForTech(tech);
         return (
