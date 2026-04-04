@@ -363,6 +363,59 @@ body {
   overflow: hidden;
 }
 
+/* Hero heading + rotating text synchronized transition */
+.hero-heading-rise-shrink {
+  --hero-start-y: 70px;
+  --hero-start-scale: 1.5;
+  transform-origin: center center;
+  transform: translateY(var(--hero-start-y)) scale(var(--hero-start-scale));
+}
+
+.hero-heading-rise-shrink.hero-heading-shrunk {
+  animation: hero-rise-shrink-to-baseline var(--hero-motion-duration, 650ms)
+    cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-rotating-swipe {
+  opacity: 0;
+  transform: translateX(-36px);
+  clip-path: inset(0 100% 0 0);
+}
+
+.hero-rotating-swipe.hero-rotating-swipe-in {
+  animation: hero-swipe-appear var(--hero-motion-duration, 650ms)
+    cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes hero-rise-shrink-to-baseline {
+  from {
+    transform: translateY(var(--hero-start-y)) scale(var(--hero-start-scale));
+  }
+  to {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes hero-swipe-appear {
+  from {
+    opacity: 0;
+    transform: translateX(-36px);
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-heading-rise-shrink {
+    --hero-start-y: 42px;
+    --hero-start-scale: 1.08;
+  }
+}
+
 @layer components {
   .navbutton {
     @apply after:block after:w-0 after:h-[2px] after:bg-[#FF5C00] after:transition-all after:duration-300;
@@ -390,31 +443,6 @@ body {
 
   .reveal-text.visible {
     @apply opacity-100 blur-none translate-y-0;
-  }
-
-  /* Hero heading scroll effects */
-  .hero-heading {
-    animation: hero-heading-scroll linear;
-    animation-timeline: scroll(root);
-    animation-range: 0% 60%;
-  }
-
-  @keyframes hero-heading-scroll {
-    from {
-      letter-spacing: 0rem;
-      opacity: 1;
-    }
-    to {
-      letter-spacing: 20rem;
-      opacity: 0;
-    }
-  }
-
-  /* Fallback for browsers without scroll-timeline support */
-  @supports not (animation-timeline: scroll()) {
-    .hero-heading {
-      animation: none;
-    }
   }
 
   /* Gradual spacing character animation */

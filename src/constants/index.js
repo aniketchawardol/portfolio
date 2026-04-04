@@ -9,9 +9,7 @@ export const NAV_ITEMS = [
 
 // GitHub configuration
 const sanitizeEnvValue = (value = "") =>
-  typeof value === "string"
-    ? value.trim().replace(/^["']|["']$/g, "")
-    : "";
+  typeof value === "string" ? value.trim().replace(/^["']|["']$/g, "") : "";
 
 export const GITHUB_CONFIG = {
   username: "aniketchawardol",
@@ -67,6 +65,43 @@ export const TECHNOLOGIES = [
 // Projects data
 export const PROJECTS = [
   {
+    title: "Code Sathi",
+    description:
+      "Real-time collaborative code editor. Built a full-stack platform supporting live code editing, multi-user cursor tracking, chat, AI coding assistant and file sync.",
+    technologies: ["React", "TailwindCSS", "Socket.IO", "Auth0", "REST APIs"],
+    imageUrl: "./CodeSathi.png",
+    projectUrl: ["https://github.com/aniketchawardol/CodeSync"],
+    livelink: "https://codesarthi.onrender.com/",
+  },
+  {
+    title: "Clinical Trials Prototype",
+    description:
+      "A clinical trials platform featuring a conversational chatbot with interactive map. Processes natural language queries to retrieve and display matching trial sites.",
+    technologies: ["React", "FastAPI", "LangGraph", "ChromaDB", "MapLibre"],
+    imageUrl: "./clinicaltrials.png", // Ensure you have an image with this name in your assets
+    projectUrl: [
+      {
+        frontend: "https://github.com/aniketchawardol/clinical-trials-frontend",
+      },
+      { backend: "https://github.com/aniketchawardol/clinical-trials-backend" },
+    ],
+    livelink: "https://clinical-trials-canada.vercel.app/", // Add your actual deployment link here if you have one
+  },
+  {
+    title: "Gazebot",
+    description:
+      "An open-source visual regression testing tool that monitors web pages for UI regressions, broken layouts, and dynamic content failures via automated daily scans.", //
+    technologies: [
+      "Node.js",
+      "Puppeteer",
+      "MongoDB",
+      "Cloudinary",
+      "GitHub Actions",
+    ],
+    imageUrl: "./gazebot.png",
+    projectUrl: ["https://github.com/aniketchawardol/gazebot"],
+  },
+  {
     title: "Doctors.com",
     description:
       "Developed Doctors.com, a comprehensive healthcare platform enabling secure patient report uploads, hospital searches, and efficient report management.",
@@ -84,15 +119,6 @@ export const PROJECTS = [
       { backend: "https://github.com/aniketchawardol/Doctors.com-backend" },
     ],
     livelink: "https://doctors-com-frontend.vercel.app/",
-  },
-  {
-    title: "Code Sathi",
-    description:
-      "Real-time collaborative code editor. Built a full-stack platform supporting live code editing, multi-user cursor tracking, chat, AI coding assistant and file sync.",
-    technologies: ["React", "TailwindCSS", "Socket.IO", "Auth0", "REST APIs"],
-    imageUrl: "./CodeSathi.png",
-    projectUrl: ["https://github.com/aniketchawardol/CodeSync"],
-    livelink: "https://codesarthi.onrender.com/",
   },
   {
     title: "YouTube Clone",
@@ -155,6 +181,11 @@ export const ANIMATION_SETTINGS = {
   gradualSpacing: {
     duration: 0.6,
     delayMultiple: 0.08,
+  },
+  hero: {
+    triggerDelay: 100,
+    riseDuration: 260,
+    shrinkDuration: 390,
   },
   rotatingText: {
     interval: 2000,

@@ -1,32 +1,23 @@
-import { useState, useEffect, useRef, useCallback, memo } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 import RotatingText from "../assets/TextAnimations/RotatingText/RotatingText";
 import { useDeviceDetection } from "../hooks/useDeviceDetection";
 import { ROTATING_TEXTS, ANIMATION_SETTINGS } from "../constants";
 const HeroSection = memo(() => {
-  const [hasScrolled, setHasScrolled] = useState(false);
+  const [hasTriggered, setHasTriggered] = useState(false);
   const [meteorActive, setMeteorActive] = useState(false);
   const sectionRef = useRef(null);
-  const rafIdRef = useRef(null);
   const { isTouchDevice } = useDeviceDetection();
-
-  const handleScroll = useCallback(() => {
-    if (!rafIdRef.current && window.scrollY > 10 && !hasScrolled) {
-      rafIdRef.current = requestAnimationFrame(() => {
-        setHasScrolled(true);
-        rafIdRef.current = null;
-      });
-    }
-  }, [hasScrolled]);
+  const heroMotionDuration =
+    ANIMATION_SETTINGS.hero.riseDuration + ANIMATION_SETTINGS.hero.shrinkDuration;
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (rafIdRef.current) {
-        cancelAnimationFrame(rafIdRef.current);
-      }
-    };
-  }, [handleScroll]);
+    // Trigger hero shrink + swipe-in together after initial paint.
+    const timer = setTimeout(() => {
+      setHasTriggered(true);
+    }, ANIMATION_SETTINGS.hero.triggerDelay);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     // Delay meteor shower activation to prevent seeing initial positions
@@ -58,13 +49,28 @@ const HeroSection = memo(() => {
       {/* Centered container: keeps ANIKET, rotating text, and resume button centered */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4">
         {/* Heading + rotating text wrapper centered */}
-        <div className="relative w-full max-w-[1200px] z-10 flex flex-col items-center justify-center overflow-hidden">
-          <h1 className="text-[100px] lg:text-[200px] font-moonwalk text-white text-center hero-heading mx-auto fade-in mb-0 pb-0 leading-none">
+        <div className="relative w-full max-w-[1200px] z-10 flex flex-col items-center justify-center overflow-visible">
+          <h1
+            className={`text-[100px] lg:text-[200px] font-moonwalk text-white text-center hero-heading hero-heading-rise-shrink mx-auto mb-0 pb-0 leading-none ${
+              hasTriggered ? "hero-heading-shrunk" : ""
+            }`}
+            style={{
+              "--hero-motion-duration": `${heroMotionDuration}ms`,
+            }}
+          >
             ANIKET
           </h1>
 
-          <div className="relative z-0 flex flex-col items-center mt-0" id="rotating-text">
-            <p className="font-exo hidden lg:inline text-white text-3xl mt-0 mb-0 lg:-mt-4">
+          <div
+            className={`relative z-0 flex flex-col items-center mt-0 hero-rotating-swipe${
+              hasTriggered ? "hero-rotating-swipe-in" : ""
+            }`}
+            id="rotating-text"
+            style={{
+              "--hero-motion-duration": `${heroMotionDuration}ms`,
+            }}
+          >
+            <p className="font-exo hidden lg:inline text-white text-3xl mt-0 mb-6">
               and I'm a
             </p>
             <RotatingText
