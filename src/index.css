@@ -118,7 +118,16 @@ body {
 }
 
 /* Tech Skills Grid Hover Effects */
+.tech-skills-grid {
+  isolation: isolate;
+}
+
 .tech-skills-tile {
+  filter: blur(0);
+  transform: translateZ(0) scale(1);
+  transform-origin: center;
+  will-change: transform, filter;
+  backface-visibility: hidden;
   transition:
     filter 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -126,14 +135,14 @@ body {
 
 /* On desktop: blur all tiles when grid is hovered */
 @media (hover: hover) and (pointer: fine) {
-  .tech-skills-grid:hover .tech-skills-tile {
+  .tech-skills-grid:hover .tech-skills-tile:not(:hover) {
     filter: blur(3px);
   }
 
   /* Unblur and scale up the specific tile being hovered */
   .tech-skills-grid:hover .tech-skills-tile:hover {
     filter: blur(0px);
-    transform: scale(1.05);
+    transform: translateZ(0) scale(1.05);
   }
 }
 
