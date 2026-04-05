@@ -95,7 +95,6 @@ export const PROJECTS = [
       "Node.js",
       "Puppeteer",
       "MongoDB",
-      "Cloudinary",
       "GitHub Actions",
     ],
     imageUrl: "./gazebot.png",
@@ -111,7 +110,6 @@ export const PROJECTS = [
       "MongoDB",
       "Express.js",
       "TailwindCSS",
-      "JWT",
     ],
     imageUrl: "./Doctors.com.png",
     projectUrl: [
