@@ -247,6 +247,94 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
             throw new Error("No contribution years returned for review metrics.");
           }
 
+          const fetchPullRequestReviewCommentsCount = async () => {
+            const pullRequestReviewCommentsQuery = `
+              query ($username: String!) {
+                user(login: $username) {
+                  pullRequestReviewComments(last: 1) {
+                    totalCount
+                  }
+                }
+              }
+            `;
+
+            try {
+              const reviewCommentData = await fetchGraphQL(
+                pullRequestReviewCommentsQuery,
+                { username },
+              );
+              const count =
+                reviewCommentData?.user?.pullRequestReviewComments?.totalCount;
+
+              return typeof count === "number" ? count : 0;
+            } catch (reviewCommentError) {
+              console.warn(
+                "Pull request review comments could not be fetched. Falling back to 0.",
+                reviewCommentError,
+              );
+              return 0;
+            }
+          };
+
+          const fetchPullRequestDiscussionCommentsCount = async () => {
+            const pullRequestDiscussionCommentsQuery = `
+              query ($username: String!, $after: String) {
+                user(login: $username) {
+                  issueComments(first: 100, after: $after) {
+                    nodes {
+                      url
+                    }
+                    pageInfo {
+                      hasNextPage
+                      endCursor
+                    }
+                  }
+                }
+              }
+            `;
+
+            try {
+              let hasNextPage = true;
+              let afterCursor = null;
+              let totalPullRequestDiscussionComments = 0;
+
+              while (hasNextPage) {
+                const discussionCommentsData = await fetchGraphQL(
+                  pullRequestDiscussionCommentsQuery,
+                  {
+                    username,
+                    after: afterCursor,
+                  },
+                );
+
+                const connection = discussionCommentsData?.user?.issueComments;
+                const nodes = connection?.nodes || [];
+                const pageInfo = connection?.pageInfo;
+
+                if (!pageInfo) {
+                  throw new Error("Missing page info for PR discussion comments.");
+                }
+
+                totalPullRequestDiscussionComments += nodes.filter(
+                  (comment) =>
+                    typeof comment?.url === "string" &&
+                    comment.url.includes("/pull/"),
+                ).length;
+
+                hasNextPage = pageInfo.hasNextPage;
+                afterCursor = pageInfo.endCursor;
+              }
+
+              return totalPullRequestDiscussionComments;
+            } catch (discussionCommentError) {
+              console.warn(
+                "Pull request discussion comments could not be fetched. Falling back to 0.",
+                discussionCommentError,
+              );
+              return 0;
+            }
+          };
+
           const yearlyReviewQuery = `
             query (
               $username: String!
@@ -264,42 +352,58 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
             }
           `;
 
-          const yearlyReviewTotals = await Promise.all(
-            contributionYears.map(async (year) => {
-              const from = new Date(Date.UTC(year, 0, 1, 0, 0, 0, 0));
-              const endOfYear = new Date(
-                Date.UTC(year, 11, 31, 23, 59, 59, 999),
-              );
-              const to =
-                year === now.getUTCFullYear() && endOfYear > now ? now : endOfYear;
+          const [
+            yearlyReviewTotals,
+            pullRequestReviewCommentsCount,
+            pullRequestDiscussionCommentsCount,
+          ] = await Promise.all([
+            Promise.all(
+              contributionYears.map(async (year) => {
+                const from = new Date(Date.UTC(year, 0, 1, 0, 0, 0, 0));
+                const endOfYear = new Date(
+                  Date.UTC(year, 11, 31, 23, 59, 59, 999),
+                );
+                const to =
+                  year === now.getUTCFullYear() && endOfYear > now
+                    ? now
+                    : endOfYear;
 
-              const yearData = await fetchGraphQL(yearlyReviewQuery, {
-                username,
-                from: from.toISOString(),
-                to: to.toISOString(),
-              });
+                const yearData = await fetchGraphQL(yearlyReviewQuery, {
+                  username,
+                  from: from.toISOString(),
+                  to: to.toISOString(),
+                });
 
-              const yearTotal =
-                yearData?.user?.contributionsCollection
-                  ?.totalPullRequestReviewContributions;
+                const yearTotal =
+                  yearData?.user?.contributionsCollection
+                    ?.totalPullRequestReviewContributions;
 
-              if (typeof yearTotal !== "number") {
-                throw new Error(`Missing review contributions for year ${year}.`);
-              }
+                if (typeof yearTotal !== "number") {
+                  throw new Error(`Missing review contributions for year ${year}.`);
+                }
 
-              return yearTotal;
-            }),
-          );
+                return yearTotal;
+              }),
+            ),
+            fetchPullRequestReviewCommentsCount(),
+            fetchPullRequestDiscussionCommentsCount(),
+          ]);
 
-          const pullRequestReviewCommentsCount = yearlyReviewTotals.reduce(
+          const pullRequestReviewsCount = yearlyReviewTotals.reduce(
             (sum, count) => sum + count,
             0,
           );
 
           return {
-            totalReviews: issueCommentsCount + pullRequestReviewCommentsCount,
+            totalReviews:
+              issueCommentsCount +
+              pullRequestReviewsCount +
+              pullRequestReviewCommentsCount +
+              pullRequestDiscussionCommentsCount,
             issueCommentsCount,
+            pullRequestReviewsCount,
             pullRequestReviewCommentsCount,
+            pullRequestDiscussionCommentsCount,
           };
         };
 
@@ -312,8 +416,11 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
         const contributionDays = contributionMetrics.contributionDays;
         const totalReviews = reviewMetrics.totalReviews;
         const issueCommentsCount = reviewMetrics.issueCommentsCount;
+        const pullRequestReviewsCount = reviewMetrics.pullRequestReviewsCount;
         const pullRequestReviewCommentsCount =
           reviewMetrics.pullRequestReviewCommentsCount;
+        const pullRequestDiscussionCommentsCount =
+          reviewMetrics.pullRequestDiscussionCommentsCount;
 
         const languages = {};
         reposResponse.data.forEach((repo) => {
@@ -362,7 +469,9 @@ const GitHubStats = memo(({ username = GITHUB_CONFIG.username }) => {
             ),
             totalReviews,
             issueCommentsCount,
+            pullRequestReviewsCount,
             pullRequestReviewCommentsCount,
+            pullRequestDiscussionCommentsCount,
             totalContributions,
           },
         });
