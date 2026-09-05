@@ -27,12 +27,12 @@ const AboutSection = memo(() => {
 
       <div className="flex items-center justify-center w-full h-full z-10">
         <ThemedCard
-          className="w-[80%] mx-auto relative z-20 lg:w-[35%]"
+          className="w-[80%] mx-auto relative z-20 lg:w-[80%]"
           withSpotlight={false}
         >
           <div className="text-white text-sm md:text-2xl lg:text-[25px] items-center m-6">
             <SimpleRevealText
-              text="I view software through the lens of efficiency and constraints. Whether it’s debouncing socket events to reduce server load or implementing singleton patterns to prevent connection exhaustion, I focus on the invisible metrics that define user experience. I write code that respects resources and optimizes for the milliseconds that actually matter."
+              text="B.Tech CSE student at IIITM Gwalior (CGPA: 8.18).  Open Source & Mentorship: Software Engineering Mentee at Linux Foundation Decentralized Trust; Contributor to CNCF kgateway (Go, Kubernetes).  Systems Engineering: Built real-time collaborative editors utilizing WebSockets and MongoDB, AI-driven clinical trial platforms via FastAPI and LangGraph, and automated regression pipelines using Puppeteer and GitHub Actions.  Problem Solving: Codeforces Specialist (1485), LeetCode Knight (Top 0.5% in Biweekly Contest 186), 700+ problems solved; Semifinalist in Amazon HackOn 6.0 and Google BigCode. "
               className="leading-relaxed text-justify font-mono"
             />
           </div>

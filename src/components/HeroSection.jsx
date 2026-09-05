@@ -92,7 +92,7 @@ const HeroSection = memo(() => {
 
         <div className="lg:hidden h-30" />
 
-        <div className="w-full flex justify-center ">
+        <div className="w-full flex justify-center mt-8">
           <a
             href={import.meta.env.VITE_RESUME_LINK}
             target="_blank"
