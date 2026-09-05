@@ -10,7 +10,7 @@ const AboutSection = memo(() => {
       className="flex min-h-screen items-center justify-center w-full 
        bg-[#000000] relative"
     >
-      <div className="absolute inset-0 flex items-center justify-center z-0 " id="metaballs">
+      <div className="absolute inset-0 flex items-center justify-center z-0 mt-20" id="metaballs">
         <MetaBalls
           color={COLORS.primary}
           cursorBallColor={COLORS.primary}
@@ -25,7 +25,7 @@ const AboutSection = memo(() => {
         />
       </div>
 
-      <div className="flex items-center justify-center w-full h-full z-10">
+      <div className="flex items-center justify-center w-full h-full z-10 mt-20">
         <ThemedCard
           className="w-[80%] mx-auto relative z-20 lg:w-[80%]"
           withSpotlight={false}

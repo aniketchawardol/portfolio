@@ -96,7 +96,7 @@ function AppContent() {
       />
       <div
         id="about"
-        className="snap-section relative -mt-[160px] overflow-visible"
+        className="snap-section relative -mt-[200px] overflow-visible"
       >
         <AboutSection />
       </div>
